@@ -1,6 +1,40 @@
 /* ==========================================================================
-   99 COMPUTERS — Scripts
+   99 COMPUTERS — Scripts (optimized)
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Smooth scroll WITHOUT hash in the URL
+   -------------------------------------------------------------------------- */
+function enableHashlessScroll() {
+  const headerOffset = 110;
+
+  document.querySelectorAll('[data-scroll]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+
+      const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+
+      const drawer = document.getElementById('drawer');
+      const menuBtn = document.getElementById('menuBtn');
+      if (drawer && drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+      }
+
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    });
+  });
+}
 
 /* --------------------------------------------------------------------------
    Image shimmer → blur-up loader
@@ -30,7 +64,11 @@ function attachShimmerLoaders(root = document) {
 }
 
 window.__attachShimmerLoaders = attachShimmerLoaders;
-document.addEventListener('DOMContentLoaded', () => attachShimmerLoaders());
+
+document.addEventListener('DOMContentLoaded', () => {
+  attachShimmerLoaders();
+  enableHashlessScroll();
+});
 
 /* --------------------------------------------------------------------------
    Theme + mobile menu
@@ -83,15 +121,15 @@ document.addEventListener('click', (e) => {
    Contact info
    -------------------------------------------------------------------------- */
 const CONTACT = {
-  phone: "+254783802351",
-  whatsapp: "254783802351",
+  phone: "+254794707522",
+  whatsapp: "254794707522",
   email: ""
 };
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* --------------------------------------------------------------------------
-   Year + Live clock
+   Live clock
    -------------------------------------------------------------------------- */
 const t0 = Date.now();
 setInterval(() => {
@@ -116,8 +154,10 @@ document.getElementById('svc').innerHTML = S.map((s, i) =>
 ).join('');
 
 /* --------------------------------------------------------------------------
-   Reveal + tilt
+   Reveal + tilt (tilt only on hover-capable devices)
    -------------------------------------------------------------------------- */
+const hasHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) {
     e.target.classList.add('in');
@@ -126,6 +166,7 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: 0, rootMargin: '0px 0px -4% 0px' });
 
 function tilt(el) {
+  if (!hasHover) return;
   el.addEventListener('pointermove', e => {
     const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
     el.style.setProperty('--ry', ((x - .5) * 8) + 'deg');
@@ -163,7 +204,7 @@ prodEl.innerHTML = PRODUCTS.map((p, i) => `
   <figure class="prod rv" data-tilt style="--d:${i * .08}s">
     <div class="slot shimmer">
       <span class="chip">${p.tag}</span>
-      <img src="${p.img}" alt="${p.alt}" loading="lazy" decoding="async">
+      <img src="${p.img}" alt="${p.alt}" loading="lazy" decoding="async" width="480" height="320">
     </div>
     <figcaption class="meta">
       <strong>${p.title}</strong>
@@ -177,124 +218,34 @@ window.__attachShimmerLoaders(prodEl);
 setTimeout(() => prodEl.querySelectorAll('.rv').forEach(e => e.classList.add('in')), 1200);
 
 /* --------------------------------------------------------------------------
-   Cinematic 3D background (Three.js)
-   -------------------------------------------------------------------------- */
-(function () {
-  const cv = document.getElementById('bg');
-  if (!window.THREE || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const r = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true });
-  r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-
-  const sc = new THREE.Scene();
-  const cam = new THREE.PerspectiveCamera(55, 1, .1, 100);
-  cam.position.z = 10;
-
-  sc.add(new THREE.AmbientLight(0x334455, .7));
-  const l1 = new THREE.PointLight(0x2ec4b6, 2.4, 40); l1.position.set(-6, 4, 6);
-  const l2 = new THREE.PointLight(0xf5a54a, 2.8, 40); l2.position.set(7, -3, 5);
-  sc.add(l1, l2);
-
-  const knot = new THREE.Mesh(
-    new THREE.TorusKnotGeometry(1.7, .52, 220, 28, 2, 3),
-    new THREE.MeshStandardMaterial({ color: 0xc9a46a, metalness: .92, roughness: .28 })
-  );
-  const g = new THREE.Group();
-  g.add(knot);
-  sc.add(g);
-
-  const c = document.createElement('canvas');
-  c.width = c.height = 64;
-  const x = c.getContext('2d');
-  const gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-  gr.addColorStop(0, 'rgba(255,255,255,1)');
-  gr.addColorStop(.4, 'rgba(255,255,255,.35)');
-  gr.addColorStop(1, 'rgba(255,255,255,0)');
-  x.fillStyle = gr;
-  x.fillRect(0, 0, 64, 64);
-
-  const N = innerWidth < 700 ? 260 : 620;
-  const pos = new Float32Array(N * 3);
-  const col = new Float32Array(N * 3);
-  const cs = [0xf5a54a, 0x2ec4b6, 0xffe3bd].map(h => new THREE.Color(h));
-  for (let i = 0; i < N; i++) {
-    pos.set([(Math.random() - .5) * 34, (Math.random() - .5) * 20, -4 - Math.random() * 14], i * 3);
-    const k = cs[i % 3];
-    col.set([k.r, k.g, k.b], i * 3);
-  }
-  const pg = new THREE.BufferGeometry();
-  pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  pg.setAttribute('color', new THREE.BufferAttribute(col, 3));
-  const pts = new THREE.Points(pg, new THREE.PointsMaterial({
-    size: .55,
-    map: new THREE.CanvasTexture(c),
-    vertexColors: true,
-    transparent: true,
-    opacity: .7,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending
-  }));
-  sc.add(pts);
-
-  const pm = pts.material;
-  const skin = () => {
-    const L = document.documentElement.dataset.theme === 'light';
-    pm.blending = L ? THREE.NormalBlending : THREE.AdditiveBlending;
-    pm.opacity = L ? .35 : .7;
-    pm.needsUpdate = true;
-  };
-  skin();
-  new MutationObserver(skin).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-  let mx = 0, my = 0, sy = 0, wide = true;
-  addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
-  addEventListener('scroll', () => { sy = Math.min(1, scrollY / (innerHeight * 1.1)); }, { passive: true });
-
-  function size() {
-    r.setSize(innerWidth, innerHeight, false);
-    cam.aspect = innerWidth / innerHeight;
-    cam.updateProjectionMatrix();
-    wide = innerWidth > 860;
-    g.scale.setScalar(wide ? 1 : .8);
-  }
-  addEventListener('resize', size);
-  size();
-
-  const clk = new THREE.Clock();
-  (function loop() {
-    requestAnimationFrame(loop);
-    if (document.hidden) return;
-    const t = clk.getElapsedTime();
-    knot.rotation.x = t * .16;
-    knot.rotation.y = t * .22;
-    g.position.x = wide ? 4.2 - sy * 5 : 0;
-    g.position.y = .3 - sy * 2;
-    g.rotation.y += (mx * .6 - g.rotation.y) * .04;
-    g.rotation.x += (my * .4 - g.rotation.x) * .04;
-    pts.position.x = Math.sin(t * .08) * .8;
-    pts.position.y = sy * 3 + Math.cos(t * .1) * .4;
-    cam.position.x += (mx * .9 - cam.position.x) * .03;
-    cam.position.y += (-my * .7 - cam.position.y) * .03;
-    cam.lookAt(0, 0, 0);
-    cv.style.opacity = wide ? Math.max(.22, 1 - sy * .8) : Math.max(.18, .5 - sy * .4);
-    r.render(sc, cam);
-  })();
-})();
-
-/* --------------------------------------------------------------------------
-   SEO — JSON-LD structured data for Google rich results
-   Multi-branch LocalBusiness with 3 locations.
+   SEO — JSON-LD structured data
    -------------------------------------------------------------------------- */
 (function injectSEO() {
   const siteUrl = "https://www.99computers.co.ke";
-  const PHONE = "+254783802351";
-  const WHATSAPP = "+254783802351";
+  const PHONE = "+254794707522";
+  const WHATSAPP = "+254794707522";
   const EMAIL = "info@99computers.co.ke";
 
   const branches = [
-    { city: "Murang'a", region: "Murang'a County", name: "99 COMPUTERS — Murang'a" },
-    { city: "Nyeri",    region: "Nyeri County",    name: "99 COMPUTERS — Nyeri"    },
-    { city: "Kirinyaga", region: "Kirinyaga County", name: "99 COMPUTERS — Kirinyaga" }
+    {
+      city: "Murang'a",
+      region: "Murang'a County",
+      name: "99 COMPUTERS — Murang'a (Main Branch)",
+      mapUrl: "https://maps.app.goo.gl/FHAN5yE1pPPzXfvG9"
+    },
+    {
+      city: "Nairobi",
+      region: "Nairobi County",
+      name: "99 COMPUTERS — Nairobi CBD",
+      street: "Superior Towers, Moi Avenue",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Superior+Towers+Moi+Avenue+Nairobi"
+    },
+    {
+      city: "Kerugoya",
+      region: "Kirinyaga County",
+      name: "99 COMPUTERS — Kerugoya",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Kerugoya+Town+Kirinyaga"
+    }
   ];
 
   const schema = {
@@ -351,8 +302,10 @@ setTimeout(() => prodEl.querySelectorAll('.rv').forEach(e => e.classList.add('in
           "@type": "PostalAddress",
           "addressCountry": "KE",
           "addressLocality": b.city,
-          "addressRegion": b.region
+          "addressRegion": b.region,
+          ...(b.street ? { "streetAddress": b.street } : {})
         },
+        "hasMap": b.mapUrl,
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
