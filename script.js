@@ -3,6 +3,36 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Image shimmer → blur-up loader
+   -------------------------------------------------------------------------- */
+function attachShimmerLoaders(root = document) {
+  root.querySelectorAll('.shimmer img').forEach(img => {
+    const wrap = img.closest('.shimmer');
+    if (!wrap || wrap.dataset.shimmerWired) return;
+    wrap.dataset.shimmerWired = '1';
+
+    const finish = () => {
+      wrap.classList.add('loaded');
+      wrap.classList.remove('shimmer');
+    };
+    const fail = () => {
+      wrap.classList.add('failed');
+      wrap.classList.remove('shimmer');
+    };
+
+    if (img.complete && img.naturalWidth > 0) {
+      requestAnimationFrame(finish);
+    } else {
+      img.addEventListener('load', finish, { once: true });
+      img.addEventListener('error', fail, { once: true });
+    }
+  });
+}
+
+window.__attachShimmerLoaders = attachShimmerLoaders;
+document.addEventListener('DOMContentLoaded', () => attachShimmerLoaders());
+
+/* --------------------------------------------------------------------------
    Theme + mobile menu
    -------------------------------------------------------------------------- */
 const htmlEl = document.documentElement;
@@ -50,14 +80,19 @@ document.addEventListener('click', (e) => {
 });
 
 /* --------------------------------------------------------------------------
-   Contact + clock
+   Contact info
    -------------------------------------------------------------------------- */
-const CONTACT = { phone: "", email: "" };
-document.getElementById('yr').textContent = new Date().getFullYear();
-const ct = document.getElementById('ct');
-if (CONTACT.phone) ct.insertAdjacentHTML('afterbegin', `<a class="btn p" href="tel:${CONTACT.phone}">Call us</a>`);
-if (CONTACT.email) ct.insertAdjacentHTML('beforeend', `<a class="btn" href="mailto:${CONTACT.email}">Email us</a>`);
+const CONTACT = {
+  phone: "+254783802351",
+  whatsapp: "254783802351",
+  email: ""
+};
 
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* --------------------------------------------------------------------------
+   Year + Live clock
+   -------------------------------------------------------------------------- */
 const t0 = Date.now();
 setInterval(() => {
   const s = Math.floor((Date.now() - t0) / 1e3), p = n => String(n).padStart(2, '0');
@@ -112,16 +147,7 @@ wire();
 setTimeout(() => document.querySelectorAll('.rv').forEach(e => e.classList.add('in')), 2500);
 
 /* --------------------------------------------------------------------------
-   Products — 6 cards using images 3.jpeg through 8.jpeg
-   Image mapping:
-     1.jpeg → storefront left   (in HTML)
-     2.jpeg → storefront right  (in HTML)
-     3.jpeg → laptop
-     4.jpeg → desktop
-     5.jpeg → television
-     6.jpeg → CCTV
-     7.jpeg → sound system
-     8.jpeg → accessories
+   Products — 6 cards with shimmer placeholders
    -------------------------------------------------------------------------- */
 const PRODUCTS = [
   { tag: "Laptops",      title: "Laptops",              caption: "Business, student, and everyday laptops from trusted brands.",       img: "images/3.jpeg", alt: "Laptop" },
@@ -135,9 +161,9 @@ const PRODUCTS = [
 const prodEl = document.getElementById('prod');
 prodEl.innerHTML = PRODUCTS.map((p, i) => `
   <figure class="prod rv" data-tilt style="--d:${i * .08}s">
-    <div class="slot">
+    <div class="slot shimmer">
       <span class="chip">${p.tag}</span>
-      <img src="${p.img}" alt="${p.alt}" loading="lazy">
+      <img src="${p.img}" alt="${p.alt}" loading="lazy" decoding="async">
     </div>
     <figcaption class="meta">
       <strong>${p.title}</strong>
@@ -147,6 +173,7 @@ prodEl.innerHTML = PRODUCTS.map((p, i) => `
 `).join('');
 
 wire(prodEl);
+window.__attachShimmerLoaders(prodEl);
 setTimeout(() => prodEl.querySelectorAll('.rv').forEach(e => e.classList.add('in')), 1200);
 
 /* --------------------------------------------------------------------------
@@ -176,7 +203,6 @@ setTimeout(() => prodEl.querySelectorAll('.rv').forEach(e => e.classList.add('in
   g.add(knot);
   sc.add(g);
 
-  // Soft particle sprite
   const c = document.createElement('canvas');
   c.width = c.height = 64;
   const x = c.getContext('2d');
@@ -253,4 +279,106 @@ setTimeout(() => prodEl.querySelectorAll('.rv').forEach(e => e.classList.add('in
     cv.style.opacity = wide ? Math.max(.22, 1 - sy * .8) : Math.max(.18, .5 - sy * .4);
     r.render(sc, cam);
   })();
+})();
+
+/* --------------------------------------------------------------------------
+   SEO — JSON-LD structured data for Google rich results
+   Multi-branch LocalBusiness with 3 locations.
+   -------------------------------------------------------------------------- */
+(function injectSEO() {
+  const siteUrl = "https://www.99computers.co.ke";
+  const PHONE = "+254783802351";
+  const WHATSAPP = "+254783802351";
+  const EMAIL = "info@99computers.co.ke";
+
+  const branches = [
+    { city: "Murang'a", region: "Murang'a County", name: "99 COMPUTERS — Murang'a" },
+    { city: "Nyeri",    region: "Nyeri County",    name: "99 COMPUTERS — Nyeri"    },
+    { city: "Kirinyaga", region: "Kirinyaga County", name: "99 COMPUTERS — Kirinyaga" }
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": siteUrl + "/#organization",
+        "name": "99 COMPUTERS",
+        "url": siteUrl,
+        "logo": {
+          "@type": "ImageObject",
+          "url": siteUrl + "/images/1.jpeg"
+        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": PHONE,
+            "contactType": "customer service",
+            "areaServed": "KE",
+            "availableLanguage": ["English", "Swahili"]
+          },
+          {
+            "@type": "ContactPoint",
+            "telephone": WHATSAPP,
+            "contactType": "WhatsApp customer support",
+            "areaServed": "KE"
+          }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": siteUrl + "/#website",
+        "url": siteUrl,
+        "name": "99 COMPUTERS",
+        "publisher": { "@id": siteUrl + "/#organization" },
+        "inLanguage": "en-KE"
+      },
+      ...branches.map((b, i) => ({
+        "@type": "LocalBusiness",
+        "@id": siteUrl + "/#branch-" + i,
+        "name": b.name,
+        "parentOrganization": { "@id": siteUrl + "/#organization" },
+        "description": "IT consultancy, computer and laptop sales, electronics, repair and support, and professional CCTV installation.",
+        "url": siteUrl,
+        "image": siteUrl + "/images/1.jpeg",
+        "telephone": PHONE,
+        "email": EMAIL,
+        "priceRange": "KSh",
+        "currenciesAccepted": "KES",
+        "paymentAccepted": "Cash, M-Pesa, Card",
+        "areaServed": { "@type": "Country", "name": "Kenya" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "KE",
+          "addressLocality": b.city,
+          "addressRegion": b.region
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Products & Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Consultancy" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Laptops & Desktop Computers" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Televisions & Electronics" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CCTV Installation" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Support & Repair" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Electronics Accessories" } }
+          ]
+        }
+      }))
+    ]
+  };
+
+  const s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify(schema);
+  document.head.appendChild(s);
 })();
