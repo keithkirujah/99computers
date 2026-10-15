@@ -1,0 +1,23 @@
+{
+  "name": "99computers",
+  "version": "1.0.0",
+  "description": "99 COMPUTERS - IT Solutions, Electronics & CCTV in Kenya",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keithkirujah/99computers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keithkirujah/99computers/issues"
+  },
+  "homepage": "https://github.com/keithkirujah/99computers#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
