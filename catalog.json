@@ -1,8 +1,26 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:31:54.367Z",
+  "updated": "2026-10-16T19:47:54.993Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbdoxtj",
+      "name": "Type c cable",
+      "cat": "Accessories",
+      "brand": "Araimo",
+      "price": 400,
+      "sale": 350,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbdoxtj-1-mvbdpc0p.jpg",
+        "/images/shop/p-mvbdoxtj-2-mvbdpfgz.jpg"
+      ],
+      "specs": [],
+      "created": 1792179989047
+    },
     {
       "id": "p-mvbd391f",
       "name": "AILYONS sound system",
