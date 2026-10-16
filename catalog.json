@@ -1,8 +1,42 @@
 {
   "version": 1,
-  "updated": "2026-10-16T18:39:17.397Z",
+  "updated": "2026-10-16T18:53:11.928Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbbizih",
+      "name": "830 g8",
+      "cat": "Laptops",
+      "brand": "HP",
+      "price": 50000,
+      "sale": 48000,
+      "qty": 3,
+      "min": 2,
+      "desc": "💻 𝗛𝗣 𝗘𝗹𝗶𝘁𝗲𝗕𝗼𝗼𝗸 𝟴𝟯𝟬 𝗚𝟴 | 𝗖𝗼𝗿𝗲 𝗶𝟳 𝟭𝟭𝘁𝗵 𝗚𝗲𝗻 | 𝟭𝟲𝗚𝗕/𝟱𝟭𝟮𝗚𝗕 𝗦𝗦𝗗 | 𝗞𝗘𝗦 𝟰𝟴,𝟬𝟬𝟬/=\n\n✅ Intel Core i7 11th Generation — strong performance for business, productivity, multitasking and everyday demanding workloads.\n\n✅ 16GB RAM — smooth multitasking with enough headroom for multiple applications.\n\n✅ 512GB SSD — fast boot-ups, quick application launches and responsive file access.\n\n✅️TOUCHSCREEN--- A full touchscreen display for your day to day use and simplified office operations\n\n✅ 13.3” Full HD display — sharp, clear visuals in a compact and portable form factor.\n\n✅ Backlit keyboard — comfortable and convenient typing even in low-light environments.\n\n✅ Premium EliteBook build — professional, sleek and easy to carry.\n\n✅ Compact 13.3” design — ideal for professionals, students and anyone who needs serious performance on the go.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbbizih-1-mvbbp3mr.jpg",
+        "/images/shop/p-mvbbizih-2-mvbbp6t3.jpg",
+        "/images/shop/p-mvbbizih-3-mvbbp9hi.jpg",
+        "/images/shop/p-mvbbizih-4-mvbbpce5.jpg",
+        "/images/shop/p-mvbbizih-5-mvbbpfb3.jpg"
+      ],
+      "specs": [
+        [
+          "Processor",
+          "Intel core i7 11th gen"
+        ],
+        [
+          "Ram",
+          "16gb"
+        ],
+        [
+          "Ssd",
+          "512 gb"
+        ]
+      ],
+      "created": 1792176352073
+    },
     {
       "id": "p-mvbanyif",
       "name": "Hp elitebook 840 G6",
