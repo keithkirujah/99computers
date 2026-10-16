@@ -1,43 +1,8 @@
 {
   "version": 1,
-  "updated": "2026-10-16T18:38:18.389Z",
+  "updated": "2026-10-16T18:39:17.397Z",
   "categories": [],
   "products": [
-    {
-      "id": "p-mvbb2rx7",
-      "name": "DELL 3520",
-      "cat": "Laptops",
-      "brand": "Dell",
-      "price": 50000,
-      "sale": 45000,
-      "qty": 1,
-      "min": 2,
-      "desc": "Core i7 13th gen \n16 gb ram\n512 gb ssd\n4gb dedicated graphics card",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbb2rx7-1-mvbb3bp7.jpg",
-        "/images/shop/p-mvbb2rx7-2-mvbb3flg.jpg"
-      ],
-      "specs": [
-        [
-          "Intel",
-          "Core i7 13th gen"
-        ],
-        [
-          "Ram",
-          "16 gb"
-        ],
-        [
-          "Ssd",
-          "512 gb"
-        ],
-        [
-          "Graphic card",
-          "Nividia 4gb"
-        ]
-      ],
-      "created": 1792175595739
-    },
     {
       "id": "p-mvbanyif",
       "name": "Hp elitebook 840 G6",
@@ -50,7 +15,6 @@
       "desc": "840 g6\nCore i5 8th generation \n8gb ram\n256 gb ssd\nComes with free bag and mouse",
       "featured": true,
       "images": [
-        "/images/shop/p-mvbanyif-1-mvbaoq5p.jpg",
         "/images/shop/p-mvbanyif-2-mvbap9dl.jpg"
       ],
       "specs": [],
