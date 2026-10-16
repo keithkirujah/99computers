@@ -2,68 +2,138 @@
    99 COMPUTERS — ADMIN CONSOLE
    ==========================================================================
 
-   URL
-   ───
-   https://www.99computers.co.ke/admin.html
-   (Bookmark this on your phone and laptop.)
+   URL: https://www.99computers.co.ke/admin.html
+   Passphrase: set in DEFAULT_PASS below
+   GitHub token: fine-grained PAT with Contents: Read and write
+                 https://github.com/settings/tokens?type=beta
 
-   LOGIN
-   ─────
-   Two things required every time you sign in:
-     1. Passphrase → set below in DEFAULT_PASS
-     2. GitHub token → a fine-grained personal access token with
-        "Contents: Read and write" on this repository only.
-        Get one at: https://github.com/settings/tokens?type=beta
+   Add a product:
+     1. Sign in
+     2. Products → Add product
+     3. Fill in details, drop photos
+     4. Save → live on the site in ~30 seconds
 
-   The token is stored in this browser only. It is never sent anywhere
-   except directly to github.com when saving products.
-
-   ADDING A PRODUCT
-   ────────────────
-     1. Open the admin URL and sign in.
-     2. Tap "Products" in the sidebar → "Add product".
-     3. Fill in name, price, quantity, description.
-     4. Drop photos — they resize in your browser, then upload to
-        images/shop/ in your GitHub repo.
-     5. Press Save. GitHub commits the change.
-     6. Vercel rebuilds the site in ~30 seconds. Product is live.
-
-   SHARING ACCESS WITH STAFF
-   ─────────────────────────
-   Don't share your own GitHub token. Instead:
-
-     1. Create a separate GitHub account for the shop, e.g.
-        "99computers-staff".
-     2. Add that account as a collaborator on this repository:
-        GitHub → repo → Settings → Collaborators → Add people.
-     3. Sign in as the staff account and generate a fine-grained
-        token (same settings as above).
-     4. Give staff: the admin URL, the passphrase, and that token.
-     5. To revoke access later: remove the staff account from
-        Collaborators. Their token stops working immediately.
-
-   Every commit will show the staff account's name, so you can see
-   exactly what they changed and undo anything with one click.
-
-   CHANGING THE PASSPHRASE
-   ───────────────────────
-   Edit DEFAULT_PASS below and push. To force everyone to re-enter,
-   they can tap Settings → "Change passphrase" in the console.
+   Sharing access:
+     Use a separate GitHub account, add it as a repo collaborator,
+     generate its own token, share URL + passphrase + token.
 
    ========================================================================== */
 
 (() => {
-const { $, $$, ic, DB, modal, toast, esc, IDB, Catalog, hydrate, CATICON, PRESETS, kes, eff } = window.N;
+
+/* ---------- helpers (self-contained, do not depend on nova.js) ---------- */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const kes = n => 'KSh ' + Number(n).toLocaleString('en-KE');
+const eff = p => p.sale && p.sale < p.price ? p.sale : p.price;
+const CATICON = { Laptops: 'device-laptop', Desktops: 'device-desktop', Televisions: 'device-tv', Phones: 'device-mobile', CCTV: 'device-cctv', Printers: 'printer', Sound: 'device-speaker', Appliances: 'wash-machine', Accessories: 'usb' };
+
+/* SVG icon helper - inline sprite provided by admin.html or nova.js */
+const ic = name => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+
+/* toast */
+const toast = m => {
+  let t = $('.toast');
+  if (!t) { t = document.createElement('div'); t.className = 'toast glass'; t.setAttribute('role', 'status'); document.body.append(t); }
+  t.textContent = m; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2600);
+};
+
+/* localStorage wrapper with memory fallback */
+const mem = {};
+const DB = {
+  get(k, d) { try { const v = localStorage.getItem('n99.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return k in mem ? mem[k] : d; } },
+  set(k, v) { try { localStorage.setItem('n99.' + k, JSON.stringify(v)); } catch (e) { mem[k] = v; } }
+};
+
+/* theme toggle (safe if nova.js already handled it - we just re-wire if needed) */
+const root = document.documentElement;
+const themeBtn = $('#themeToggle');
+if (themeBtn && !themeBtn.dataset.wired) {
+  themeBtn.dataset.wired = '1';
+  themeBtn.addEventListener('click', () => {
+    const n = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = n;
+    try { localStorage.setItem('theme', n); } catch (e) {}
+    const meta = $('meta[name=theme-color]');
+    if (meta) meta.content = n === 'light' ? '#eaf1ff' : '#050b1a';
+  });
+}
+
+/* modal - self-contained, doesn't need nova.js */
+function modal(html, cls = '') {
+  const el = document.createElement('div'); el.className = 'modal';
+  el.innerHTML = `<div class="panel glass ${cls}" role="dialog" aria-modal="true">${html}</div>`;
+  document.body.append(el);
+  const prev = document.activeElement; let done = false, cb = null;
+  const key = e => {
+    if (el !== [...document.querySelectorAll('.modal')].pop()) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab') {
+      const f = $$('button,input,select,textarea,a[href]', el).filter(x => !x.disabled && x.offsetParent);
+      if (!f.length) return;
+      const a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    }
+  };
+  function close() {
+    if (done) return; done = true;
+    el.classList.remove('on');
+    setTimeout(() => el.remove(), 400);
+    document.removeEventListener('keydown', key);
+    if (prev && prev.focus) prev.focus();
+    if (cb) cb();
+  }
+  document.addEventListener('keydown', key);
+  el.addEventListener('click', e => { if (e.target === el || e.target.closest('[data-close]')) close(); });
+  requestAnimationFrame(() => {
+    el.classList.add('on');
+    const f = $('input,select,textarea', el) || $('button', el);
+    if (f) f.focus();
+  });
+  return { el, close, on: fn => { cb = fn; } };
+}
+
+/* hydrate - resolve idb: refs to blob URLs */
+const urlCache = {};
+async function imgSrc(ref) {
+  if (!ref || !ref.startsWith('idb:')) return ref;
+  if (urlCache[ref]) return urlCache[ref];
+  try {
+    const b = await new Promise((res, rej) => {
+      const r = indexedDB.open('n99img', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('i');
+      r.onsuccess = () => {
+        const tx = r.result.transaction('i', 'readonly');
+        const req = tx.objectStore('i').get(ref.slice(4));
+        req.onsuccess = () => res(req.result);
+        req.onerror = () => rej(req.error);
+      };
+      r.onerror = () => rej(r.error);
+    });
+    return b ? (urlCache[ref] = URL.createObjectURL(b)) : '';
+  } catch (e) { return ''; }
+}
+function hydrate(rootEl) {
+  $$('img[data-ref]', rootEl).forEach(async im => {
+    im.addEventListener('error', () => im.closest('.pimg,.tn,.thumbimg,.main')?.classList.add('failed'), { once: true });
+    const s = await imgSrc(im.dataset.ref);
+    if (s) im.src = s;
+    else im.closest('.pimg,.tn,.main')?.classList.add('failed');
+  });
+}
 
 /* ---------- config ---------- */
-const OWNER = 'keithkirujah';        // ← your GitHub username
-const REPO  = '99computers';          // ← your repo name
+const OWNER = 'keithkirujah';
+const REPO  = '99computers';
 const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
 const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
-const DEFAULT_PASS = '99computers';   // ← change this to your own phrase
+const DEFAULT_PASS = '99computers';   // ← change this
 const CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 /* ---------- GitHub API ---------- */
@@ -113,7 +183,8 @@ async function compress(file, max = 1400, q = 0.84) {
   c.width = Math.max(1, Math.round(bmp.width * k));
   c.height = Math.max(1, Math.round(bmp.height * k));
   const x = c.getContext('2d');
-  x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height);
+  x.fillStyle = '#fff';
+  x.fillRect(0, 0, c.width, c.height);
   x.drawImage(bmp, 0, 0, c.width, c.height);
   const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
   const buf = await blob.arrayBuffer();
@@ -126,13 +197,17 @@ async function compress(file, max = 1400, q = 0.84) {
 /* ---------- gate ---------- */
 function gate() {
   return new Promise(res => {
-    if (DB.get(PASS_KEY, '') === DEFAULT_PASS && gh.token) return res(true);
     const el = document.getElementById('gate');
-    el.hidden = false; document.getElementById('shell').hidden = true;
-    el.innerHTML = `<form class="glass card" id="pg" novalidate style="max-width:420px;width:100%;padding:36px;text-align:center"><span class="ico" style="--h:var(--teal);margin:0 auto 18px">${ic('lock')}</span><h1 style="font-size:26px;margin-bottom:8px">Staff console</h1><p class="sub2" style="color:var(--mute);margin-bottom:20px">Enter your admin passphrase and GitHub token to continue.</p>
+    el.hidden = false;
+    document.getElementById('shell').hidden = true;
+    el.innerHTML = `<form class="glass card" id="pg" novalidate style="max-width:420px;width:100%;padding:36px;text-align:center">
+      <span class="ico" style="--h:var(--teal);margin:0 auto 18px">${ic('lock') || '🔒'}</span>
+      <h1 style="font-size:26px;margin-bottom:8px">Staff console</h1>
+      <p class="sub2" style="color:var(--mute);margin-bottom:20px">Enter your admin passphrase and GitHub token to continue.</p>
       <div class="fld" style="text-align:left"><label for="p-pass">Passphrase</label><input id="p-pass" name="pass" type="password" autocomplete="current-password" required></div>
       <div class="fld" style="text-align:left"><label for="p-token">GitHub token</label><input id="p-token" name="token" type="password" placeholder="github_pat_..." autocomplete="off" required><span class="hint">Fine-grained token with Contents: Read and write on this repo. Stored on this device only.</span></div>
-      <button class="btn p" type="submit" style="width:100%">Enter console</button></form>`;
+      <button class="btn p" type="submit" style="width:100%">Enter console</button>
+    </form>`;
     const f = $('#pg', el);
     f.addEventListener('submit', e => {
       e.preventDefault();
@@ -193,7 +268,7 @@ function viewOverview() {
         <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
         <li>Drop photos — they resize and upload to your GitHub repo automatically.</li>
         <li>Press Save. Vercel rebuilds the site in about 30 seconds.</li>
-        <li>Your product is live at <b>99computers.co.ke</b>. No code, no redeploy.</li>
+        <li>Your product is live at <b>99computers.co.ke</b>.</li>
       </ol>
     </article>
     ${low.length ? `<article class="glass card s12"><div class="hd"><h2>Low stock</h2></div><ul class="list">${low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st p end">Low</span></li>`).join('')}</ul></article>` : ''}
@@ -324,6 +399,7 @@ document.addEventListener('input', e => { if (e.target.id === 'pq') $('#ptb').in
 document.addEventListener('change', e => { if (e.target.id === 'pc') $('#ptb').innerHTML = rows(); });
 addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'overview'); render(); });
 
+/* ---------- boot ---------- */
 (async () => {
   const ok = await gate();
   if (!ok) return;
