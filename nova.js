@@ -118,20 +118,33 @@ const IDB = {
   get(id) { return this.tx('readonly', s => s.get(id)); }
 };
 const urlCache = {};
-const imgSrc = async ref => { if (!ref.startsWith('idb:')) return ref; if (urlCache[ref]) return urlCache[ref]; try { const b = await IDB.get(ref.slice(4)); return b ? (urlCache[ref] = URL.createObjectURL(b)) : ''; } catch (e) { return ''; } };
+const imgSrc = async ref => {
+  if (!ref) return '';
+  // Convert relative path to absolute so it works from any page depth
+  if (!ref.startsWith('idb:') && !ref.startsWith('http') && !ref.startsWith('/')) {
+    return '/' + ref;
+  }
+  if (!ref.startsWith('idb:')) return ref;
+  if (urlCache[ref]) return urlCache[ref];
+  try { const b = await IDB.get(ref.slice(4)); return b ? (urlCache[ref] = URL.createObjectURL(b)) : ''; } catch (e) { return ''; }
+};
 
-/* hydrate: resolve idb: refs to blob URLs, only mark failed if a real src was attempted */
+/* hydrate: resolve idb: refs to blob URLs, handle load/error carefully */
 function hydrate(rootEl) {
   $$('img[data-ref]', rootEl).forEach(async im => {
+    const wrap = im.closest('.pimg,.sh,.main,.tn,.thumbimg');
+    im.addEventListener('load', () => {
+      wrap?.classList.remove('failed');
+      wrap?.classList.add('loaded');
+    }, { once: true });
     im.addEventListener('error', () => {
-      if (im.getAttribute('src')) im.closest('.pimg,.tn,.thumbimg,.main')?.classList.add('failed');
+      if (im.getAttribute('src')) wrap?.classList.add('failed');
     }, { once: true });
     const s = await imgSrc(im.dataset.ref);
     if (s) {
       im.src = s;
-      im.closest('.pimg,.sh,.main,.tn')?.classList.add('loaded');
     } else {
-      im.closest('.pimg,.tn,.main')?.classList.add('failed');
+      wrap?.classList.add('failed');
     }
   });
 }
@@ -212,12 +225,20 @@ if (document.body.dataset.page === 'site') {
   let CAT = [], CL = [], ready = false; const st = { c: 'All', q: '', s: 'feat' };
   const keyline = p => { const g = re => { const s = (p.specs || []).find(x => re.test(x[0])); return s ? s[1] : ''; }; return [g(/processor|cpu/i), g(/memory|ram/i), g(/storage|ssd|hdd/i)].filter(Boolean).join(' · ') || (p.specs && p.specs[0] ? p.specs[0][0] + ': ' + p.specs[0][1] : ''); };
 
+  /* Absolute path helper - makes any stored image path work from any URL depth */
+  const abs = ref => {
+    if (!ref) return '';
+    if (ref.startsWith('idb:') || ref.startsWith('http') || ref.startsWith('/')) return ref;
+    return '/' + ref;
+  };
+
   /* media: single source of truth for how a product image renders */
   const media = (p, i = 0) => {
     if (!p.images || !p.images[i]) return ic(CATICON[p.cat] || 'package');
     const ref = p.images[i];
     const isIdb = ref.startsWith('idb:');
-    return `<img data-ref="${esc(ref)}" ${isIdb ? '' : `src="${esc(ref)}"`} alt="${esc(p.name)}" loading="lazy" decoding="async">`;
+    const src = isIdb ? '' : abs(ref);
+    return `<img data-ref="${esc(ref)}" ${src ? `src="${esc(src)}"` : ''} alt="${esc(p.name)}" loading="lazy" decoding="async">`;
   };
 
   function card(p, i = 0) {
@@ -260,26 +281,49 @@ if (document.body.dataset.page === 'site') {
     const p = CAT.find(x => x.id === id);
     if (!p) { toast('That product is no longer available'); go('/shop'); return; }
 
-    // Preload first image so it feels instant
-    if (p.images && p.images[0] && !p.images[0].startsWith('idb:')) {
-      new Image().src = p.images[0];
+    const imgs = p.images || [];
+    if (imgs[0] && !imgs[0].startsWith('idb:')) {
+      new Image().src = abs(imgs[0]);
     }
 
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const share = location.origin + '/shop/p/' + p.id;
-    const pic = (p.images || [])[0] && !p.images[0].startsWith('idb:') ? new URL(p.images[0], location.href).href : '';
+    const pic = imgs[0] && !imgs[0].startsWith('idb:') ? new URL(abs(imgs[0]), location.href).href : '';
     const wa = kind => 'https://wa.me/254794707522?text=' + encodeURIComponent([kind === 'buy' ? 'Hello 99 COMPUTERS, I would like to buy this:' : 'Hello 99 COMPUTERS, I would like to ask about this:', '', p.name + (p.brand ? ' (' + p.brand + ')' : ''), 'Price: ' + kes(eff(p)), ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]), '', share, pic ? pic : ''].join('\n').replace(/\n{3,}/g, '\n\n').trim());
-    const imgs = p.images || [];
-    const hasMainImg = imgs[0] && !imgs[0].startsWith('idb:');
 
-    const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg ${hasMainImg ? '' : (imgs[0] ? '' : 'noimg')}" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(r)}"`} alt=""></button>`).join('')}</div>` : ''}</div>
+    const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg loaded" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" data-ref="${esc(r)}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(abs(r))}"`} alt=""></button>`).join('')}</div>` : ''}</div>
       <div class="info"><small class="mute">${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h2>${esc(p.name)}</h2><div class="pr big"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s><span class="bdg" style="position:static">Save ${pct}%</span>` : ''}</div>
       <p class="stk ${out ? 'o' : p.qty <= 3 ? 'l' : 'k'}">${out ? 'Out of stock' : p.qty <= 3 ? 'Only ' + p.qty + ' left' : 'In stock'}</p>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ''}
       ${(p.specs || []).length ? `<h3>Specifications</h3><dl class="specs">${p.specs.map(s => `<div><dt>${esc(s[0])}</dt><dd>${esc(s[1])}</dd></div>`).join('')}</dl>` : ''}
       <div class="btns"><a class="btn p" href="${wa('buy')}" target="_blank" rel="noopener">${ic('brand-whatsapp')}Buy now</a><a class="btn" href="${wa('ask')}" target="_blank" rel="noopener">${ic('message-circle')}Inquire</a></div><p class="hint" style="margin-top:12px">Buy now and Inquire open WhatsApp with this product ready to send. Prices are in KSh.</p></div></div>`, 'xl');
+
     hydrate(m.el);
+
+    // Defensive cleanup: 500ms later, if the img loaded but is hidden by a stale failed class, unhide it
+    setTimeout(() => {
+      m.el.querySelectorAll('.pimg').forEach(el => {
+        const img = el.querySelector('img');
+        if (img && img.complete && img.naturalWidth > 0) {
+          el.classList.remove('failed');
+          el.classList.add('loaded');
+        }
+      });
+    }, 500);
+
     m.on(() => { if (location.pathname.startsWith('/shop/p/')) history.replaceState(null, '', '/shop'); });
-    m.el.addEventListener('click', async e => { const t = e.target.closest('.th button'); if (t) { $$('.th button', m.el).forEach(b => b.setAttribute('aria-pressed', b === t)); const s = await imgSrc(imgs[+t.dataset.i]); const im = $('#pmain img'); if (im) { im.src = s; im.closest('.pimg')?.classList.remove('failed'); im.closest('.pimg')?.classList.add('loaded'); } } });
+
+    m.el.addEventListener('click', async e => {
+      const t = e.target.closest('.th button'); if (!t) return;
+      m.el.querySelectorAll('.th button').forEach(b => b.setAttribute('aria-pressed', b === t));
+      const ref = t.dataset.ref;
+      const s = await imgSrc(ref);
+      const main = m.el.querySelector('#pmain');
+      if (main) {
+        main.classList.remove('failed');
+        main.classList.add('loaded');
+        main.innerHTML = s ? `<img src="${esc(s)}" alt="${esc(p.name)}" decoding="async">` : ic(CATICON[p.cat] || 'package');
+      }
+    });
   }
 
   /* ---------- ROUTER ---------- */

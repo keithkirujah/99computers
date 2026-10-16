@@ -220,7 +220,7 @@ td .sel{min-height:36px;padding:0 10px;font-size:13px}
 .pimg{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--s2);display:grid;place-items:center}
 .pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .pimg.noimg,.pimg.failed{background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 38%,transparent),color-mix(in srgb,var(--teal) 30%,transparent) 60%,color-mix(in srgb,var(--sig) 26%,transparent))}
-.pimg.noimg .i,.pimg.failed .i{width:56px;height:56px;opacity:.85}.pimg.failed img{opacity:0}
+.pimg.noimg .i,.pimg.failed .i{width:56px;height:56px;opacity:.85}.pimg.failed:not(.loaded) img { opacity: 0; }
 .bdg{position:absolute;z-index:1;top:10px;left:10px;padding:4px 12px;border-radius:99px;background:var(--sig);color:var(--on);font:700 12px var(--fb)}
 .bdg.gr{background:var(--gl2);color:var(--ink);border:1px solid var(--glb);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}.bdg.sm{left:auto;right:10px;background:var(--gl2);color:var(--mute);border:1px solid var(--glb)}
 .pb{padding:14px 6px 6px;display:flex;flex-direction:column;gap:4px;flex:1}.pb small{color:var(--mute);font-weight:600}

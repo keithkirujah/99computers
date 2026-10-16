@@ -13,26 +13,18 @@
      3. Fill in details, drop photos
      4. Save → live on the site in ~30 seconds
 
-   Sharing access:
-     Use a separate GitHub account, add it as a repo collaborator,
-     generate its own token, share URL + passphrase + token.
-
    ========================================================================== */
 
 (() => {
 
-/* ---------- helpers (self-contained, do not depend on nova.js) ---------- */
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const kes = n => 'KSh ' + Number(n).toLocaleString('en-KE');
 const eff = p => p.sale && p.sale < p.price ? p.sale : p.price;
 const CATICON = { Laptops: 'device-laptop', Desktops: 'device-desktop', Televisions: 'device-tv', Phones: 'device-mobile', CCTV: 'device-cctv', Printers: 'printer', Sound: 'device-speaker', Appliances: 'wash-machine', Accessories: 'usb' };
-
-/* SVG icon helper - inline sprite provided by admin.html or nova.js */
 const ic = name => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
-/* toast */
 const toast = m => {
   let t = $('.toast');
   if (!t) { t = document.createElement('div'); t.className = 'toast glass'; t.setAttribute('role', 'status'); document.body.append(t); }
@@ -40,14 +32,12 @@ const toast = m => {
   clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2600);
 };
 
-/* localStorage wrapper with memory fallback */
 const mem = {};
 const DB = {
   get(k, d) { try { const v = localStorage.getItem('n99.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return k in mem ? mem[k] : d; } },
   set(k, v) { try { localStorage.setItem('n99.' + k, JSON.stringify(v)); } catch (e) { mem[k] = v; } }
 };
 
-/* theme toggle (safe if nova.js already handled it - we just re-wire if needed) */
 const root = document.documentElement;
 const themeBtn = $('#themeToggle');
 if (themeBtn && !themeBtn.dataset.wired) {
@@ -61,7 +51,6 @@ if (themeBtn && !themeBtn.dataset.wired) {
   });
 }
 
-/* modal - self-contained, doesn't need nova.js */
 function modal(html, cls = '') {
   const el = document.createElement('div'); el.className = 'modal';
   el.innerHTML = `<div class="panel glass ${cls}" role="dialog" aria-modal="true">${html}</div>`;
@@ -96,10 +85,10 @@ function modal(html, cls = '') {
   return { el, close, on: fn => { cb = fn; } };
 }
 
-/* hydrate - resolve idb: refs to blob URLs */
 const urlCache = {};
 async function imgSrc(ref) {
-  if (!ref || !ref.startsWith('idb:')) return ref;
+  if (!ref) return '';
+  if (!ref.startsWith('idb:')) return ref;
   if (urlCache[ref]) return urlCache[ref];
   try {
     const b = await new Promise((res, rej) => {
@@ -118,14 +107,15 @@ async function imgSrc(ref) {
 }
 function hydrate(rootEl) {
   $$('img[data-ref]', rootEl).forEach(async im => {
-    im.addEventListener('error', () => im.closest('.pimg,.tn,.thumbimg,.main')?.classList.add('failed'), { once: true });
+    const wrap = im.closest('.pimg,.tn,.thumbimg,.main');
+    im.addEventListener('load', () => { wrap?.classList.remove('failed'); wrap?.classList.add('loaded'); }, { once: true });
+    im.addEventListener('error', () => { if (im.getAttribute('src')) wrap?.classList.add('failed'); }, { once: true });
     const s = await imgSrc(im.dataset.ref);
     if (s) im.src = s;
-    else im.closest('.pimg,.tn,.main')?.classList.add('failed');
+    else wrap?.classList.add('failed');
   });
 }
 
-/* ---------- config ---------- */
 const OWNER = 'keithkirujah';
 const REPO  = '99computers';
 const BRANCH = 'main';
@@ -133,10 +123,9 @@ const CATALOG_PATH = 'catalog.json';
 const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
-const DEFAULT_PASS = '99computers';   // ← change this
+const DEFAULT_PASS = '99computers';
 const CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
-/* ---------- GitHub API ---------- */
 const gh = {
   get token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } },
   set token(v) { try { v ? localStorage.setItem(TOKEN_KEY, v) : localStorage.removeItem(TOKEN_KEY); } catch (e) {} },
@@ -175,7 +164,6 @@ const gh = {
   }
 };
 
-/* ---------- image compression ---------- */
 async function compress(file, max = 1400, q = 0.84) {
   const bmp = await createImageBitmap(file);
   const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
@@ -183,8 +171,7 @@ async function compress(file, max = 1400, q = 0.84) {
   c.width = Math.max(1, Math.round(bmp.width * k));
   c.height = Math.max(1, Math.round(bmp.height * k));
   const x = c.getContext('2d');
-  x.fillStyle = '#fff';
-  x.fillRect(0, 0, c.width, c.height);
+  x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height);
   x.drawImage(bmp, 0, 0, c.width, c.height);
   const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
   const buf = await blob.arrayBuffer();
@@ -194,7 +181,6 @@ async function compress(file, max = 1400, q = 0.84) {
   return btoa(bin);
 }
 
-/* ---------- gate ---------- */
 function gate() {
   return new Promise(res => {
     const el = document.getElementById('gate');
@@ -221,7 +207,6 @@ function gate() {
   });
 }
 
-/* ---------- state ---------- */
 const S = { products: [], cats: [], view: 'overview' };
 
 async function loadCatalog() {
@@ -242,7 +227,6 @@ async function saveCatalog(msg = 'Update catalog from console') {
   toast('Published. Live site updates in ~30s.');
 }
 
-/* ---------- views ---------- */
 const kesF = n => 'KSh ' + Number(n).toLocaleString('en-KE');
 const title = { overview: 'Overview', products: 'Products', settings: 'Settings' };
 const view = $('#view');
@@ -353,10 +337,12 @@ function productForm(p) {
       try {
         toast('Compressing ' + file.name);
         const b64 = await compress(file);
-        const fname = IMAGES_DIR + '/' + p.id + '-' + (imgs.length + 1) + '-' + Date.now().toString(36) + '.jpg';
+        const baseName = p.id + '-' + (imgs.length + 1) + '-' + Date.now().toString(36) + '.jpg';
+        const repoPath = IMAGES_DIR + '/' + baseName;
+        const publicPath = '/' + repoPath;
         toast('Uploading to GitHub...');
-        await gh.writeBinary(fname, b64, 'Add product photo: ' + file.name);
-        imgs.push(fname);
+        await gh.writeBinary(repoPath, b64, 'Add product photo: ' + file.name);
+        imgs.push(publicPath);
         draw();
       } catch (err) { toast('Upload failed: ' + err.message); }
     }
@@ -399,7 +385,6 @@ document.addEventListener('input', e => { if (e.target.id === 'pq') $('#ptb').in
 document.addEventListener('change', e => { if (e.target.id === 'pc') $('#ptb').innerHTML = rows(); });
 addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'overview'); render(); });
 
-/* ---------- boot ---------- */
 (async () => {
   const ok = await gate();
   if (!ok) return;
