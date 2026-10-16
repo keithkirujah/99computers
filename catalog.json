@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T18:53:11.928Z",
+  "updated": "2026-10-16T19:01:41.385Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbbvqst",
+      "name": "hisense fridge",
+      "cat": "Appliances",
+      "brand": "HISENSE",
+      "price": 20000,
+      "sale": 17500,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbbvqst-1-mvbbzkjl.jpg"
+      ],
+      "specs": [
+        [
+          "Model",
+          "REF094DR"
+        ]
+      ],
+      "created": 1792176947309
+    },
     {
       "id": "p-mvbbizih",
       "name": "830 g8",
