@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:22:53.732Z",
+  "updated": "2026-10-16T19:23:57.588Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcus0t",
+      "name": "Flashdisks",
+      "cat": "Accessories",
+      "brand": "Hp",
+      "price": 1200,
+      "sale": 1000,
+      "qty": 10,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcus0t-1-mvbcuy64.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "16 gb"
+        ]
+      ],
+      "created": 1792178581853
+    },
     {
       "id": "p-mvbctj2u",
       "name": "Flashdisks",
