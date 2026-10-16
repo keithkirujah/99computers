@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:18:11.729Z",
+  "updated": "2026-10-16T19:19:35.651Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcosli",
+      "name": "Flashdisks",
+      "cat": "Accessories",
+      "brand": "Hp",
+      "price": 850,
+      "sale": 700,
+      "qty": 10,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcosli-1-mvbcp0jx.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "4gb"
+        ]
+      ],
+      "created": 1792178302662
+    },
     {
       "id": "p-mvbcm8j6",
       "name": "Flashdisks",
