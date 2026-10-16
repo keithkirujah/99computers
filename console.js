@@ -294,7 +294,8 @@ function viewSettings() {
       <div class="btns" style="margin-top:14px"><a class="btn" href="https://github.com/${OWNER}/${REPO}/commits/${BRANCH}" target="_blank" rel="noopener">${ic('arrow-up-right')}View commit history</a></div>
     </article>
     <article class="glass card s12"><div class="hd"><h2>Data</h2></div>
-      <div class="btns"><button class="btn" type="button" data-a="export">${ic('download')}Export products</button><button class="btn" type="button" data-a="reset">${ic('refresh')}Reset demo state</button></div>
+      <div class="btns"><button class="btn" type="button" data-a="export">${ic('download')}Export products</button></div>
+      <p class="hint" style="margin-top:14px">Exports products and categories as a JSON file you can keep as a backup.</p>
     </article>
   </div>`;
 }
@@ -377,8 +378,7 @@ const A = {
   },
   async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
   async passreset() { const np = prompt('New passphrase (min 6 chars):'); if (!np || np.length < 6) return; localStorage.setItem('n99.console.pass', JSON.stringify(np)); location.reload(); },
-  export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); },
-  reset() { if (confirm('Clear the local view? (GitHub data is untouched)')) location.reload(); }
+  export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); }
 };
 document.addEventListener('click', e => { const el = e.target.closest('[data-a]'); if (el && A[el.dataset.a]) A[el.dataset.a](el); });
 document.addEventListener('input', e => { if (e.target.id === 'pq') $('#ptb').innerHTML = rows(); });
