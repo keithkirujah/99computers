@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:14:30.423Z",
+  "updated": "2026-10-16T19:18:11.729Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcm8j6",
+      "name": "Flashdisks",
+      "cat": "Laptops",
+      "brand": "HP",
+      "price": 800,
+      "sale": 700,
+      "qty": 10,
+      "min": 2,
+      "desc": "4gb",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcm8j6-1-mvbcmgn1.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "4gb"
+        ]
+      ],
+      "created": 1792178183346
+    },
     {
       "id": "p-mvbcgyo4",
       "name": "Flash disks",
