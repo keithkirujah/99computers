@@ -1,8 +1,52 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:01:41.385Z",
+  "updated": "2026-10-16T19:02:59.193Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbc3gze",
+      "name": "Hisense Fridge",
+      "cat": "Appliances",
+      "brand": "Hisense",
+      "price": 25000,
+      "sale": 20000,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbc3gze-1-mvbc3m8k.jpg"
+      ],
+      "specs": [
+        [
+          "Model",
+          "REF091DR"
+        ]
+      ],
+      "created": 1792177307834
+    },
+    {
+      "id": "p-mvbc3gze",
+      "name": "Hisense Fridge",
+      "cat": "Appliances",
+      "brand": "Hisense",
+      "price": 25000,
+      "sale": 20000,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbc3gze-1-mvbc3m8k.jpg"
+      ],
+      "specs": [
+        [
+          "Model",
+          "REF091DR"
+        ]
+      ],
+      "created": 1792177307834
+    },
     {
       "id": "p-mvbbvqst",
       "name": "hisense fridge",
