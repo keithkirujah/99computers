@@ -1,8 +1,52 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:28:02.936Z",
+  "updated": "2026-10-16T19:32:10.867Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbd391f",
+      "name": "AILYONS sound system",
+      "cat": "Sound",
+      "brand": "AILYONS",
+      "price": 4000,
+      "sale": 3500,
+      "qty": 10,
+      "min": 2,
+      "desc": "2.1 sound system",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbd391f-1-mvbd41ht.jpg"
+      ],
+      "specs": [
+        [
+          "Stereo",
+          "2.1"
+        ]
+      ],
+      "created": 1792178977155
+    },
+    {
+      "id": "p-mvbd391f",
+      "name": "AILYONS sound system",
+      "cat": "Sound",
+      "brand": "AILYONS",
+      "price": 4000,
+      "sale": 3500,
+      "qty": 10,
+      "min": 2,
+      "desc": "2.1 sound system",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbd391f-1-mvbd41ht.jpg"
+      ],
+      "specs": [
+        [
+          "Stereo",
+          "2.1"
+        ]
+      ],
+      "created": 1792178977155
+    },
     {
       "id": "p-mvbczsct",
       "name": "Flashdisks",
