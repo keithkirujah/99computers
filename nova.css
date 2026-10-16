@@ -1,4 +1,4 @@
-/* 99 COMPUTERS: NOVA 2. Liquid-glass surfaces over a drifting colour field. Blue + teal field, one coral action colour. */
+/* 99 COMPUTERS: NOVA 2. Liquid-glass surfaces over a drifting colour field. */
 :root{color-scheme:dark;--bg:#050b1a;--ink:#f3f6ff;--mute:rgba(226,235,255,.68);--line:rgba(255,255,255,.14);--s1:#0c1530;--s2:#16224a;
 --sig:#ff7a3d;--sig-t:#ffa070;--on:#1c0b02;--blue:#3b74ff;--teal:#22d3c5;--ok:#3ddc97;--err:#ff8585;
 --gl:rgba(255,255,255,.07);--gl2:rgba(255,255,255,.13);--glb:rgba(255,255,255,.17);--fill:rgba(255,255,255,.08);
@@ -203,6 +203,7 @@ td .sel{min-height:36px;padding:0 10px;font-size:13px}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass,.btn,.chip{background:var(--s1)}}
 @media (prefers-reduced-transparency:reduce){.glass,.btn,.chip,.modal{-webkit-backdrop-filter:none;backdrop-filter:none}.glass{background:var(--s1)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv,.js .w{opacity:1;transform:none;filter:none}}
+
 /* ===== v3: pages, shop, product detail, product admin ===== */
 .pg{display:none}.pg.on{display:block;animation:pgIn .7s var(--ease) both}
 @keyframes pgIn{from{opacity:0;transform:translateY(18px);filter:blur(6px)}}
@@ -220,7 +221,9 @@ td .sel{min-height:36px;padding:0 10px;font-size:13px}
 .pimg{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--s2);display:grid;place-items:center}
 .pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .pimg.noimg,.pimg.failed{background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 38%,transparent),color-mix(in srgb,var(--teal) 30%,transparent) 60%,color-mix(in srgb,var(--sig) 26%,transparent))}
-.pimg.noimg .i,.pimg.failed .i{width:56px;height:56px;opacity:.85}.pimg.failed:not(.loaded) img { opacity: 0; }
+.pimg.noimg .i,.pimg.failed .i{width:56px;height:56px;opacity:.85}
+.pimg.failed:not(.loaded) img{opacity:0}
+.pimg.loaded img{opacity:1}
 .bdg{position:absolute;z-index:1;top:10px;left:10px;padding:4px 12px;border-radius:99px;background:var(--sig);color:var(--on);font:700 12px var(--fb)}
 .bdg.gr{background:var(--gl2);color:var(--ink);border:1px solid var(--glb);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}.bdg.sm{left:auto;right:10px;background:var(--gl2);color:var(--mute);border:1px solid var(--glb)}
 .pb{padding:14px 6px 6px;display:flex;flex-direction:column;gap:4px;flex:1}.pb small{color:var(--mute);font-weight:600}
@@ -250,17 +253,22 @@ td .sel{min-height:36px;padding:0 10px;font-size:13px}
 .steps{margin:10px 0 0 18px;color:var(--mute)}.steps li{margin-bottom:6px}
 @media (max-width:860px){.pd,.pform{grid-template-columns:1fr}.panel.xl{padding:22px}.pg.sp{padding-top:112px}.sprow{grid-template-columns:1fr 1fr 40px}}
 .modal{display:flex;overflow-y:auto;overscroll-behavior:contain}.modal .panel{margin:auto;max-height:none;overflow:visible}
-
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:6px}
 .ctile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:16px;border-radius:20px;border:1px solid var(--glb);background:var(--gl);color:var(--ink);text-align:left;cursor:pointer;transition:transform .3s var(--spring),background .2s}
 .ctile:hover{background:var(--gl2);transform:translateY(-3px)}.ctile .i{width:28px;height:28px;color:var(--teal);margin-bottom:8px}.ctile b{font:700 15px var(--fd)}.ctile small{color:var(--mute)}.ctile.new{border-style:dashed}
 .panel.wide{width:min(560px,100%)}
 
+/* ===== v4: loading state + mobile modal ===== */
+body[data-page="site"]:not(.routed) main{visibility:hidden}
+body[data-page="site"]:not(.routed)::after{content:"";position:fixed;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border:3px solid var(--glb);border-top-color:var(--sig);border-radius:50%;animation:spin .8s linear infinite;z-index:300}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Modal on small screens */
 @media (max-width:720px){
-  .modal .panel{padding:18px;border-radius:20px;max-height:none}
-  .pd{grid-template-columns:1fr}
+  .modal .panel{padding:18px;border-radius:20px;max-height:none;margin:auto}
+  .pd{grid-template-columns:1fr;gap:18px}
   .pd .main{padding-bottom:100%}
   .pd .info h2{font-size:24px}
-  .modal .x-btn{background:var(--gl2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:50%;width:44px;height:44px;display:grid;place-items:center}
-  .modal .x-btn .i{width:22px;height:22px}
+  .modal .x-btn{background:var(--gl2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:50%;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--glb);box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+  .modal .x-btn .i{width:22px;height:22px;stroke-width:2}
 }

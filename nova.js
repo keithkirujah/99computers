@@ -120,7 +120,6 @@ const IDB = {
 const urlCache = {};
 const imgSrc = async ref => {
   if (!ref) return '';
-  // Convert relative path to absolute so it works from any page depth
   if (!ref.startsWith('idb:') && !ref.startsWith('http') && !ref.startsWith('/')) {
     return '/' + ref;
   }
@@ -129,23 +128,13 @@ const imgSrc = async ref => {
   try { const b = await IDB.get(ref.slice(4)); return b ? (urlCache[ref] = URL.createObjectURL(b)) : ''; } catch (e) { return ''; }
 };
 
-/* hydrate: resolve idb: refs to blob URLs, handle load/error carefully */
 function hydrate(rootEl) {
   $$('img[data-ref]', rootEl).forEach(async im => {
     const wrap = im.closest('.pimg,.sh,.main,.tn,.thumbimg');
-    im.addEventListener('load', () => {
-      wrap?.classList.remove('failed');
-      wrap?.classList.add('loaded');
-    }, { once: true });
-    im.addEventListener('error', () => {
-      if (im.getAttribute('src')) wrap?.classList.add('failed');
-    }, { once: true });
+    im.addEventListener('load', () => { wrap?.classList.remove('failed'); wrap?.classList.add('loaded'); }, { once: true });
+    im.addEventListener('error', () => { if (im.getAttribute('src')) wrap?.classList.add('failed'); }, { once: true });
     const s = await imgSrc(im.dataset.ref);
-    if (s) {
-      im.src = s;
-    } else {
-      wrap?.classList.add('failed');
-    }
+    if (s) { im.src = s; } else { wrap?.classList.add('failed'); }
   });
 }
 
@@ -225,14 +214,12 @@ if (document.body.dataset.page === 'site') {
   let CAT = [], CL = [], ready = false; const st = { c: 'All', q: '', s: 'feat' };
   const keyline = p => { const g = re => { const s = (p.specs || []).find(x => re.test(x[0])); return s ? s[1] : ''; }; return [g(/processor|cpu/i), g(/memory|ram/i), g(/storage|ssd|hdd/i)].filter(Boolean).join(' · ') || (p.specs && p.specs[0] ? p.specs[0][0] + ': ' + p.specs[0][1] : ''); };
 
-  /* Absolute path helper - makes any stored image path work from any URL depth */
   const abs = ref => {
     if (!ref) return '';
     if (ref.startsWith('idb:') || ref.startsWith('http') || ref.startsWith('/')) return ref;
     return '/' + ref;
   };
 
-  /* media: single source of truth for how a product image renders */
   const media = (p, i = 0) => {
     if (!p.images || !p.images[i]) return ic(CATICON[p.cat] || 'package');
     const ref = p.images[i];
@@ -282,27 +269,22 @@ if (document.body.dataset.page === 'site') {
     if (!p) { toast('That product is no longer available'); go('/shop'); return; }
 
     const imgs = p.images || [];
-    if (imgs[0] && !imgs[0].startsWith('idb:')) {
-      new Image().src = abs(imgs[0]);
-    }
+    if (imgs[0] && !imgs[0].startsWith('idb:')) { new Image().src = abs(imgs[0]); }
 
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const share = location.origin + '/shop/p/' + p.id;
-    const pic = imgs[0] && !imgs[0].startsWith('idb:') ? new URL(abs(imgs[0]), location.href).href : '';
     const wa = kind => {
-  const lines = [
-    kind === 'buy'
-      ? 'Hello 99 COMPUTERS, I would like to buy this:'
-      : 'Hello 99 COMPUTERS, I would like to ask about this:',
-    '',
-    p.name + (p.brand ? ' (' + p.brand + ')' : ''),
-    'Price: ' + kes(eff(p)),
-    ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]),
-    '',
-    share
-  ];
-  return 'https://wa.me/254794707522?text=' + encodeURIComponent(lines.join('\n').trim());
-};
+      const lines = [
+        kind === 'buy' ? 'Hello 99 COMPUTERS, I would like to buy this:' : 'Hello 99 COMPUTERS, I would like to ask about this:',
+        '',
+        p.name + (p.brand ? ' (' + p.brand + ')' : ''),
+        'Price: ' + kes(eff(p)),
+        ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]),
+        '',
+        share
+      ];
+      return 'https://wa.me/254794707522?text=' + encodeURIComponent(lines.join('\n').trim());
+    };
 
     const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg loaded" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" data-ref="${esc(r)}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(abs(r))}"`} alt=""></button>`).join('')}</div>` : ''}</div>
       <div class="info"><small class="mute">${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h2>${esc(p.name)}</h2><div class="pr big"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s><span class="bdg" style="position:static">Save ${pct}%</span>` : ''}</div>
@@ -311,17 +293,7 @@ if (document.body.dataset.page === 'site') {
       <div class="btns"><a class="btn p" href="${wa('buy')}" target="_blank" rel="noopener">${ic('brand-whatsapp')}Buy now</a><a class="btn" href="${wa('ask')}" target="_blank" rel="noopener">${ic('message-circle')}Inquire</a></div><p class="hint" style="margin-top:12px">Buy now and Inquire open WhatsApp with this product ready to send. Prices are in KSh.</p></div></div>`, 'xl');
 
     hydrate(m.el);
-
-    // Defensive cleanup: 500ms later, if the img loaded but is hidden by a stale failed class, unhide it
-    setTimeout(() => {
-      m.el.querySelectorAll('.pimg').forEach(el => {
-        const img = el.querySelector('img');
-        if (img && img.complete && img.naturalWidth > 0) {
-          el.classList.remove('failed');
-          el.classList.add('loaded');
-        }
-      });
-    }, 500);
+    setTimeout(() => { m.el.querySelectorAll('.pimg').forEach(el => { const img = el.querySelector('img'); if (img && img.complete && img.naturalWidth > 0) { el.classList.remove('failed'); el.classList.add('loaded'); } }); }, 500);
 
     m.on(() => { if (location.pathname.startsWith('/shop/p/')) history.replaceState(null, '', '/shop'); });
 
@@ -369,6 +341,7 @@ if (document.body.dataset.page === 'site') {
       else if (!kind) { st.c = 'All'; renderShop(); }
       if (kind === 'p' && ready && !$('.modal.on')) openProduct(arg);
     }
+    document.body.classList.add('routed');
   }
 
   function go(path) {
@@ -399,8 +372,22 @@ if (document.body.dataset.page === 'site') {
   $$('.rv').forEach(el => io.observe(el));
   setTimeout(() => $$('.rv').forEach(e => e.classList.add('in')), 3500);
 
-  Catalog.load().then(({ products, cats }) => { CAT = products; CL = Catalog.list(cats, products); ready = true; renderFeatured(); renderShop(); route(); });
-  route();
+  /* Boot: parse the URL, load catalog, then route */
+  const initial = parsePath();
+  Catalog.load().then(({ products, cats }) => {
+    CAT = products;
+    CL = Catalog.list(cats, products);
+    ready = true;
+    renderFeatured();
+    renderShop();
+    route();
+    if (initial.pg === 'shop' && initial.kind === 'p' && initial.arg) {
+      setTimeout(() => { if (!$('.modal.on')) openProduct(initial.arg); }, 60);
+    }
+  }).catch(() => { ready = true; route(); });
+
+  /* Safety: if catalog takes too long, still show the routed page */
+  setTimeout(() => { if (!document.body.classList.contains('routed')) { ready = true; route(); } }, 2500);
 }
 
 /* SEO JSON-LD */
