@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:25:23.793Z",
+  "updated": "2026-10-16T19:26:46.110Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcy63d",
+      "name": "Flashdisks",
+      "cat": "Accessories",
+      "brand": "Hp",
+      "price": 1650,
+      "sale": 1500,
+      "qty": 10,
+      "min": 2,
+      "desc": "64gb",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcy63d-1-mvbcyau1.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "64 gb"
+        ]
+      ],
+      "created": 1792178740057
+    },
     {
       "id": "p-mvbcw8p0",
       "name": "Flashdisks",
