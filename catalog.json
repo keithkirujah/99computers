@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:21:29.172Z",
+  "updated": "2026-10-16T19:22:53.732Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbctj2u",
+      "name": "Flashdisks",
+      "cat": "Accessories",
+      "brand": "Hp",
+      "price": 950,
+      "sale": 850,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbctj2u-1-mvbcto22.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "8gb"
+        ]
+      ],
+      "created": 1792178523606
+    },
     {
       "id": "p-mvbcrx1x",
       "name": "Flashdisks",
