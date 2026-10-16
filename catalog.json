@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:23:57.588Z",
+  "updated": "2026-10-16T19:25:23.793Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcw8p0",
+      "name": "Flashdisks",
+      "cat": "Accessories",
+      "brand": "Hp",
+      "price": 1350,
+      "sale": 1250,
+      "qty": 10,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcw8p0-1-mvbcweh6.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "32gb"
+        ]
+      ],
+      "created": 1792178650116
+    },
     {
       "id": "p-mvbcus0t",
       "name": "Flashdisks",
