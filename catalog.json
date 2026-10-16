@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-16T14:00:21.032Z",
+  "updated": "2026-10-16T14:01:50.157Z",
   "categories": [],
   "products": [
     {
@@ -39,7 +39,12 @@
       "images": [
         "images/shop/p-mvb0z1zg-1-mvb14h2v.jpg"
       ],
-      "specs": [],
+      "specs": [
+        [
+          "Intel",
+          "Intel Core i7-10750H 10th generation"
+        ]
+      ],
       "created": 1792158625996
     }
   ]
