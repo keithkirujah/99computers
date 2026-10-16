@@ -1,6 +1,24 @@
 {
   "version": 1,
-  "updated": "2026-10-16T00:00:00.000Z",
+  "updated": "2026-10-16T13:55:09.087Z",
   "categories": [],
-  "products": []
+  "products": [
+    {
+      "id": "p-mvb0z1zg",
+      "name": "Dell XPS 9500",
+      "cat": "Laptops",
+      "brand": "",
+      "price": 72000,
+      "sale": null,
+      "qty": 10,
+      "min": 2,
+      "desc": "Intel Core i7-10750H 1oth generation\n2.6Ghz base speed\n16GB RAM\n512GB SSD with extra ssd slot\n4GB Nvidia GTX 1650Ti Graphics\n15 Inch 4k Resolution\nTouchscreen",
+      "featured": true,
+      "images": [
+        "images/shop/p-mvb0z1zg-1-mvb14h2v.jpg"
+      ],
+      "specs": [],
+      "created": 1792158625996
+    }
+  ]
 }
