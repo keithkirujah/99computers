@@ -1,8 +1,25 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:19:35.651Z",
+  "updated": "2026-10-16T19:21:29.172Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcrx1x",
+      "name": "Flashdisks",
+      "cat": "Laptops",
+      "brand": "Hp",
+      "price": 900,
+      "sale": 850,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcrx1x-1-mvbcs503.jpg"
+      ],
+      "specs": [],
+      "created": 1792178448405
+    },
     {
       "id": "p-mvbcosli",
       "name": "Flashdisks",
