@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T13:55:09.087Z",
+  "updated": "2026-10-16T13:58:36.537Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvb15xu8",
+      "name": "Dell XPS 9310",
+      "cat": "Laptops",
+      "brand": "",
+      "price": 65000,
+      "sale": null,
+      "qty": 10,
+      "min": 2,
+      "desc": "",
+      "featured": true,
+      "images": [
+        "images/shop/p-mvb15xu8-1-mvb19dnm.jpg"
+      ],
+      "specs": [
+        [
+          "intel",
+          "intel core i7 11th gen"
+        ]
+      ],
+      "created": 1792158947216
+    },
     {
       "id": "p-mvb0z1zg",
       "name": "Dell XPS 9500",
