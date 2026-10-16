@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:02:59.193Z",
+  "updated": "2026-10-16T19:14:30.423Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvbcgyo4",
+      "name": "Flash disks",
+      "cat": "Accessories",
+      "brand": "HP",
+      "price": 660,
+      "sale": 550,
+      "qty": 19,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvbcgyo4-1-mvbchykv.jpg"
+      ],
+      "specs": [
+        [
+          "Size",
+          "2gb"
+        ]
+      ],
+      "created": 1792177937284
+    },
     {
       "id": "p-mvbc3gze",
       "name": "Hisense Fridge",
