@@ -289,7 +289,20 @@ if (document.body.dataset.page === 'site') {
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const share = location.origin + '/shop/p/' + p.id;
     const pic = imgs[0] && !imgs[0].startsWith('idb:') ? new URL(abs(imgs[0]), location.href).href : '';
-    const wa = kind => 'https://wa.me/254794707522?text=' + encodeURIComponent([kind === 'buy' ? 'Hello 99 COMPUTERS, I would like to buy this:' : 'Hello 99 COMPUTERS, I would like to ask about this:', '', p.name + (p.brand ? ' (' + p.brand + ')' : ''), 'Price: ' + kes(eff(p)), ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]), '', share, pic ? pic : ''].join('\n').replace(/\n{3,}/g, '\n\n').trim());
+    const wa = kind => {
+  const lines = [
+    kind === 'buy'
+      ? 'Hello 99 COMPUTERS, I would like to buy this:'
+      : 'Hello 99 COMPUTERS, I would like to ask about this:',
+    '',
+    p.name + (p.brand ? ' (' + p.brand + ')' : ''),
+    'Price: ' + kes(eff(p)),
+    ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]),
+    '',
+    share
+  ];
+  return 'https://wa.me/254794707522?text=' + encodeURIComponent(lines.join('\n').trim());
+};
 
     const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg loaded" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" data-ref="${esc(r)}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(abs(r))}"`} alt=""></button>`).join('')}</div>` : ''}</div>
       <div class="info"><small class="mute">${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h2>${esc(p.name)}</h2><div class="pr big"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s><span class="bdg" style="position:static">Save ${pct}%</span>` : ''}</div>
