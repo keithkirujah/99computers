@@ -120,9 +120,7 @@ const IDB = {
 const urlCache = {};
 const imgSrc = async ref => {
   if (!ref) return '';
-  if (!ref.startsWith('idb:') && !ref.startsWith('http') && !ref.startsWith('/')) {
-    return '/' + ref;
-  }
+  if (!ref.startsWith('idb:') && !ref.startsWith('http') && !ref.startsWith('/')) return '/' + ref;
   if (!ref.startsWith('idb:')) return ref;
   if (urlCache[ref]) return urlCache[ref];
   try { const b = await IDB.get(ref.slice(4)); return b ? (urlCache[ref] = URL.createObjectURL(b)) : ''; } catch (e) { return ''; }
@@ -140,7 +138,13 @@ function hydrate(rootEl) {
 
 const Catalog = {
   async load() {
-    try { const r = await fetch('catalog.json', { cache: 'no-cache' }); if (r.ok) { const j = await r.json(); if (j && Array.isArray(j.products)) return { products: j.products, cats: Array.isArray(j.categories) && j.categories.length ? j.categories : null }; } } catch (e) {}
+    try {
+      const r = await fetch('/catalog.json', { cache: 'no-cache' });
+      if (r.ok) {
+        const j = await r.json();
+        if (j && Array.isArray(j.products)) return { products: j.products, cats: Array.isArray(j.categories) && j.categories.length ? j.categories : null };
+      }
+    } catch (e) {}
     return { products: [], cats: null };
   },
   list(cats, products) {
@@ -200,12 +204,12 @@ if (document.body.dataset.page === 'site') {
   ];
   $('#svc').innerHTML = S.map((s, i) => `<article class="glass hv svc rv" style="--h:${s[3]};--d:${i * .07}s"><span class="ico">${ic(s[2])}</span><h3>${s[0]}</h3><p>${s[1]}</p></article>`).join('');
   const TILES = [
-    ['Laptops', 'Laptops', 'Business, student, and everyday laptops from trusted brands.', 'images/3.jpeg', 'Laptop'],
-    ['Desktops', 'Desktop Computers', 'Complete desktop systems, towers, and all-in-ones.', 'images/4.jpeg', 'Desktop computer'],
-    ['Televisions', 'Televisions', 'Smart TVs, LED screens, and home entertainment displays.', 'images/5.jpeg', 'Television'],
-    ['CCTV', 'CCTV & Security', 'Cameras, DVRs, and complete surveillance kits for any property.', 'images/6.jpeg', 'CCTV camera'],
-    ['Sound', 'Sound Systems', 'Speakers, subwoofers, amplifiers, and home audio setups.', 'images/7.jpeg', 'Sound system'],
-    ['Accessories', 'Accessories', 'Keyboards, mice, chargers, cables, and everyday essentials.', 'images/8.jpeg', 'Accessories']
+    ['Laptops', 'Laptops', 'Business, student, and everyday laptops from trusted brands.', '/images/3.jpeg', 'Laptop'],
+    ['Desktops', 'Desktop Computers', 'Complete desktop systems, towers, and all-in-ones.', '/images/4.jpeg', 'Desktop computer'],
+    ['Televisions', 'Televisions', 'Smart TVs, LED screens, and home entertainment displays.', '/images/5.jpeg', 'Television'],
+    ['CCTV', 'CCTV & Security', 'Cameras, DVRs, and complete surveillance kits for any property.', '/images/6.jpeg', 'CCTV camera'],
+    ['Sound', 'Sound Systems', 'Speakers, subwoofers, amplifiers, and home audio setups.', '/images/7.jpeg', 'Sound system'],
+    ['Accessories', 'Accessories', 'Keyboards, mice, chargers, cables, and everyday essentials.', '/images/8.jpeg', 'Accessories']
   ];
   $('#tiles').innerHTML = TILES.map((p, i) => `<a class="glass hv prod rv" href="/shop/c/${p[0]}" style="--d:${i * .07}s"><div class="slot sh"><span class="chip">${p[0]}</span><img src="${p[3]}" alt="${p[4]}" loading="lazy" decoding="async" width="480" height="320"></div><div class="meta"><strong>${p[1]}</strong><small>${p[2]}</small></div></a>`).join('');
   $$('.sh img, .fig img, .mos img').forEach(im => { const w = im.closest('.sh, .fig, .ph'), ok = () => { w.classList.add('loaded'); w.classList.remove('sh'); }, bad = () => { w.classList.add('failed'); w.classList.remove('sh'); }; if (im.complete && im.naturalWidth) ok(); else if (im.complete) bad(); else { im.addEventListener('load', ok, { once: true }); im.addEventListener('error', bad, { once: true }); } });
@@ -372,7 +376,7 @@ if (document.body.dataset.page === 'site') {
   $$('.rv').forEach(el => io.observe(el));
   setTimeout(() => $$('.rv').forEach(e => e.classList.add('in')), 3500);
 
-  /* Boot: parse the URL, load catalog, then route */
+  /* Boot: parse URL, load catalog, then route */
   const initial = parsePath();
   Catalog.load().then(({ products, cats }) => {
     CAT = products;
@@ -382,11 +386,10 @@ if (document.body.dataset.page === 'site') {
     renderShop();
     route();
     if (initial.pg === 'shop' && initial.kind === 'p' && initial.arg) {
-      setTimeout(() => { if (!$('.modal.on')) openProduct(initial.arg); }, 60);
+      setTimeout(() => { if (!$('.modal.on')) openProduct(initial.arg); }, 100);
     }
   }).catch(() => { ready = true; route(); });
 
-  /* Safety: if catalog takes too long, still show the routed page */
   setTimeout(() => { if (!document.body.classList.contains('routed')) { ready = true; route(); } }, 2500);
 }
 
