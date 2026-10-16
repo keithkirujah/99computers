@@ -119,7 +119,23 @@ const IDB = {
 };
 const urlCache = {};
 const imgSrc = async ref => { if (!ref.startsWith('idb:')) return ref; if (urlCache[ref]) return urlCache[ref]; try { const b = await IDB.get(ref.slice(4)); return b ? (urlCache[ref] = URL.createObjectURL(b)) : ''; } catch (e) { return ''; } };
-function hydrate(root) { $$('img[data-ref]', root).forEach(async im => { im.addEventListener('error', () => im.closest('.pimg,.tn,.thumbimg,.main')?.classList.add('failed'), { once: true }); const s = await imgSrc(im.dataset.ref); if (s) im.src = s; else im.closest('.pimg,.tn,.main')?.classList.add('failed'); }); }
+
+/* hydrate: resolve idb: refs to blob URLs, only mark failed if a real src was attempted */
+function hydrate(rootEl) {
+  $$('img[data-ref]', rootEl).forEach(async im => {
+    im.addEventListener('error', () => {
+      if (im.getAttribute('src')) im.closest('.pimg,.tn,.thumbimg,.main')?.classList.add('failed');
+    }, { once: true });
+    const s = await imgSrc(im.dataset.ref);
+    if (s) {
+      im.src = s;
+      im.closest('.pimg,.sh,.main,.tn')?.classList.add('loaded');
+    } else {
+      im.closest('.pimg,.tn,.main')?.classList.add('failed');
+    }
+  });
+}
+
 const Catalog = {
   async load() {
     try { const r = await fetch('catalog.json', { cache: 'no-cache' }); if (r.ok) { const j = await r.json(); if (j && Array.isArray(j.products)) return { products: j.products, cats: Array.isArray(j.categories) && j.categories.length ? j.categories : null }; } } catch (e) {}
@@ -195,11 +211,20 @@ if (document.body.dataset.page === 'site') {
   /* shop */
   let CAT = [], CL = [], ready = false; const st = { c: 'All', q: '', s: 'feat' };
   const keyline = p => { const g = re => { const s = (p.specs || []).find(x => re.test(x[0])); return s ? s[1] : ''; }; return [g(/processor|cpu/i), g(/memory|ram/i), g(/storage|ssd|hdd/i)].filter(Boolean).join(' · ') || (p.specs && p.specs[0] ? p.specs[0][0] + ': ' + p.specs[0][1] : ''); };
-  const media = (p, i = 0) => p.images && p.images[i] ? `<img data-ref="${esc(p.images[i])}" ${p.images[i].startsWith('idb:') ? '' : `src="${esc(p.images[i])}"`} alt="${esc(p.name)}" loading="lazy" decoding="async">` : ic(CATICON[p.cat] || 'package');
+
+  /* media: single source of truth for how a product image renders */
+  const media = (p, i = 0) => {
+    if (!p.images || !p.images[i]) return ic(CATICON[p.cat] || 'package');
+    const ref = p.images[i];
+    const isIdb = ref.startsWith('idb:');
+    return `<img data-ref="${esc(ref)}" ${isIdb ? '' : `src="${esc(ref)}"`} alt="${esc(p.name)}" loading="lazy" decoding="async">`;
+  };
+
   function card(p, i = 0) {
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const bdg = out ? '<span class="bdg gr">Out of stock</span>' : pct ? `<span class="bdg">Save ${pct}%</span>` : p.qty <= 3 ? `<span class="bdg gr">Only ${p.qty} left</span>` : '';
-    return `<a class="glass hv pc rv" href="/shop/p/${esc(p.id)}" style="--d:${Math.min(i, 8) * .05}s"><div class="pimg ${p.images && p.images[0] ? '' : 'noimg'}">${media(p)}${bdg}</div><div class="pb"><small>${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h3>${esc(p.name)}</h3><span class="ks">${esc(keyline(p))}</span><span class="pr"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s>` : ''}</span></div></a>`;
+    const hasImg = p.images && p.images[0];
+    return `<a class="glass hv pc rv" href="/shop/p/${esc(p.id)}" style="--d:${Math.min(i, 8) * .05}s"><div class="pimg ${hasImg ? '' : 'noimg'}">${media(p)}${bdg}</div><div class="pb"><small>${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h3>${esc(p.name)}</h3><span class="ks">${esc(keyline(p))}</span><span class="pr"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s>` : ''}</span></div></a>`;
   }
   function filtered() {
     const q = st.q.toLowerCase();
@@ -232,23 +257,32 @@ if (document.body.dataset.page === 'site') {
   $('#psort').addEventListener('change', e => { st.s = e.target.value; renderShop(); });
 
   function openProduct(id) {
-    const p = CAT.find(x => x.id === id); if (!p) { toast('That product is no longer available'); go('/shop'); return; }
+    const p = CAT.find(x => x.id === id);
+    if (!p) { toast('That product is no longer available'); go('/shop'); return; }
+
+    // Preload first image so it feels instant
+    if (p.images && p.images[0] && !p.images[0].startsWith('idb:')) {
+      new Image().src = p.images[0];
+    }
+
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const share = location.origin + '/shop/p/' + p.id;
     const pic = (p.images || [])[0] && !p.images[0].startsWith('idb:') ? new URL(p.images[0], location.href).href : '';
     const wa = kind => 'https://wa.me/254794707522?text=' + encodeURIComponent([kind === 'buy' ? 'Hello 99 COMPUTERS, I would like to buy this:' : 'Hello 99 COMPUTERS, I would like to ask about this:', '', p.name + (p.brand ? ' (' + p.brand + ')' : ''), 'Price: ' + kes(eff(p)), ...(p.specs || []).slice(0, 4).map(s => '• ' + s[0] + ': ' + s[1]), '', share, pic ? pic : ''].join('\n').replace(/\n{3,}/g, '\n\n').trim());
     const imgs = p.images || [];
-    const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg ${imgs[0] ? '' : 'noimg'}" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(r)}"`} alt=""></button>`).join('')}</div>` : ''}</div>
+    const hasMainImg = imgs[0] && !imgs[0].startsWith('idb:');
+
+    const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><div class="pd"><div class="gal"><div class="main pimg ${hasMainImg ? '' : (imgs[0] ? '' : 'noimg')}" id="pmain">${media(p)}</div>${imgs.length > 1 ? `<div class="th">${imgs.map((r, i) => `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}" aria-pressed="${i === 0}"><img data-ref="${esc(r)}" ${r.startsWith('idb:') ? '' : `src="${esc(r)}"`} alt=""></button>`).join('')}</div>` : ''}</div>
       <div class="info"><small class="mute">${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h2>${esc(p.name)}</h2><div class="pr big"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s><span class="bdg" style="position:static">Save ${pct}%</span>` : ''}</div>
       <p class="stk ${out ? 'o' : p.qty <= 3 ? 'l' : 'k'}">${out ? 'Out of stock' : p.qty <= 3 ? 'Only ' + p.qty + ' left' : 'In stock'}</p>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ''}
       ${(p.specs || []).length ? `<h3>Specifications</h3><dl class="specs">${p.specs.map(s => `<div><dt>${esc(s[0])}</dt><dd>${esc(s[1])}</dd></div>`).join('')}</dl>` : ''}
       <div class="btns"><a class="btn p" href="${wa('buy')}" target="_blank" rel="noopener">${ic('brand-whatsapp')}Buy now</a><a class="btn" href="${wa('ask')}" target="_blank" rel="noopener">${ic('message-circle')}Inquire</a></div><p class="hint" style="margin-top:12px">Buy now and Inquire open WhatsApp with this product ready to send. Prices are in KSh.</p></div></div>`, 'xl');
     hydrate(m.el);
     m.on(() => { if (location.pathname.startsWith('/shop/p/')) history.replaceState(null, '', '/shop'); });
-    m.el.addEventListener('click', async e => { const t = e.target.closest('.th button'); if (t) { $$('.th button', m.el).forEach(b => b.setAttribute('aria-pressed', b === t)); const s = await imgSrc(imgs[+t.dataset.i]); const im = $('#pmain img'); if (im) im.src = s; } });
+    m.el.addEventListener('click', async e => { const t = e.target.closest('.th button'); if (t) { $$('.th button', m.el).forEach(b => b.setAttribute('aria-pressed', b === t)); const s = await imgSrc(imgs[+t.dataset.i]); const im = $('#pmain img'); if (im) { im.src = s; im.closest('.pimg')?.classList.remove('failed'); im.closest('.pimg')?.classList.add('loaded'); } } });
   }
 
-  /* ---------- ROUTER: History API, no hash ---------- */
+  /* ---------- ROUTER ---------- */
   const PAGES = ['home', 'shop', 'services', 'about', 'why', 'contact'];
   let cur = null;
 
@@ -288,7 +322,6 @@ if (document.body.dataset.page === 'site') {
   }
   window.__go = go;
 
-  /* Intercept internal link clicks */
   document.addEventListener('click', e => {
     const a = e.target.closest('a');
     if (!a || a.target === '_blank') return;
@@ -309,7 +342,6 @@ if (document.body.dataset.page === 'site') {
   $$('.rv').forEach(el => io.observe(el));
   setTimeout(() => $$('.rv').forEach(e => e.classList.add('in')), 3500);
 
-  /* boot */
   Catalog.load().then(({ products, cats }) => { CAT = products; CL = Catalog.list(cats, products); ready = true; renderFeatured(); renderShop(); route(); });
   route();
 }
