@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:34:58.978Z",
+  "updated": "2026-10-17T14:41:25.755Z",
   "categories": [],
   "products": [
     {
@@ -1089,6 +1089,28 @@
         ]
       ],
       "created": 1792247458214
+    },
+    {
+      "id": "p-mvci0dd0",
+      "name": "TCL Q75H 620W",
+      "cat": "Sound",
+      "brand": "TCL",
+      "price": 45000,
+      "sale": 42000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Audio Channels: 5.1.2-channel physical surround configuration with 5 main channels, 2 up-firing Atmos drivers, and a wireless subwoofer.\n• Power Output: 620W cumulative peak power, featuring a 200W wireless independent subwoofer with a 6.5-inch driver and bass going down to 45Hz.\n• Sound Technology: Dolby Atmos and DTS:X support, RAY·DANZ acoustic reflector technology for a wider soundstage, and AI Sonic-Adaptation room calibration.\n• Connectivity: HDMI eARC (2.1), HDMI input, Optical, USB (up to 64GB), Bluetooth 5.1/5.3, and Apple AirPlay 2",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvci0dd0-1-mvci1d8x.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "620"
+        ]
+      ],
+      "created": 1792247707044
     }
   ]
 }
