@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:15:39.568Z",
+  "updated": "2026-10-17T16:19:05.563Z",
   "categories": [],
   "products": [
     {
@@ -1338,6 +1338,23 @@
       ],
       "specs": [],
       "created": 1792253510073
+    },
+    {
+      "id": "p-mvcll915",
+      "name": "GLD 55\" Smart TV",
+      "cat": "Televisions",
+      "brand": "GLD",
+      "price": 41500,
+      "sale": 38500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Resolution: 4K Ultra HD (3840 x 2160) clear display with LED/frameless design.\n• Operating Systems: Available in different software variants including Android TV (with Google Play Store), VIDAA OS, and Tizen OS.\n• Pre-installed Apps: Netflix, YouTube, Amazon Prime Video, and Deezer.\n• Connectivity: Built-in Wi-Fi, Bluetooth, 3 x HDMI ports, 2 x USB ports, Digital Audio Out, and DVB-T2/S2 digital tuners for free-to-air channels.\n• Audio: Stereo sound / Dolby Audio on select Tizen and UHD",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcll915-1-mvclli9a.jpg"
+      ],
+      "specs": [],
+      "created": 1792253720057
     }
   ]
 }
