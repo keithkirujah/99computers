@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:46:01.248Z",
+  "updated": "2026-10-17T13:50:01.713Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcg9edm",
+      "name": "Hisense Soundbar AX3100Q",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 26500,
+      "sale": 23500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Audio Channels: 3.1-channel setup featuring a dedicated center-channel speaker for crystal-clear dialogue.\n• Power Output: 500 Watts total system power.\n• Subwoofer: Wireless 6.5-inch subwoofer for deep, distortion-free bass.\n• Surround Sound: Dolby Atmos and DTS:X support for 3D spatial and directional audio.\n• Sound Modes: AI EQ technology with multiple pre-set modes (Movie, Music, News, Sports, Game, Night).\n• Connectivity: Bluetooth 5.3, HDMI eARC, Optical input, AUX, and USB.\n• Smart Features: EzPlay integration to control the soundbar directly using a compatible Hisense TV remote.\n• Design: Slim, wall-mountable profile",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcg9edm-1-mvcgaqen.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "500"
+        ]
+      ],
+      "created": 1792244769034
+    },
     {
       "id": "p-mvcg5hvr",
       "name": "Hisense Soundbar HS5100",
