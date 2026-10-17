@@ -1,8 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:21:28.828Z",
+  "updated": "2026-10-17T10:37:10.885Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvc967ec",
+      "name": "Hp Elite book 840 G7",
+      "cat": "Laptops",
+      "brand": "Hp",
+      "price": 38000,
+      "sale": 35000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Hp Elite book 840 G7 ✅Premium Business Laptop \n✅Intel Core i5\n✅10th Generation \n✅8 Cpus Upto 4.8Ghz Ghz Speed \n✅8gb Ram\n✅256gb ssd \n✅14.0 inches FHD Display \n✅TouchScreen \n✅Intel UHD Graphics \n✅Windows 11 Pro + Office 21\nGrade A++",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvc967ec-1-mvc96hlh.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "Intel core i5 10th generation"
+        ],
+        [
+          "Ram",
+          "8gb"
+        ],
+        [
+          "Rom",
+          "256gb"
+        ]
+      ],
+      "created": 1792232862708
+    },
     {
       "id": "p-mvc8wcql",
       "name": "Portable Flexboom",
