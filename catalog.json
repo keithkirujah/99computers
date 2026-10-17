@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:41:25.755Z",
+  "updated": "2026-10-17T14:45:52.315Z",
   "categories": [],
   "products": [
     {
@@ -1111,6 +1111,28 @@
         ]
       ],
       "created": 1792247707044
+    },
+    {
+      "id": "p-mvci80wq",
+      "name": "TCL Q85H 860W",
+      "cat": "Sound",
+      "brand": "TCL",
+      "price": 58000,
+      "sale": 55000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Audio Channels: True 7.1.4 physical surround sound (7 main/side channels, wireless subwoofer, and 4 up-firing height channels including rear satellite speakers).\n• Peak Power: 860W max/peak total power output.\n• Subwoofer: Independent 200W wireless subwoofer with a 6.5-inch driver and bass extension down to 45 Hz.\n• Sound Tech: Dolby Atmos, DTS:X support, Ray·Danz acoustic reflector technology, and AI Sonic-Adaptation room calibration.\n• Gaming Features: 4K@120Hz passthrough, Variable Refresh Rate (VRR), and Auto Low Latency Mode (ALLM).\n• Connectivity: HDMI eARC (2.1), HDMI inputs, Optical, USB, Bluetooth 5.1, Wi-Fi, Apple AirPlay 2, and Chromecast built-in.\n• Smart Integration: Tutti Choral audio sharing/synchronization with compatible",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvci80wq-1-mvci8dut.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "860"
+        ]
+      ],
+      "created": 1792248064154
     }
   ]
 }
