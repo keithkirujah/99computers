@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:21:05.310Z",
+  "updated": "2026-10-17T13:24:57.691Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcfditx",
+      "name": "SONY S400",
+      "cat": "Sound",
+      "brand": "sony",
+      "price": 39000,
+      "sale": 36000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features and Specifications\n\n• Audio Technology: S-Force PRO Front Surround and Dolby Digital for a virtual surround sound experience.\n• Speakers: X-Balanced Speaker Units with Separated Notch Edge technology for clear vocals and low distortion.\n• Power Output: 330W total power (200W soundbar and 130W wireless subwoofer).\n• Connectivity: HDMI ARC, optical audio input, and Bluetooth 5.0.\n• Sound Modes: Voice Mode (enhances dialogue clarity), Night Mode (optimizes sound at lower volumes), and Sound Field.\n• Design: Wall-mountable flush design with an OLED display window.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcfditx-1-mvcfdr0t.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "330"
+        ]
+      ],
+      "created": 1792243281813
+    },
     {
       "id": "p-mvcez8uw",
       "name": "SONY S20R",
