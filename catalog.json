@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:35:38.936Z",
+  "updated": "2026-10-17T15:42:32.072Z",
   "categories": [],
   "products": [
     {
@@ -1265,6 +1265,28 @@
         ]
       ],
       "created": 1792251066703
+    },
+    {
+      "id": "p-mvck6jep",
+      "name": "Skyworth 43",
+      "cat": "Televisions",
+      "brand": "skyworth",
+      "price": 30500,
+      "sale": 27500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Popular Skyworth 43-Inch Models & Specifications\n\n• Skyworth 43Q5600H (QLED Google TV)\n\t• Display: 43-inch 2K QLED with Prolonged Vivid QLED+ technology\n\t• Resolution / Refresh Rate: QLED / 60–120 Hz\n\t• Smart Platform: Google TV with Google Assistant & Find-My-Remote\n\t• Audio: Dolby Audio\n\t• Eye Care: Flicker-Free & Low Blue Light",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvck6jep-1-mvck6x46.jpg"
+      ],
+      "specs": [
+        [
+          "inches",
+          "43"
+        ]
+      ],
+      "created": 1792251354049
     }
   ]
 }
