@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:45:11.599Z",
+  "updated": "2026-10-17T10:47:16.294Z",
   "categories": [],
   "products": [
     {
@@ -17,7 +17,12 @@
       "images": [
         "/images/shop/p-mvc9kc85-1-mvc9kpsq.jpg"
       ],
-      "specs": [],
+      "specs": [
+        [
+          "litres",
+          "138"
+        ]
+      ],
       "created": 1792233522149
     },
     {
