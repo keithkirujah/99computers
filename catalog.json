@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:29:14.397Z",
+  "updated": "2026-10-17T13:35:55.791Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcfpr98",
+      "name": "Hisense Soundbar HS1800",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 13500,
+      "sale": 10500,
+      "qty": 10,
+      "min": 2,
+      "desc": "• Audio Power: 140W max audio power output\n• Channel Configuration: 2.1 channels featuring two full-range drivers and a 4.5-inch wireless subwoofer\n• Connectivity: Bluetooth 5.3, HDMI ARC, USB port (supports media playback), Optical input, and 3.5mm AUX input\n• Sound Modes: Preset equalizer modes for Movie, Music, and News, plus a Bass Boost function\n• Design: Slim, wall-mountable profile with included wall-mount kit and remote control",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcfpr98-1-mvcfq0n5.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "140"
+        ]
+      ],
+      "created": 1792243852604
+    },
     {
       "id": "p-mvcfjz36",
       "name": "SONY S60",
@@ -34,7 +56,7 @@
       "sale": 36000,
       "qty": 10,
       "min": 2,
-      "desc": "Key Features and Specifications\n\n• Audio Technology: S-Force PRO Front Surround and Dolby Digital for a virtual surround sound experience.\n• Speakers: X-Balanced Speaker Units with Separated Notch Edge technology for clear vocals and low distortion.\n• Power Output: 330W total power (200W soundbar and 130W wireless subwoofer).\n• Connectivity: HDMI ARC, optical audio input, and Bluetooth 5.0.\n• Sound Modes: Voice Mode (enhances dialogue clarity), Night Mode (optimizes sound at lower volumes), and Sound Field.\n• Design: Wall-mountable flush design with an OLED display window.",
+      "desc": "Key Features and Specifications\n\n• Audio Technology: S-Force PRO Front Surround and Dolby Digital for a virtual surround sound experience.\n• Speakers: X-Balanced Speaker Units with Separated Notch Edge technology for clear vocals and low distortion.\n• Power Output: 330W total power .\n• Connectivity: HDMI ARC, optical audio input, and Bluetooth 5.0.\n• Sound Modes: Voice Mode (enhances dialogue clarity), Night Mode (optimizes sound at lower volumes), and Sound Field.\n• Design: Wall-mountable flush design with an OLED display window.",
       "featured": false,
       "images": [
         "/images/shop/p-mvcfditx-1-mvcfdr0t.jpg"
