@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-16T19:47:54.993Z",
+  "updated": "2026-10-17T08:45:13.207Z",
   "categories": [],
   "products": [
     {
@@ -20,50 +20,6 @@
       ],
       "specs": [],
       "created": 1792179989047
-    },
-    {
-      "id": "p-mvbd391f",
-      "name": "AILYONS sound system",
-      "cat": "Sound",
-      "brand": "AILYONS",
-      "price": 4000,
-      "sale": 3500,
-      "qty": 10,
-      "min": 2,
-      "desc": "2.1 sound system",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbd391f-1-mvbd41ht.jpg"
-      ],
-      "specs": [
-        [
-          "Stereo",
-          "2.1"
-        ]
-      ],
-      "created": 1792178977155
-    },
-    {
-      "id": "p-mvbd391f",
-      "name": "AILYONS sound system",
-      "cat": "Sound",
-      "brand": "AILYONS",
-      "price": 4000,
-      "sale": 3500,
-      "qty": 10,
-      "min": 2,
-      "desc": "2.1 sound system",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbd391f-1-mvbd41ht.jpg"
-      ],
-      "specs": [
-        [
-          "Stereo",
-          "2.1"
-        ]
-      ],
-      "created": 1792178977155
     },
     {
       "id": "p-mvbczsct",
