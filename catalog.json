@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:50:01.713Z",
+  "updated": "2026-10-17T14:00:10.953Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcglbhf",
+      "name": "Hisense Soundbar HS2100",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 18500,
+      "sale": 15500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Setup: 2.1 channels (2 speakers on the bar plus a wireless 5.25″ subwoofer).\n• Power Output: 240W total power (120W for the soundbar, 120W for the subwoofer).\n• Audio Tech: Dolby Audio, Dolby Digital Plus, and DTS Virtual:X for virtual surround sound.\n• Connectivity:\n\t• Bluetooth v5.3\n\t• HDMI ARC (with EzPlay support for compatible Hisense TVs)\n\t• Optical (TOSLINK) input\n\t• AUX (3.5mm) input\n\t• USB port\n• Sound Modes: Preset EQ modes including Movie, Music, Night, News, Sports, and Game, plus manual bass and treble controls.\n• Design: Wall-mountable soundbar with a compact wireless subwoofer designed to fit standard living space",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcglbhf-1-mvcgm22x.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "240"
+        ]
+      ],
+      "created": 1792245325155
+    },
     {
       "id": "p-mvcg9edm",
       "name": "Hisense Soundbar AX3100Q",
