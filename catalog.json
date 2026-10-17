@@ -1,8 +1,42 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:29:14.876Z",
+  "updated": "2026-10-17T11:36:33.768Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcbe0kl",
+      "name": "Dell Yoga 5300",
+      "cat": "Laptops",
+      "brand": "Dell",
+      "price": 32500,
+      "sale": 29485,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Display: 13.3-inch Full HD (1920 × 1080) IPS anti-glare or touchscreen display.\n• Processor (CPU): Options range from 8th Gen Intel Core i5 (e.g., i5-8265U, i5-8365U) up to 8th Gen Intel Core i7-8665U vPro, and later 10th Gen Core i5 options.\n• Memory (RAM): 2 upgradeable DDR4 SODIMM slots (typically configured with 8GB to 16GB, supporting up to 32GB–64GB).\n• Storage: M.2 NVMe SSD (typically 256GB to 512GB).\n• Graphics: Integrated Intel UHD Graphics 620.\n• Ports: USB-A 3.1, USB-C (with optional Thunderbolt 3), HDMI 1.4, micro-SD card reader, audio jack, and optional RJ-45 Ethernet.\n• Build & Security: Polycarbonate/carbon-fiber reinforced chassis (MIL-STD 810G certified), optional fingerprint reader, IR camera for Windows Hello, and TPM 2.0",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcbe0kl-1-mvcbe738.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "intel Core i5  8th generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ],
+        [
+          "touchscreen",
+          "enabled"
+        ]
+      ],
+      "created": 1792236586341
+    },
     {
       "id": "p-mvcba76i",
       "name": "Decho 15Kg Top Load Fully Automated",
