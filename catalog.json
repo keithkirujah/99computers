@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:14:44.330Z",
+  "updated": "2026-10-17T15:20:02.699Z",
   "categories": [],
   "products": [
     {
@@ -1199,6 +1199,28 @@
         ]
       ],
       "created": 1792249775712
+    },
+    {
+      "id": "p-mvcjgyto",
+      "name": "Vitron Sound bar V61SB 1200w 2.1ch wired system super bass",
+      "cat": "Sound",
+      "brand": "vitron",
+      "price": 10999,
+      "sale": 7999,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features and Specifications\n\n• Channel Configuration: 2.1-channel setup (slim soundbar paired with a dedicated subwoofer)\n• Power Output: Rated up to 1200W (PMPO/peak representation)\n• Connectivity Options:\n\t• Bluetooth wireless streaming for phones and music players\n\t• Wired connections including AUX, RCA, USB slot, and line-in\n• Design: Slim soundbar with a flexible subwoofer that can be placed upright or horizontally",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcjgyto-1-mvcjhabr.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "1200"
+        ]
+      ],
+      "created": 1792250160972
     }
   ]
 }
