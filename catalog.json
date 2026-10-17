@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:49:59.956Z",
+  "updated": "2026-10-17T10:51:11.179Z",
   "categories": [],
   "products": [
     {
@@ -24,28 +24,6 @@
         ]
       ],
       "created": 1792234046765
-    },
-    {
-      "id": "p-mvc9kc85",
-      "name": "Decho double door Refrigerators",
-      "cat": "Appliances",
-      "brand": "Decho double door Refrigerators",
-      "price": 28000,
-      "sale": 25000,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Features\n\n• Design: Top-mount freezer with a separate lower refrigerator compartment.\n• Cooling: Direct-cool technology with consistent temperature maintenance.\n• Interior: Adjustable tempered glass or durable shelves, door bins, and a vegetable crisper.\n• Build: Sleek silver or dark grey/silver finish designed to resist fingerprints.\n• Efficiency: Low power consumption and quiet compressor operation (around 40–42 dB for larger models).",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvc9kc85-1-mvc9kpsq.jpg"
-      ],
-      "specs": [
-        [
-          "litres",
-          "138"
-        ]
-      ],
-      "created": 1792233522149
     },
     {
       "id": "p-mvc967ec",
