@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:54:41.640Z",
+  "updated": "2026-10-17T15:00:58.884Z",
   "categories": [],
   "products": [
     {
@@ -1155,6 +1155,28 @@
         ]
       ],
       "created": 1792248516772
+    },
+    {
+      "id": "p-mvciqz05",
+      "name": "AMTEC Am-006 Mtungi woofer 2.1CH",
+      "cat": "Sound",
+      "brand": "AMTEC",
+      "price": 12000,
+      "sale": 9000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Configuration: 2.1 Channel (cylindrical Mtungi subwoofer + 2 satellite/mid-range speakers)\n• Power Output: Rated up to 15,000W PMPO\n• Design: Cylindrical \"Mtungi\" shape with a downward-facing subwoofer and top-mounted controls/LED lighting\n• Connectivity: Bluetooth, USB flash drive, AUX input, and SD/MMC card slot\n• Radio: Built-in digital FM radio tuner with auto-scan\n• Power Options: AC/DC support (works on standard wall sockets and select solar or battery backups)\n• Extras: Often bundled with accessories like a remote control or promotional items such as wireless earbuds depending on the vendo",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvciqz05-1-mvciraln.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "15000"
+        ]
+      ],
+      "created": 1792248948149
     }
   ]
 }
