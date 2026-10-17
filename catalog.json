@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:12:04.858Z",
+  "updated": "2026-10-17T16:15:39.568Z",
   "categories": [],
   "products": [
     {
@@ -1321,6 +1321,23 @@
       ],
       "specs": [],
       "created": 1792252516405
+    },
+    {
+      "id": "p-mvclgr09",
+      "name": "GLD 32\" Smart Android",
+      "cat": "Televisions",
+      "brand": "GLD",
+      "price": 16700,
+      "sale": 13700,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Display Size: 32 inches\n• Resolution: HD Ready (1366 × 768) or Full HD (1920 × 1080) depending on the specific sub-model\n• Operating System: Android Smart TV\n• Smart Apps: Pre-installed access to Netflix, YouTube, Amazon Prime Video, and Facebook via app stores\n• Connectivity:\n\t• Wi-Fi and Ethernet (RJ45)\n\t• Bluetooth\n\t• 3 HDMI ports\n\t• 2 USB ports\n\t• AV input\n• Audio: 8W × 2 speakers with Dolby Audio support and Automatic Volume Leveller (AVL)\n• Design: Frameless slim build, lightweight",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvclgr09-1-mvclgz81.jpg"
+      ],
+      "specs": [],
+      "created": 1792253510073
     }
   ]
 }
