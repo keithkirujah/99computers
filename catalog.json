@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:51:00.565Z",
+  "updated": "2026-10-17T16:02:22.325Z",
   "categories": [],
   "products": [
     {
@@ -1304,6 +1304,23 @@
       ],
       "specs": [],
       "created": 1792251863314
+    },
+    {
+      "id": "p-mvckvgad",
+      "name": "Ipcone Dispenser",
+      "cat": "Appliances",
+      "brand": "Ipcone",
+      "price": 4200,
+      "sale": 3200,
+      "qty": 10,
+      "min": 2,
+      "desc": "hot and cold",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvckvgad-1-mvckye8i.jpg"
+      ],
+      "specs": [],
+      "created": 1792252516405
     }
   ]
 }
