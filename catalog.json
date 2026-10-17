@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:07:34.760Z",
+  "updated": "2026-10-17T14:12:35.542Z",
   "categories": [],
   "products": [
     {
@@ -243,7 +243,9 @@
       "desc": "Key Specifications\n\n• Processor: 10th Gen Intel Core i5 or Core i7 (including vPro options)\n• Memory (RAM): Configurable from 8GB up to 16GB–32GB+ DDR4 (user-upgradeable)\n• Storage: 256GB or 512GB PCIe NVMe M.2 SSD (upgradeable)\n• Display: 14-inch Full HD (1920 x 1080) anti-glare IPS display, with optional touch or privacy screen variants\n• Graphics: Integrated Intel UHD Graphics\n• Operating System: Windows 10 Pro or Windows 11 Pro\n• Weight & Build: All-metal/aluminum chassis weighing approximately 2.95 lbs (1.34 kg)\n\nSecurity & Audio\n\n• Security: HP Sure Start, HP BIOSphere, TPM 2.0, fingerprint reader, and an IR webcam with Windows Hello facial recognition and a physical privacy shutter.\n• Audio: Tuned by Bang & Olufsen",
       "featured": false,
       "images": [
-        "/images/shop/p-mvceit93-1-mvceizve.jpg"
+        "/images/shop/p-mvceit93-1-mvceizve.jpg",
+        "/images/shop/p-mvceit93-2-mvch5wu8.jpg",
+        "/images/shop/p-mvceit93-3-mvch5zax.jpg"
       ],
       "specs": [
         [
