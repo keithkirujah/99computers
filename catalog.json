@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:10:26.099Z",
+  "updated": "2026-10-17T15:14:44.330Z",
   "categories": [],
   "products": [
     {
@@ -1177,6 +1177,28 @@
         ]
       ],
       "created": 1792248948149
+    },
+    {
+      "id": "p-mvcj8pk0",
+      "name": "Vitron V527 2.1CH Multimedia Speaker System",
+      "cat": "Sound",
+      "brand": "vitron",
+      "price": 9500,
+      "sale": 6500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features & Specifications\n\n• Channel Configuration: 2.1 channels featuring a wired subwoofer and two satellite speakers.\n• Detachable Design: The two satellite speakers can stand upright as traditional pillars or twist/merge together to form a single horizontal soundbar unit.\n• Power Output: Rated at 9000W PMPO (Peak Music Power Output) with an overall audio output of about 60W.\n• Audio & Connectivity:\n\t• Wireless Bluetooth connectivity\n\t• USB port for flash drive playback\n\t• SD/MMC card slot\n\t• Built-in digital FM radio with antenna input\n\t• AUX input (red/white RCA connectors)\n• Audio Specs: Frequency response of 35 Hz – 20 kHz, signal-to-noise ratio ≥ 68 dB, channel separation ≥ 45 dB, and distortion ≤ 0.5% at 1W.\n• Control: Includes a physical control panel with an LED display and a wireless remote control.\n• Power Supply: Runs on AC 220–240V (50–60 Hz).",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcj8pk0-1-mvcj9euv.jpg"
+      ],
+      "specs": [
+        [
+          "watt",
+          "9000"
+        ]
+      ],
+      "created": 1792249775712
     }
   ]
 }
