@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T12:30:42.378Z",
+  "updated": "2026-10-17T12:35:07.712Z",
   "categories": [
     {
       "name": "Gaming Products",
@@ -12,6 +12,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mvcdmwe2",
+      "name": "Tenda F3",
+      "cat": "Networking Products",
+      "brand": "Shenzhen Tenda Technology Co., Ltd",
+      "price": 2300,
+      "sale": 2000,
+      "qty": 15,
+      "min": 2,
+      "desc": "The Tenda F3 is a compact, entry-level wireless router designed specifically for small to medium-sized homes that need reliable, everyday Wi-Fi coverage without spending much. It operates on the single 2.4GHz band with a maximum theoretical speed of 300Mbps, making it suitable for basic web browsing, social media, music streaming, and standard-definition video. The router features three external 5dBi high-gain antennas that help extend signal reach to eliminate dead zones in apartments or small houses. Setup is intentionally simplified—Tenda claims you can get online in about 30 seconds through its intuitive interface, which is a major selling point for non-technical users. The F3 also includes practical software features like IP-based bandwidth control (to prioritize traffic), parental controls for filtering content and limiting time, and WPA/WPA2 security protocols. It is a no-frills, budget-conscious choice for users who just need dependable basic connectivity rather than high-performance gaming or 4K streaming",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcdmwe2-1-mvcdps1v.jpg",
+        "/images/shop/p-mvcdmwe2-2-mvcdpuaj.jpg",
+        "/images/shop/p-mvcdmwe2-3-mvcdpwkc.jpg"
+      ],
+      "specs": [],
+      "created": 1792240360058
+    },
     {
       "id": "p-mvcd5dfo",
       "name": "Xpon Router",
