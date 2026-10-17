@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:28:58.350Z",
+  "updated": "2026-10-17T15:35:38.936Z",
   "categories": [],
   "products": [
     {
@@ -1243,6 +1243,28 @@
         ]
       ],
       "created": 1792250386366
+    },
+    {
+      "id": "p-mvck0dov",
+      "name": "Solarmax 32\" Smart QLED Android Tv",
+      "cat": "Televisions",
+      "brand": "solarmax",
+      "price": 16000,
+      "sale": 13000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Display: 32-inch QLED / Full HD (1080p) screen with a frameless, slim design.\n• Smart System: Runs on Android OS with built-in access to YouTube, Netflix, Prime Video, Facebook, and the Google Play Store.\n• Connectivity: Wi-Fi, LAN, Bluetooth, HDMI ports, USB ports, and screen mirroring (iCast).\n• Digital Tuner: Inbuilt free-to-air digital decoder (DVB-T2) for local channels without needing an external set-top box.\n• Audio & Extra Features: Multi-surround sound effect, PVR live TV recording, and USB media playback.\n• Bundled Accessories: Frequently sold with a wall bracket, TV guard extension cable, or extra promotional gifts depending on the retailer",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvck0dov-1-mvck0s5x.jpg"
+      ],
+      "specs": [
+        [
+          "inches",
+          "32"
+        ]
+      ],
+      "created": 1792251066703
     }
   ]
 }
