@@ -139,8 +139,8 @@ function hydrate(rootEl) {
 const Catalog = {
   async load() {
     try {
-      // Added ?t=Date.now() to bust the cache so clients always see fresh products immediately
-      const r = await fetch('/catalog.json?t=' + Date.now(), { cache: 'no-store' });
+      // THE FIX: Appended ?v= timestamp forces all browsers to bypass cache and fetch the latest version instantly
+      const r = await fetch('/catalog.json?v=' + Date.now(), { cache: 'no-store' });
       if (r.ok) {
         const j = await r.json();
         if (j && Array.isArray(j.products)) return { products: j.products, cats: Array.isArray(j.categories) && j.categories.length ? j.categories : null };
