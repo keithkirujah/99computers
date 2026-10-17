@@ -1,8 +1,52 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:07:07.449Z",
+  "updated": "2026-10-17T14:07:34.760Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcgs3tj",
+      "name": "Hisense Soundbar AX5100Q",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 30000,
+      "sale": 27000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Channel Configuration: True 5.1 channels with a main soundbar, a 6.5-inch wireless active subwoofer, and two rear surround speakers.\n• Power Output: 580W total RMS power (soundbar and subwoofer).\n• Audio Formats: Dolby Atmos and DTS:X support for 3D surround sound.\n• Sound Modes: Seven EQ modes including Movie, Music, News, Game, Sport, Night, and AI mode.\n• Connectivity: HDMI eARC, HDMI 2.1 (4K pass-through), Optical input, USB, and Bluetooth 5.3.\n• Convenience Features: EzPlay support to control the soundbar using a compatible Hisense TV remote.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcgs3tj-1-mvcgsmku.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "580"
+        ]
+      ],
+      "created": 1792245641815
+    },
+    {
+      "id": "p-mvcglbhf",
+      "name": "Hisense Soundbar HS2100",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 18500,
+      "sale": 15500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Setup: 2.1 channels (2 speakers on the bar plus a wireless 5.25″ subwoofer).\n• Power Output: 240W total power (120W for the soundbar, 120W for the subwoofer).\n• Audio Tech: Dolby Audio, Dolby Digital Plus, and DTS Virtual:X for virtual surround sound.\n• Connectivity:\n\t• Bluetooth v5.3\n\t• HDMI ARC (with EzPlay support for compatible Hisense TVs)\n\t• Optical (TOSLINK) input\n\t• AUX (3.5mm) input\n\t• USB port\n• Sound Modes: Preset EQ modes including Movie, Music, Night, News, Sports, and Game, plus manual bass and treble controls.\n• Design: Wall-mountable soundbar with a compact wireless subwoofer designed to fit standard living space",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcglbhf-1-mvcgm22x.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "240"
+        ]
+      ],
+      "created": 1792245325155
+    },
     {
       "id": "p-mvcg9edm",
       "name": "Hisense Soundbar AX3100Q",
@@ -199,9 +243,7 @@
       "desc": "Key Specifications\n\n• Processor: 10th Gen Intel Core i5 or Core i7 (including vPro options)\n• Memory (RAM): Configurable from 8GB up to 16GB–32GB+ DDR4 (user-upgradeable)\n• Storage: 256GB or 512GB PCIe NVMe M.2 SSD (upgradeable)\n• Display: 14-inch Full HD (1920 x 1080) anti-glare IPS display, with optional touch or privacy screen variants\n• Graphics: Integrated Intel UHD Graphics\n• Operating System: Windows 10 Pro or Windows 11 Pro\n• Weight & Build: All-metal/aluminum chassis weighing approximately 2.95 lbs (1.34 kg)\n\nSecurity & Audio\n\n• Security: HP Sure Start, HP BIOSphere, TPM 2.0, fingerprint reader, and an IR webcam with Windows Hello facial recognition and a physical privacy shutter.\n• Audio: Tuned by Bang & Olufsen",
       "featured": false,
       "images": [
-        "/images/shop/p-mvceit93-1-mvceizve.jpg",
-        "/images/shop/p-mvceit93-2-mvcgslt9.jpg",
-        "/images/shop/p-mvceit93-3-mvcgsomn.jpg"
+        "/images/shop/p-mvceit93-1-mvceizve.jpg"
       ],
       "specs": [
         [
@@ -295,9 +337,7 @@
       "desc": "Key Specifications\n\n• Processor: 11th Gen Intel Core i5 (e.g., i5-1135G7, i5-1145G7) or Intel Core i7 (e.g., i7-1165G7)\n• Display: 14-inch diagonal Full HD (1920 x 1080) anti-glare IPS display (options available up to 400 nits or touchscreen)\n• Graphics: Integrated Intel Iris Xe Graphics\n• Memory & Storage: Configurable from 8GB up to 64GB DDR4 RAM; M.2 NVMe SSD storage ranging from 256GB to 512GB\n• Operating System: Windows 10 Pro or Windows 11 Pro",
       "featured": false,
       "images": [
-        "/images/shop/p-mvcd1sxi-1-mvcd2iax.jpg",
-        "/images/shop/p-mvcd1sxi-2-mvcgtrld.jpg",
-        "/images/shop/p-mvcd1sxi-3-mvcgttgm.jpg"
+        "/images/shop/p-mvcd1sxi-1-mvcd2iax.jpg"
       ],
       "specs": [
         [
@@ -483,7 +523,7 @@
     },
     {
       "id": "p-mvcbe0kl",
-      "name": "Dell Yoga 5300",
+      "name": "Dell 5300",
       "cat": "Laptops",
       "brand": "Dell",
       "price": 32500,
