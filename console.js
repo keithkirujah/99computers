@@ -1,18 +1,5 @@
 /* ==========================================================================
    99 COMPUTERS — ADMIN CONSOLE
-   ==========================================================================
-
-   URL: https://www.99computers.co.ke/admin.html
-   Passphrase: set in DEFAULT_PASS below
-   GitHub token: fine-grained PAT with Contents: Read and write
-                 https://github.com/settings/tokens?type=beta
-
-   Add a product:
-     1. Sign in
-     2. Products → Add product
-     3. Fill in details, drop photos
-     4. Save → live on the site in ~30 seconds
-
    ========================================================================== */
 
 (() => {
@@ -124,7 +111,7 @@ const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
 const DEFAULT_PASS = '99computers';
-const CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
+const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 const gh = {
   get token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } },
@@ -262,7 +249,7 @@ function viewOverview() {
 function viewProducts() {
   return `<div class="glass card"><div class="tools">
     <label class="srch">${ic('search')}<input id="pq" type="search" placeholder="Search products" aria-label="Search products"></label>
-    <select class="sel" id="pc" aria-label="Category"><option value="All">All categories</option>${[...new Set([...CATS, ...S.products.map(p => p.cat)])].map(c => `<option>${esc(c)}</option>`).join('')}</select>
+    <select class="sel" id="pc" aria-label="Category"><option value="All">All categories</option>${[...new Set([...BASE_CATS, ...S.cats.map(c=>c.name), ...S.products.map(p => p.cat)])].map(c => `<option>${esc(c)}</option>`).join('')}</select>
     <button class="btn p sm" data-a="pnew" type="button" style="margin-left:auto">${ic('plus')}Add product</button>
   </div>
   <div class="tw"><table><thead><tr><th></th><th>Product</th><th>Category</th><th>Price</th><th>Qty</th><th></th></tr></thead><tbody id="ptb">${rows()}</tbody></table></div>
@@ -302,15 +289,19 @@ function viewSettings() {
 
 function productForm(p) {
   const isNew = !p;
-  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: CATS[0], brand: '', price: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
+  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
   let imgs = [...(p.images || [])];
   const specRow = (l = '', v = '') => `<div class="sprow"><input placeholder="Name, e.g. Processor" value="${esc(l)}"><input placeholder="Value, e.g. Intel Core i5" value="${esc(v)}"><button class="ab" type="button" data-p="sprm">${ic('x')}</button></div>`;
+  
+  const currentCats = [...new Set([...BASE_CATS, ...S.cats.map(c=>c.name)])].sort();
+  const catOpts = currentCats.map(c => `<option value="${esc(c)}"${c === p.cat ? ' selected' : ''}>${esc(c)}</option>`).join('');
+  
   const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>${isNew ? 'Add product' : 'Edit product'}</h2>
   <form novalidate class="pform" style="margin-top:18px">
     <div><h3>Photos</h3><div class="up" id="up"><input type="file" id="pfile" accept="image/*" multiple hidden><button class="btn sm" type="button" data-p="pick">${ic('photo')}Add photos</button><p class="hint" style="margin-top:8px">Up to 6. Resized and uploaded automatically.</p><div class="tg" id="tg"></div></div></div>
     <div>
       <div class="fld"><label for="m-name">Name</label><input id="m-name" name="name" value="${esc(p.name)}"></div>
-      <div class="row2"><div class="fld"><label for="m-cat">Category</label><select id="m-cat" name="cat">${CATS.map(c => `<option${c === p.cat ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div><div class="fld"><label for="m-brand">Brand (optional)</label><input id="m-brand" name="brand" value="${esc(p.brand || '')}"></div></div>
+      <div class="row2"><div class="fld"><label for="m-cat">Category</label><select id="m-cat" name="cat" required><option value="" disabled${!p.cat ? ' selected' : ''}>Select category...</option>${catOpts}<option value="__new">+ Add new category...</option></select><input type="text" id="m-newcat" name="newcat" placeholder="Type new category name" style="display:none; margin-top:8px"></div><div class="fld"><label for="m-brand">Brand (optional)</label><input id="m-brand" name="brand" value="${esc(p.brand || '')}"></div></div>
       <div class="row2"><div class="fld"><label for="m-price">Price (KSh)</label><input id="m-price" name="price" type="number" min="1" value="${p.price}"></div><div class="fld"><label for="m-sale">Sale price (optional)</label><input id="m-sale" name="sale" type="number" min="1" value="${p.sale || ''}"></div></div>
       <div class="row2"><div class="fld"><label for="m-qty">Quantity in stock</label><input id="m-qty" name="qty" type="number" min="0" value="${p.qty}"></div><div class="fld"><label for="m-min">Low-stock alert at</label><input id="m-min" name="min" type="number" min="0" value="${p.min ?? 2}"></div></div>
       <div class="fld"><label for="m-desc">Description</label><textarea id="m-desc" name="desc">${esc(p.desc || '')}</textarea></div>
@@ -320,7 +311,24 @@ function productForm(p) {
       <button class="btn p" style="width:100%" type="submit">${isNew ? 'Save product' : 'Save changes'}</button>
     </div>
   </form>`, 'xl');
+  
   const f = $('form', m.el), specs = $('#specs', m.el);
+  
+  // Category toggle logic
+  const catSel = f.elements.cat, newCatInput = $('#m-newcat', m.el);
+  catSel.addEventListener('change', () => {
+    if (catSel.value === '__new') {
+      newCatInput.style.display = 'block';
+      newCatInput.focus();
+    } else {
+      newCatInput.style.display = 'none';
+      newCatInput.value = '';
+    }
+  });
+  if (p.cat === '__new' || (!p.cat && isNew)) {
+    if (isNew) { catSel.value = '__new'; newCatInput.style.display = 'block'; }
+  }
+
   const draw = () => { $('#tg', m.el).innerHTML = imgs.map((r, i) => `<div class="tn"><img src="${esc(r)}" alt=""><span class="mk">${i === 0 ? 'Main' : 'Photo ' + (i + 1)}</span><span class="tb"><button type="button" class="mini" data-p="rm" data-i="${i}">Remove</button></span></div>`).join(''); };
   draw();
   f.addEventListener('click', async e => {
@@ -349,10 +357,19 @@ function productForm(p) {
     }
     toast('Photos ready');
   });
+  
   f.addEventListener('submit', async e => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(f));
     if (d.name.trim().length < 2) { toast('Enter a name'); return; }
+    if (!d.cat || d.cat === '__new') {
+      if (!d.newcat || d.newcat.trim().length < 2) { toast('Enter a category'); return; }
+      d.cat = d.newcat.trim();
+      // Add to S.cats if not already there
+      if (!S.cats.some(c => c.name.toLowerCase() === d.cat.toLowerCase())) {
+        S.cats.push({ name: d.cat, specs: [] });
+      }
+    }
     if (!(+d.price > 0)) { toast('Enter a price above zero'); return; }
     if (d.sale && !(+d.sale > 0 && +d.sale < +d.price)) { toast('Sale must be below the price'); return; }
     const sps = $$('.sprow', specs).map(r => { const inp = $$('input', r); return [inp[0].value.trim(), inp[1].value.trim()]; }).filter(s => s[0] && s[1]);

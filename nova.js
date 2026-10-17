@@ -235,15 +235,47 @@ if (document.body.dataset.page === 'site') {
   function card(p, i = 0) {
     const out = p.qty <= 0, pct = p.sale && p.sale < p.price ? Math.round(100 * (1 - p.sale / p.price)) : 0;
     const bdg = out ? '<span class="bdg gr">Out of stock</span>' : pct ? `<span class="bdg">Save ${pct}%</span>` : p.qty <= 3 ? `<span class="bdg gr">Only ${p.qty} left</span>` : '';
-    const hasImg = p.images && p.images[0];
-    return `<a class="glass hv pc rv" href="/shop/p/${esc(p.id)}" style="--d:${Math.min(i, 8) * .05}s"><div class="pimg ${hasImg ? '' : 'noimg'}">${media(p)}${bdg}</div><div class="pb"><small>${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h3>${esc(p.name)}</h3><span class="ks">${esc(keyline(p))}</span><span class="pr"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s>` : ''}</span></div></a>`;
+    const imgs = p.images || [];
+    const hasMultiple = imgs.length > 1;
+
+    let imgHtml = '';
+    if (!imgs.length) {
+      imgHtml = ic(CATICON[p.cat] || 'package');
+    } else {
+      imgHtml = imgs.map((r, idx) => {
+        const isIdb = r.startsWith('idb:');
+        const src = isIdb ? '' : abs(r);
+        const active = idx === 0 ? ' active' : '';
+        return `<img data-ref="${esc(r)}" ${src ? `src="${esc(src)}"` : ''} alt="${esc(p.name)}" class="${active}" ${idx > 0 ? 'loading="lazy"' : ''} decoding="async">`;
+      }).join('');
+    }
+
+    return `<a class="glass hv pc rv" href="/shop/p/${esc(p.id)}" style="--d:${Math.min(i, 8) * .05}s"><div class="pimg ${hasMultiple ? 'multi' : ''} ${imgs.length ? '' : 'noimg'}" data-multi="${hasMultiple ? '1' : '0'}">${imgHtml}${bdg}</div><div class="pb"><small>${esc(p.cat)}${p.brand ? ' · ' + esc(p.brand) : ''}</small><h3>${esc(p.name)}</h3><span class="ks">${esc(keyline(p))}</span><span class="pr"><b>${kes(eff(p))}</b>${pct ? `<s>${kes(p.price)}</s>` : ''}</span></div></a>`;
   }
+  
   function filtered() {
     const q = st.q.toLowerCase();
     let l = CAT.filter(p => (st.c === 'All' || p.cat === st.c) && (!q || [p.name, p.brand, p.cat, p.desc, ...(p.specs || []).map(s => s[1])].join(' ').toLowerCase().includes(q)));
     if (st.s === 'lo') l.sort((a, b) => eff(a) - eff(b)); else if (st.s === 'hi') l.sort((a, b) => eff(b) - eff(a)); else if (st.s === 'new') l.sort((a, b) => b.created - a.created); else l.sort((a, b) => (b.featured | 0) - (a.featured | 0) || b.created - a.created);
     return l;
   }
+
+  function startImageCycling() {
+    if (reduce) return;
+    setInterval(() => {
+      $$('.pimg.multi').forEach(el => {
+        if (el.matches(':hover')) return; // Pause if hovered
+        const imgs = $$('img', el);
+        if (imgs.length < 2) return;
+        let cur = imgs.findIndex(i => i.classList.contains('active'));
+        if (cur === -1) cur = 0;
+        imgs[cur].classList.remove('active');
+        cur = (cur + 1) % imgs.length;
+        imgs[cur].classList.add('active');
+      });
+    }, 3500);
+  }
+
   function renderShop() {
     const order = CL.map(c => c.name.toLowerCase()), rank = n => { const i = order.indexOf(n.toLowerCase()); return i < 0 ? 99 : i; }, cats = [...new Set(CAT.map(p => p.cat))].sort((x, y) => rank(x) - rank(y) || x.localeCompare(y));
     $('#chips').innerHTML = ['All', ...cats].map(c => `<button class="cp" type="button" data-c="${esc(c)}" aria-pressed="${c === st.c}">${esc(c)} <small>${c === 'All' ? CAT.length : CAT.filter(p => p.cat === c).length}</small></button>`).join('');
@@ -376,7 +408,8 @@ if (document.body.dataset.page === 'site') {
   $$('.rv').forEach(el => io.observe(el));
   setTimeout(() => $$('.rv').forEach(e => e.classList.add('in')), 3500);
 
-  /* Boot: parse URL, load catalog, then route */
+  /* Boot */
+  startImageCycling();
   const initial = parsePath();
   Catalog.load().then(({ products, cats }) => {
     CAT = products;
@@ -389,7 +422,7 @@ if (document.body.dataset.page === 'site') {
       setTimeout(() => { if (!$('.modal.on')) openProduct(initial.arg); }, 100);
     }
   }).catch(() => { ready = true; route(); });
-
+  
   setTimeout(() => { if (!document.body.classList.contains('routed')) { ready = true; route(); } }, 2500);
 }
 

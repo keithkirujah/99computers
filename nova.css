@@ -272,3 +272,7 @@ body[data-page="site"]:not(.routed)::after{content:"";position:fixed;top:50%;lef
   .modal .x-btn{background:var(--gl2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:50%;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--glb);box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
   .modal .x-btn .i{width:22px;height:22px;stroke-width:2}
 }
+
+/* ===== v5: auto-cycling product images ===== */
+.pimg.multi img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease-in-out; }
+.pimg.multi img.active { opacity: 1; }
