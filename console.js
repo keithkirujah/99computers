@@ -207,15 +207,20 @@ async function loadCatalog() {
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
-// --- BATCH SAVING (60 SECONDS) ---
+// --- 5 MINUTE BATCH SAVING ---
 let saveTimeout = null;
+let countdownInterval = null;
+let timeLeft = 0;
 let pendingMsg = '';
+
 function queueSave(msg) {
   clearTimeout(saveTimeout);
+  clearInterval(countdownInterval);
   pendingMsg = msg;
-  toast('Saving in 60 seconds...');
+  timeLeft = 300; // 5 minutes
   
-  // Update the UI badge
+  // UI Updates
+  toast('Saving in 5 minutes...');
   let syncEl = $('#sync');
   if (!syncEl) {
     syncEl = document.createElement('span');
@@ -224,11 +229,22 @@ function queueSave(msg) {
     $('.top').insertBefore(syncEl, $('.top').children[1]);
   }
   syncEl.hidden = false;
-  syncEl.textContent = 'Publishing in 60s...';
   syncEl.style.background = 'var(--sig-t)';
   syncEl.style.color = '#1a0d05';
+  
+  const updateCountdown = () => {
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    syncEl.textContent = `Publishing in ${m}:${s.toString().padStart(2, '0')}...`;
+    if (timeLeft <= 0) clearInterval(countdownInterval);
+    timeLeft--;
+  };
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 1000);
 
+  // The actual push
   saveTimeout = setTimeout(async () => {
+    clearInterval(countdownInterval);
     syncEl.textContent = 'Publishing...';
     syncEl.style.background = 'var(--gl2)';
     syncEl.style.color = 'var(--ink)';
@@ -245,7 +261,7 @@ function queueSave(msg) {
       toast('Could not publish: ' + e.message);
       syncEl.hidden = true;
     }
-  }, 60000); // 60 seconds
+  }, 300000); // 5 Minutes
 }
 // --------------------------
 
@@ -273,7 +289,7 @@ function viewOverview() {
       <ol class="steps">
         <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
         <li>Drop photos — they resize and upload to your GitHub repo automatically.</li>
-        <li>Press Save. The console waits 60 seconds before publishing to Vercel.</li>
+        <li>Press Save. The console waits 5 minutes before publishing to Vercel.</li>
         <li>Your product is live at <b>99computers.co.ke</b>.</li>
       </ol>
     </article>
