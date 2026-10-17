@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:17:32.746Z",
+  "updated": "2026-10-17T11:26:40.028Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcb4pyc",
+      "name": "Decho 8Kg Top Load Fully Automated",
+      "cat": "Appliances",
+      "brand": "Decho",
+      "price": 27000,
+      "sale": 24000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Capacity: 8Kg wash capacity suitable for everyday household laundry loads.\n• Fully Automatic Operation: Manages washing, rinsing, and spinning in a single, seamless cycle without manual intervention.\n• Top-Load Design: Allows for easy, ergonomic loading and unloading without bending, plus the flexibility to add clothes mid-cycle.\n• Wash Programs: Multiple settings to accommodate different fabric types, from delicates to heavily soiled clothes.\n• Additional Functions: Features automatic water level adjustment, a quick-wash mode for lightly soiled items, an air-dry function, an LED display, and a child lock.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcb4pyc-1-mvcb4xxy.jpg"
+      ],
+      "specs": [
+        [
+          "kg",
+          "8"
+        ]
+      ],
+      "created": 1792236152676
+    },
     {
       "id": "p-mvcaqnxk",
       "name": "Decho 10kg front load washing machine",
