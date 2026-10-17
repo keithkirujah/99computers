@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:13:56.534Z",
+  "updated": "2026-10-17T14:15:59.282Z",
   "categories": [],
   "products": [
     {
@@ -339,7 +339,10 @@
       "desc": "Key Specifications\n\n• Processor: 11th Gen Intel Core i5 (e.g., i5-1135G7, i5-1145G7) or Intel Core i7 (e.g., i7-1165G7)\n• Display: 14-inch diagonal Full HD (1920 x 1080) anti-glare IPS display (options available up to 400 nits or touchscreen)\n• Graphics: Integrated Intel Iris Xe Graphics\n• Memory & Storage: Configurable from 8GB up to 64GB DDR4 RAM; M.2 NVMe SSD storage ranging from 256GB to 512GB\n• Operating System: Windows 10 Pro or Windows 11 Pro",
       "featured": false,
       "images": [
-        "/images/shop/p-mvcd1sxi-1-mvcd2iax.jpg"
+        "/images/shop/p-mvcd1sxi-1-mvcd2iax.jpg",
+        "/images/shop/p-mvcd1sxi-2-mvcha497.jpg",
+        "/images/shop/p-mvcd1sxi-3-mvcha6qn.jpg",
+        "/images/shop/p-mvcd1sxi-4-mvcha92u.jpg"
       ],
       "specs": [
         [
