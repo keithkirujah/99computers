@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:21:56.883Z",
+  "updated": "2026-10-17T14:30:22.872Z",
   "categories": [],
   "products": [
     {
@@ -1045,6 +1045,28 @@
         ]
       ],
       "created": 1792246689845
+    },
+    {
+      "id": "p-mvchmk49",
+      "name": "TCL S55H 220W",
+      "cat": "Sound",
+      "brand": "TCL",
+      "price": 21500,
+      "sale": 18500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Configuration: 2.1 channels featuring a slim main soundbar and a 120W wireless subwoofer.\n• Power Output: 220W maximum total output power.\n• Sound Technologies: Dolby Atmos, DTS Virtual:X, AI Sonic-Adaptation room calibration, and Tutti Choral (for synchronized audio with compatible TCL TVs).\n• Acoustic Design: Dual Horn Echo Chambers and Dual Bass System for deep, low-frequency enhancement.\n• Connectivity: HDMI (with eARC/ARC), Bluetooth 5.2/5.3, Optical input, USB (up to 64GB), and 3.5mm AUX.\n• Dimensions:\n\t• Soundbar: 810 x 60 x 98 mm\n\t• Subwoofer: 195 x 320 x 195 mm\n• Included Accessories: Remote control, batteries, HDMI cable, power cables, and a wall-mount kit.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvchmk49-1-mvcho5h6.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "220"
+        ]
+      ],
+      "created": 1792247062617
     }
   ]
 }
