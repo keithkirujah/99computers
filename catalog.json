@@ -1,7 +1,12 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:43:05.512Z",
-  "categories": [],
+  "updated": "2026-10-17T18:37:22.237Z",
+  "categories": [
+    {
+      "name": "GAMING",
+      "specs": []
+    }
+  ],
   "products": [
     {
       "id": "p-mvcgs3tj",
@@ -1445,6 +1450,23 @@
       ],
       "specs": [],
       "created": 1792255089971
+    },
+    {
+      "id": "p-mvcptbg3",
+      "name": "Ucom pad",
+      "cat": "GAMING",
+      "brand": "Ucom",
+      "price": 1000,
+      "sale": 850,
+      "qty": 10,
+      "min": 2,
+      "desc": "Single player gaming pad",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcptbg3-1-mvcq0p7i.jpg"
+      ],
+      "specs": [],
+      "created": 1792260814899
     }
   ]
 }
