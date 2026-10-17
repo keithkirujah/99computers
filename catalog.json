@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:11:12.398Z",
+  "updated": "2026-10-17T11:17:32.746Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcaqnxk",
+      "name": "Decho 10kg front load washing machine",
+      "cat": "Appliances",
+      "brand": "Decho",
+      "price": 43000,
+      "sale": 40000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Capacity: 10kg drum capacity suited for everyday clothing, bedding, and towels.\n• Motor Technology: Brushless DC (BLDC) inverter motor for quiet and energy-efficient operation.\n• Wash Programs: Multiple modes including Quick Wash, Cotton, Mix, Wool, and Spin.\n• Design & Build: Front-loading layout with a stainless steel inner tub, large circular door, digital display panel, and one-touch child/door lock safety",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcaqnxk-1-mvcas2m1.jpg"
+      ],
+      "specs": [
+        [
+          "kg",
+          "10"
+        ]
+      ],
+      "created": 1792235496872
+    },
     {
       "id": "p-mvcakeuy",
       "name": "Decho 8kg front load washing machine",
