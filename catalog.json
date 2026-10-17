@@ -1,8 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:58:38.301Z",
+  "updated": "2026-10-17T12:02:46.390Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvccfegm",
+      "name": "Lenovo X390 Yoga",
+      "cat": "Laptops",
+      "brand": "lenovo",
+      "price": 33000,
+      "sale": 30000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Display: 13.3-inch Full HD (1920 x 1080) IPS touchscreen with anti-reflective/anti-smudge coating\n• Processor: 8th Generation Intel Core i5 or i7 (up to Intel Core i7-8665U / i7-8565U)\n• Memory (RAM): 8GB or 16GB (soldered on-board)\n• Storage: 256GB or 512GB PCIe NVMe SSD\n• Graphics: Intel UHD Graphics 620\n• Operating System: Windows 10 Pro or Windows 11 Pro\n• Weight: Approximately 1.29 kg to 1.3 kg\n• Extras: Built-in garaged stylus pen (Lenovo Active Pen), backlit keyboard, fingerprint reader, and 720p webcam with physical privacy shutte",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvccfegm-1-mvccgd4v.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "️Intel Core i5  8th Generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ]
+      ],
+      "created": 1792238330614
+    },
     {
       "id": "p-mvcc1gv3",
       "name": "HP Elitebook 840 G3",
