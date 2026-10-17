@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:45:52.315Z",
+  "updated": "2026-10-17T14:54:41.640Z",
   "categories": [],
   "products": [
     {
@@ -1133,6 +1133,28 @@
         ]
       ],
       "created": 1792248064154
+    },
+    {
+      "id": "p-mvcihq5g",
+      "name": "JTC MTUNGI 2.1CH HOMETHEATRE",
+      "cat": "Sound",
+      "brand": "JTC",
+      "price": 11500,
+      "sale": 8500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Channel Setup: 2.1 Channel (One 6.5-inch Subwoofer + Two 3-inch Satellite Speakers)\n• Output Power: 90W (Subwoofer) + 15W x 2 (Satellites)\n• Peak Power (PMPO): 12,000W\n• Connectivity: Bluetooth, USB port, SD card reader, FM Radio, and Aux Input\n• Extras: LED display, remote control, and a free microphone included in many retail packages",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcihq5g-1-mvcihxxo.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "12000"
+        ]
+      ],
+      "created": 1792248516772
     }
   ]
 }
