@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:35:55.791Z",
+  "updated": "2026-10-17T13:39:26.954Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcfww4m",
+      "name": "Hisense Soundbar HS3100",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 22500,
+      "sale": 19500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Channel Configuration: 3.1 channels with 6 built-in speakers (including a dedicated center speaker for clear dialogue) and dual tweeters.\n• Subwoofer: 6.5-inch wireless subwoofer with a frequency range of 40 Hz to 200 Hz.\n• Audio Technology: Dolby Digital Plus, Dolby Audio, and DTS Virtual:X support.\n• Connectivity: Bluetooth 5.3, HDMI ARC / eARC, USB, Optical, and PC/Aux audio inputs.\n• Special Features: Easy Play 2.0 / EZ Play integration for control via your TV remote and customized sound modes (Movie, Music, News).\n• Upgrade Limitation: This system is not upgradeable; the wireless subwoofer lacks the auxiliary ports needed to add rear surround speakers later",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcfww4m-1-mvcfxdu2.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "480"
+        ]
+      ],
+      "created": 1792244185510
+    },
     {
       "id": "p-mvcfpr98",
       "name": "Hisense Soundbar HS1800",
