@@ -1,289 +1,56 @@
 {
   "version": 1,
-  "updated": "2026-10-17T12:23:37.858Z",
-  "categories": [],
+  "updated": "2026-10-17T12:27:35.223Z",
+  "categories": [
+    {
+      "name": "Gaming Products",
+      "specs": []
+    },
+    {
+      "name": "Networking Products",
+      "specs": []
+    }
+  ],
   "products": [
     {
-      "id": "p-mvcd6lbc",
-      "name": "Lenovo Thinkpad X250",
-      "cat": "Laptops",
-      "brand": "lenovo",
-      "price": 20500,
-      "sale": 18500,
+      "id": "p-mvcd5dfo",
+      "name": "Xpon Router",
+      "cat": "Networking Products",
+      "brand": "Huawei",
+      "price": 2800,
+      "sale": 2150,
       "qty": 10,
       "min": 2,
-      "desc": "Key Specifications\n\n• Display: 12.5-inch anti-glare screen with options ranging from HD (1366 x 768) to FHD (1920 x 1080 IPS, optional touch).\n• Processor: Intel 5th Generation Core processors (typically Intel Core i3, i5-5300U, or i7), with some refurbished listings noting 6th Gen variants.\n• Graphics: Integrated Intel HD Graphics 5500.\n• Memory (RAM): Up to 8GB to 16GB DDR3L via a single RAM slot.\n• Storage: 2.5-inch SATA SSD/HDD (commonly 256GB SSD) plus an M.2 slot option.\n• Battery: Power Bridge dual-battery system with a built-in internal battery and a hot-swappable external 3-cell or 6-cell battery.\n• Ports: 2 x USB 3.0, VGA, Mini DisplayPort, RJ-45 Ethernet, SD card reader, and a 3.5mm audio jack.\n• Weight: Approximately 2.9 to 3.6 lbs (1.31 to 1.66 kg) depending on the battery configuration.",
+      "desc": "The Huawei XPON fiber router is a high-performance home gateway designed for FTTH (Fiber to the Home) ultra-broadband access. It serves as the central hub of a smart home, converting optical signals into wired and wireless network connectivity for seamless internet, HD video, and VoIP services. Engineered for gigabit fiber environments, this device supports plug-and-play deployment and remote management, making it ideal for users who require stable, high-speed connectivity for bandwidth-intensive applications like 4K streaming, online gaming, and remote work. Its dual-band Wi-Fi ensures comprehensive coverage, while the inclusion of voice ports and multiple Ethernet interfaces provides versatile connectivity for legacy phones, set-top boxes, and computers alike.",
       "featured": false,
       "images": [
-        "/images/shop/p-mvcd6lbc-1-mvcd6z6y.jpg"
+        "/images/shop/p-mvcd5dfo-1-mvcdg5db.jpg"
       ],
-      "specs": [
-        [
-          "processor",
-          "Intel Core i5  5th Generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ]
-      ],
-      "created": 1792239599208
+      "specs": [],
+      "created": 1792239542340
     },
     {
-      "id": "p-mvcd1sxi",
-      "name": "HP Elitebook 840 g8",
-      "cat": "Laptops",
-      "brand": "hp",
-      "price": 40000,
-      "sale": 37000,
+      "id": "p-mvcbvyiy",
+      "name": "Ps4 Slim.",
+      "cat": "Gaming Products",
+      "brand": "Sony",
+      "price": 30000,
+      "sale": 28000,
       "qty": 10,
       "min": 2,
-      "desc": "Key Specifications\n\n• Processor: 11th Gen Intel Core i5 (e.g., i5-1135G7, i5-1145G7) or Intel Core i7 (e.g., i7-1165G7)\n• Display: 14-inch diagonal Full HD (1920 x 1080) anti-glare IPS display (options available up to 400 nits or touchscreen)\n• Graphics: Integrated Intel Iris Xe Graphics\n• Memory & Storage: Configurable from 8GB up to 64GB DDR4 RAM; M.2 NVMe SSD storage ranging from 256GB to 512GB\n• Operating System: Windows 10 Pro or Windows 11 Pro",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvcd1sxi-1-mvcd2iax.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "Intel Core i5   11th generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ],
-        [
-          "touchscreen",
-          "enabled"
-        ]
-      ],
-      "created": 1792239375798
-    },
-    {
-      "id": "p-mvccqcyk",
-      "name": "Lenovo X380 Yoga",
-      "cat": "Laptops",
-      "brand": "lenovo",
-      "price": 32500,
-      "sale": 29500,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Display: 13.3-inch Full HD (1920 x 1080) IPS touchscreen with anti-reflective/anti-smudge properties and 300 nits brightness.\n• Processor Options: 8th Gen Intel Core i5 or i7 (such as the i5-8250U, i5-8350U, or i7-8650U).\n• Graphics: Integrated Intel UHD Graphics 620.\n• Memory (RAM): 8GB or 16GB DDR4 (soldered onboard and not upgradeable post-purchase).\n• Storage: M.2 PCIe NVMe SSD (typically 256GB or 512GB).\n• Ports: USB-C / Thunderbolt 3, USB 3.1 Type-A, HDMI, a microSD card slot (with mobile broadband/SIM support on select models), and an audio combo jack.\n• Security & Extras: Match-on-chip touch fingerprint reader, optional IR camera for Windows Hello facial recognition, and a built-in rechargeable ThinkPad Pen Pro.\n• Weight & Build: Weighs approximately 3.08 lbs (1.4 kg) with a MIL-STD-810G certified durable chassis.",
+      "desc": "This Ps4 slim is chipped and comes with 7 games preinstalled and 2 gaming pads",
       "featured": true,
       "images": [
-        "/images/shop/p-mvccqcyk-1-mvccqkca.jpg"
+        "/images/shop/p-mvcbvyiy-1-mvcc15nv.jpg",
+        "/images/shop/p-mvcbvyiy-2-mvcc17um.jpg"
       ],
       "specs": [
         [
-          "processor",
-          "️Intel Core i5  8th Generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ],
-        [
-          "touchscreen",
-          "enabled"
+          "Ps4 slim",
+          "chipped with 7 games"
         ]
       ],
-      "created": 1792238841884
-    },
-    {
-      "id": "p-mvccmbsd",
-      "name": "Lenovo X390 Yoga",
-      "cat": "Laptops",
-      "brand": "lenovo",
-      "price": 33000,
-      "sale": 30000,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Display: 13.3-inch Full HD (1920 x 1080) IPS touchscreen with anti-reflective/anti-smudge coating\n• Processor: 8th Generation Intel Core i5 or i7 (up to Intel Core i7-8665U / i7-8565U)\n• Memory (RAM): 8GB or 16GB (soldered on-board)\n• Storage: 256GB or 512GB PCIe NVMe SSD\n• Graphics: Intel UHD Graphics 620\n• Operating System: Windows 10 Pro or Windows 11 Pro\n• Weight: Approximately 1.29 kg to 1.3 kg\n• Extras: Built-in garaged stylus pen (Lenovo Active Pen), backlit keyboard, fingerprint reader, and 720p webcam with physical privacy shutte",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvccmbsd-1-mvccmnr0.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "️Intel Core i5  8th Generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ],
-        [
-          "touchscreen",
-          "enabled"
-        ]
-      ],
-      "created": 1792238653741
-    },
-    {
-      "id": "p-mvcc1gv3",
-      "name": "HP Elitebook 840 G3",
-      "cat": "Laptops",
-      "brand": "hp",
-      "price": 27000,
-      "sale": 24000,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Processor: Intel Core i5 (6200U or 6300U) or Intel Core i7 (6500U)\n• Memory: 8GB DDR4 RAM, upgradable up to 32GB\n• Storage: 256GB SSD (standard) or 500GB HDD; supports further upgrades\n• Display: 14-inch diagonal HD or Full HD (1920 x 1080), with optional touch screen configurations\n• Graphics: Integrated Intel HD Graphics 520\n• Operating System: Windows 10 Pro",
-      "featured": true,
-      "images": [
-        "/images/shop/p-mvcc1gv3-1-mvcc2k81.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "intel Core i5 ✅️6th Generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ]
-      ],
-      "created": 1792237680543
-    },
-    {
-      "id": "p-mvcbvyz7",
-      "name": "HP Elitebook 840 g5",
-      "cat": "Laptops",
-      "brand": "hp",
-      "price": 32500,
-      "sale": 29500,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Display: 14-inch diagonal Full HD (1920 x 1080) anti-glare IPS, available in non-touch (250 nits) and touchscreen variants.\n• Processor (CPU): 8th Generation Intel Core i5 (such as i5-8250U, i5-8350U) or Intel Core i7 (such as i7-8500U, i7-8650U) quad-core processors.\n• Graphics (GPU): Integrated Intel UHD Graphics 620 (no discrete GPU option).\n• Memory (RAM): Configurable from 8GB up to 16GB (or expandable up to 32GB DDR4).\n• Storage: 256GB or 512GB PCIe NVMe M.2 SSD.\n• Weight & Build: Weighs approximately 3.25 lbs (1.2–1.5 kg) with a silver aluminum body.\n• Audio & Video: Bang & Olufsen upward-firing speakers, HD webcam with privacy shutter, and optional IR camera for Windows Hello facial recognition.\n• Ports & Connectivity: USB Type-C with Thunderbolt support, USB 3.0 / 3.1 Type-A ports, HDMI 1.4b, RJ-45 Ethernet, headphone/microphone combo jack, and optional WWAN/LTE slot.\n• Security: Fingerprint reader and TPM 2.0",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvcbvyz7-1-mvcbwfa2.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "️Intel Core i5   8th Generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ]
-      ],
-      "created": 1792237424083
-    },
-    {
-      "id": "p-mvcbnjmq",
-      "name": "HP Elitebook 830 G8",
-      "cat": "Laptops",
-      "brand": "hp",
-      "price": 49000,
-      "sale": 46000,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Processor: 11th Gen Intel Core i5 or i7 (such as the i5-1135G7, i7-1165G7, or i7-1185G7)\n• RAM: 8GB, 16GB, or up to 32GB DDR4\n• Storage: 256GB, 512GB, or higher NVMe M.2 SSD\n• Display: 13.3-inch Full HD (1920 × 1080) anti-glare IPS display (available in standard clamshell or x360 360-degree touchscreen convertible variants)\n• Graphics: Integrated Intel Iris Xe Graphics\n• Ports: 2 × Thunderbolt 4 (USB-C), 2 × USB-A 3.2, 1 × HDMI 2.0, and a headphone/microphone combo jack\n• Connectivity: Wi-Fi 6 (AX201) and Bluetooth 5.0\n• Weight & Build: Starts around 1.26 kg with a silver aluminum chassis\n• Security & Audio: Fingerprint reader, IR camera (optional), TPM 2.0, HP Sure Start, and Bang & Olufsen speakers",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvcbnjmq-1-mvcbo0n2.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "Intel Core i7  11th generation"
-        ],
-        [
-          "ram",
-          "16gb"
-        ],
-        [
-          "rom",
-          "512gb"
-        ],
-        [
-          "touchscreen",
-          "enabled"
-        ]
-      ],
-      "created": 1792237030946
-    },
-    {
-      "id": "p-mvcbe0kl",
-      "name": "Dell Yoga 5300",
-      "cat": "Laptops",
-      "brand": "Dell",
-      "price": 32500,
-      "sale": 29485,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications & Features\n\n• Display: 13.3-inch Full HD (1920 × 1080) IPS anti-glare or touchscreen display.\n• Processor (CPU): Options range from 8th Gen Intel Core i5 (e.g., i5-8265U, i5-8365U) up to 8th Gen Intel Core i7-8665U vPro, and later 10th Gen Core i5 options.\n• Memory (RAM): 2 upgradeable DDR4 SODIMM slots (typically configured with 8GB to 16GB, supporting up to 32GB–64GB).\n• Storage: M.2 NVMe SSD (typically 256GB to 512GB).\n• Graphics: Integrated Intel UHD Graphics 620.\n• Ports: USB-A 3.1, USB-C (with optional Thunderbolt 3), HDMI 1.4, micro-SD card reader, audio jack, and optional RJ-45 Ethernet.\n• Build & Security: Polycarbonate/carbon-fiber reinforced chassis (MIL-STD 810G certified), optional fingerprint reader, IR camera for Windows Hello, and TPM 2.0",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvcbe0kl-1-mvcbe738.jpg"
-      ],
-      "specs": [
-        [
-          "processor",
-          "intel Core i5  8th generation"
-        ],
-        [
-          "ram",
-          "8gb"
-        ],
-        [
-          "rom",
-          "256gb"
-        ],
-        [
-          "touchscreen",
-          "enabled"
-        ]
-      ],
-      "created": 1792236586341
-    },
-    {
-      "id": "p-mvcba76i",
-      "name": "Decho 15Kg Top Load Fully Automated",
-      "cat": "Appliances",
-      "brand": "Decho",
-      "price": 40500,
-      "sale": 37500,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Features\n\n• Capacity: 10Kg wash capacity suitable for everyday household laundry loads.\n• Fully Automatic Operation: Manages washing, rinsing, and spinning in a single, seamless cycle without manual intervention.\n• Top-Load Design: Allows for easy, ergonomic loading and unloading without bending, plus the flexibility to add clothes mid-cycle.\n• Wash Programs: Multiple settings to accommodate different fabric types, from delicates to heavily soiled clothes.\n• Additional Functions: Features automatic water level adjustment, a quick-wash mode for lightly soiled items, an air-dry function, an LED display, and a child lock.",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvcba76i-1-mvcbafvk.jpg"
-      ],
-      "specs": [
-        [
-          "kg",
-          "15"
-        ]
-      ],
-      "created": 1792236408282
+      "created": 1792237423498
     },
     {
       "id": "p-mvcb4pyc",
