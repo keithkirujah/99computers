@@ -16,7 +16,7 @@ const toast = m => {
   let t = $('.toast');
   if (!t) { t = document.createElement('div'); t.className = 'toast glass'; t.setAttribute('role', 'status'); document.body.append(t); }
   t.textContent = m; t.classList.add('on');
-  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2600);
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 3000);
 };
 
 const mem = {};
@@ -207,12 +207,47 @@ async function loadCatalog() {
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
-async function saveCatalog(msg = 'Update catalog from console') {
-  const j = { version: 1, updated: new Date().toISOString(), categories: S.cats, products: S.products };
-  const file = await gh.readFile(CATALOG_PATH);
-  await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), msg, file ? file.sha : null);
-  toast('Published. Live site updates in ~30s.');
+// --- BATCH SAVING (60 SECONDS) ---
+let saveTimeout = null;
+let pendingMsg = '';
+function queueSave(msg) {
+  clearTimeout(saveTimeout);
+  pendingMsg = msg;
+  toast('Saving in 60 seconds...');
+  
+  // Update the UI badge
+  let syncEl = $('#sync');
+  if (!syncEl) {
+    syncEl = document.createElement('span');
+    syncEl.id = 'sync';
+    syncEl.className = 'pill2';
+    $('.top').insertBefore(syncEl, $('.top').children[1]);
+  }
+  syncEl.hidden = false;
+  syncEl.textContent = 'Publishing in 60s...';
+  syncEl.style.background = 'var(--sig-t)';
+  syncEl.style.color = '#1a0d05';
+
+  saveTimeout = setTimeout(async () => {
+    syncEl.textContent = 'Publishing...';
+    syncEl.style.background = 'var(--gl2)';
+    syncEl.style.color = 'var(--ink)';
+    
+    try {
+      const j = { version: 1, updated: new Date().toISOString(), categories: S.cats, products: S.products };
+      const file = await gh.readFile(CATALOG_PATH);
+      await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), pendingMsg, file ? file.sha : null);
+      
+      toast('Published. Live site updates in ~30s.');
+      syncEl.textContent = 'Live on your website';
+      setTimeout(() => { syncEl.hidden = true; }, 3000);
+    } catch (e) {
+      toast('Could not publish: ' + e.message);
+      syncEl.hidden = true;
+    }
+  }, 60000); // 60 seconds
 }
+// --------------------------
 
 const kesF = n => 'KSh ' + Number(n).toLocaleString('en-KE');
 const title = { overview: 'Overview', products: 'Products', settings: 'Settings' };
@@ -238,7 +273,7 @@ function viewOverview() {
       <ol class="steps">
         <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
         <li>Drop photos — they resize and upload to your GitHub repo automatically.</li>
-        <li>Press Save. Vercel rebuilds the site in about 30 seconds.</li>
+        <li>Press Save. The console waits 60 seconds before publishing to Vercel.</li>
         <li>Your product is live at <b>99computers.co.ke</b>.</li>
       </ol>
     </article>
@@ -314,7 +349,6 @@ function productForm(p) {
   
   const f = $('form', m.el), specs = $('#specs', m.el);
   
-  // Category toggle logic
   const catSel = f.elements.cat, newCatInput = $('#m-newcat', m.el);
   catSel.addEventListener('change', () => {
     if (catSel.value === '__new') {
@@ -331,6 +365,7 @@ function productForm(p) {
 
   const draw = () => { $('#tg', m.el).innerHTML = imgs.map((r, i) => `<div class="tn"><img src="${esc(r)}" alt=""><span class="mk">${i === 0 ? 'Main' : 'Photo ' + (i + 1)}</span><span class="tb"><button type="button" class="mini" data-p="rm" data-i="${i}">Remove</button></span></div>`).join(''); };
   draw();
+  
   f.addEventListener('click', async e => {
     const b = e.target.closest('[data-p]'); if (!b) return;
     const k = b.dataset.p, i = +b.dataset.i;
@@ -339,6 +374,7 @@ function productForm(p) {
     else if (k === 'sprm') b.closest('.sprow').remove();
     else if (k === 'rm') { imgs.splice(i, 1); draw(); }
   });
+  
   $('#pfile', m.el).addEventListener('change', async e => {
     const files = [...e.target.files]; e.target.value = '';
     for (const file of files) {
@@ -365,7 +401,6 @@ function productForm(p) {
     if (!d.cat || d.cat === '__new') {
       if (!d.newcat || d.newcat.trim().length < 2) { toast('Enter a category'); return; }
       d.cat = d.newcat.trim();
-      // Add to S.cats if not already there
       if (!S.cats.some(c => c.name.toLowerCase() === d.cat.toLowerCase())) {
         S.cats.push({ name: d.cat, specs: [] });
       }
@@ -374,13 +409,11 @@ function productForm(p) {
     if (d.sale && !(+d.sale > 0 && +d.sale < +d.price)) { toast('Sale must be below the price'); return; }
     const sps = $$('.sprow', specs).map(r => { const inp = $$('input', r); return [inp[0].value.trim(), inp[1].value.trim()]; }).filter(s => s[0] && s[1]);
     const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
-    try {
-      toast('Publishing to GitHub...');
-      if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
-      await saveCatalog((isNew ? 'Add product: ' : 'Update product: ') + np.name);
-      m.close();
-      render();
-    } catch (err) { toast('Could not publish: ' + err.message); }
+    
+    if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
+    queueSave((isNew ? 'Add product: ' : 'Update product: ') + np.name);
+    m.close();
+    render();
   });
 }
 
@@ -391,7 +424,9 @@ const A = {
     const p = S.products.find(x => x.id === el.dataset.id);
     if (!p || !confirm('Delete "' + p.name + '"?')) return;
     S.products = S.products.filter(x => x.id !== p.id);
-    try { await saveCatalog('Delete product: ' + p.name); render(); toast('Deleted'); } catch (e) { toast('Could not delete: ' + e.message); }
+    queueSave('Delete product: ' + p.name);
+    render(); 
+    toast('Deleted');
   },
   async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
   async passreset() { const np = prompt('New passphrase (min 6 chars):'); if (!np || np.length < 6) return; localStorage.setItem('n99.console.pass', JSON.stringify(np)); location.reload(); },
