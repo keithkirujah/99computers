@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:24:57.691Z",
+  "updated": "2026-10-17T13:29:14.397Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcfjz36",
+      "name": "SONY S60",
+      "cat": "Sound",
+      "brand": "sony",
+      "price": 80000,
+      "sale": 77000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features & Specifications\n\n• Channel Configuration: 5.1-channel system featuring 10 total speakers (soundbar, a dedicated subwoofer, two rear satellite speakers, and a wireless amplifier box for the rear speakers).\n• Audio Technology: Supports Dolby Atmos and DTS:X, paired with Sony's Vertical Surround Engine, S-Force PRO Front Surround, and Multi Stereo mode.\n• Connectivity: Bluetooth 5.3 (SBC, AAC), HDMI eARC, optical input, analog AUX, and USB playback.\n• Smart Integration: Compatible with the BRAVIA Connect smartphone app and Voice Zoom 3 enhancement when paired with a compatible Sony",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcfjz36-1-mvcfka6i.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "1000"
+        ]
+      ],
+      "created": 1792243582818
+    },
     {
       "id": "p-mvcfditx",
       "name": "SONY S400",
