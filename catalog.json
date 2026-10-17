@@ -1,8 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-10-17T12:19:30.162Z",
+  "updated": "2026-10-17T12:23:37.858Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcd6lbc",
+      "name": "Lenovo Thinkpad X250",
+      "cat": "Laptops",
+      "brand": "lenovo",
+      "price": 20500,
+      "sale": 18500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Display: 12.5-inch anti-glare screen with options ranging from HD (1366 x 768) to FHD (1920 x 1080 IPS, optional touch).\n• Processor: Intel 5th Generation Core processors (typically Intel Core i3, i5-5300U, or i7), with some refurbished listings noting 6th Gen variants.\n• Graphics: Integrated Intel HD Graphics 5500.\n• Memory (RAM): Up to 8GB to 16GB DDR3L via a single RAM slot.\n• Storage: 2.5-inch SATA SSD/HDD (commonly 256GB SSD) plus an M.2 slot option.\n• Battery: Power Bridge dual-battery system with a built-in internal battery and a hot-swappable external 3-cell or 6-cell battery.\n• Ports: 2 x USB 3.0, VGA, Mini DisplayPort, RJ-45 Ethernet, SD card reader, and a 3.5mm audio jack.\n• Weight: Approximately 2.9 to 3.6 lbs (1.31 to 1.66 kg) depending on the battery configuration.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcd6lbc-1-mvcd6z6y.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "Intel Core i5  5th Generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ]
+      ],
+      "created": 1792239599208
+    },
     {
       "id": "p-mvcd1sxi",
       "name": "HP Elitebook 840 g8",
