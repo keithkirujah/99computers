@@ -1,8 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:47:28.734Z",
+  "updated": "2026-10-17T11:58:38.301Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcc1gv3",
+      "name": "HP Elitebook 840 G3",
+      "cat": "Laptops",
+      "brand": "hp",
+      "price": 27000,
+      "sale": 24000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Processor: Intel Core i5 (6200U or 6300U) or Intel Core i7 (6500U)\n• Memory: 8GB DDR4 RAM, upgradable up to 32GB\n• Storage: 256GB SSD (standard) or 500GB HDD; supports further upgrades\n• Display: 14-inch diagonal HD or Full HD (1920 x 1080), with optional touch screen configurations\n• Graphics: Integrated Intel HD Graphics 520\n• Operating System: Windows 10 Pro",
+      "featured": true,
+      "images": [
+        "/images/shop/p-mvcc1gv3-1-mvcc2k81.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "intel Core i5 ✅️6th Generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ]
+      ],
+      "created": 1792237680543
+    },
     {
       "id": "p-mvcbvyz7",
       "name": "HP Elitebook 840 g5",
