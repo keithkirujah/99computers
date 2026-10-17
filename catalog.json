@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:35:43.327Z",
+  "updated": "2026-10-17T16:38:41.109Z",
   "categories": [],
   "products": [
     {
@@ -1411,6 +1411,23 @@
       ],
       "specs": [],
       "created": 1792254665760
+    },
+    {
+      "id": "p-mvcmamiy",
+      "name": "Ailyons ELP2409K",
+      "cat": "Sound",
+      "brand": "alyons 2.1",
+      "price": 4000,
+      "sale": 3500,
+      "qty": 1,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcmamiy-1-mvcmba7t.jpg"
+      ],
+      "specs": [],
+      "created": 1792254903946
     }
   ]
 }
