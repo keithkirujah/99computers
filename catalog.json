@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T08:50:50.768Z",
+  "updated": "2026-10-17T09:15:06.555Z",
   "categories": [],
   "products": [
     {
@@ -109,23 +109,6 @@
       "created": 1792178523606
     },
     {
-      "id": "p-mvbcrx1x",
-      "name": "Flashdisks",
-      "cat": "Laptops",
-      "brand": "Hp",
-      "price": 900,
-      "sale": 850,
-      "qty": 1,
-      "min": 2,
-      "desc": "",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbcrx1x-1-mvbcs503.jpg"
-      ],
-      "specs": [],
-      "created": 1792178448405
-    },
-    {
       "id": "p-mvbcosli",
       "name": "Flashdisks",
       "cat": "Accessories",
@@ -168,50 +151,6 @@
         ]
       ],
       "created": 1792177937284
-    },
-    {
-      "id": "p-mvbc3gze",
-      "name": "Hisense Fridge",
-      "cat": "Appliances",
-      "brand": "Hisense",
-      "price": 25000,
-      "sale": 20000,
-      "qty": 1,
-      "min": 2,
-      "desc": "",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbc3gze-1-mvbc3m8k.jpg"
-      ],
-      "specs": [
-        [
-          "Model",
-          "REF091DR"
-        ]
-      ],
-      "created": 1792177307834
-    },
-    {
-      "id": "p-mvbc3gze",
-      "name": "Hisense Fridge",
-      "cat": "Appliances",
-      "brand": "Hisense",
-      "price": 25000,
-      "sale": 20000,
-      "qty": 1,
-      "min": 2,
-      "desc": "",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvbc3gze-1-mvbc3m8k.jpg"
-      ],
-      "specs": [
-        [
-          "Model",
-          "REF091DR"
-        ]
-      ],
-      "created": 1792177307834
     },
     {
       "id": "p-mvbbvqst",
