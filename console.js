@@ -219,8 +219,6 @@ function queueSave(msg) {
   pendingMsg = msg;
   timeLeft = 300; // 5 minutes
   
-  // UI Updates
-  toast('Saving in 5 minutes...');
   let syncEl = $('#sync');
   if (!syncEl) {
     syncEl = document.createElement('span');
@@ -242,7 +240,6 @@ function queueSave(msg) {
   updateCountdown();
   countdownInterval = setInterval(updateCountdown, 1000);
 
-  // The actual push
   saveTimeout = setTimeout(async () => {
     clearInterval(countdownInterval);
     syncEl.textContent = 'Publishing...';
@@ -323,6 +320,15 @@ function rows() {
 
 function viewSettings() {
   return `<div class="dash">
+    <article class="glass card s12"><div class="hd"><h2>Restore / Import Catalog</h2></div>
+      <p class="hint">If products go missing, paste a saved <code>catalog.json</code> backup here to overwrite the live data.</p>
+      <div class="fld" style="margin-top:14px">
+        <textarea id="restore-data" placeholder='Paste your backup JSON here...' style="height:120px;font-family:monospace;font-size:12px"></textarea>
+      </div>
+      <div class="btns">
+        <button class="btn p" type="button" data-a="restore">Restore Catalog</button>
+      </div>
+    </article>
     <article class="glass card s12"><div class="hd"><h2>GitHub token</h2><span class="st a">Connected</span></div>
       <p class="hint">Your token is stored on this device only. If you need to change or revoke it, go to GitHub → Settings → Developer settings → Fine-grained tokens.</p>
       <div class="btns" style="margin-top:14px"><button class="btn" type="button" data-a="tokreset">${ic('refresh')}Replace token</button><button class="btn" type="button" data-a="passreset">${ic('refresh')}Change passphrase</button></div>
@@ -443,6 +449,21 @@ const A = {
     queueSave('Delete product: ' + p.name);
     render(); 
     toast('Deleted');
+  },
+  async restore() {
+    const raw = $('#restore-data').value.trim();
+    if (!raw) { toast('Paste the backup JSON first'); return; }
+    try {
+      const j = JSON.parse(raw);
+      if (!j.products || !Array.isArray(j.products)) throw Error('Invalid format');
+      S.products = j.products;
+      S.cats = j.categories || [];
+      await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), 'Restore catalog from backup');
+      toast('Restored successfully!');
+      render();
+    } catch (e) {
+      toast('Restore failed: ' + e.message);
+    }
   },
   async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
   async passreset() { const np = prompt('New passphrase (min 6 chars):'); if (!np || np.length < 6) return; localStorage.setItem('n99.console.pass', JSON.stringify(np)); location.reload(); },
