@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:19:05.563Z",
+  "updated": "2026-10-17T16:25:55.408Z",
   "categories": [],
   "products": [
     {
@@ -1355,6 +1355,23 @@
       ],
       "specs": [],
       "created": 1792253720057
+    },
+    {
+      "id": "p-mvclsvyj",
+      "name": "Sonar electric kettle",
+      "cat": "Appliances",
+      "brand": "SONAR",
+      "price": 1100,
+      "sale": 800,
+      "qty": 11,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Capacities: Available in 1.8L and 2.0L models (with select variants starting around 0.8L).\n• Power: 1500W heating element for rapid boiling.\n• Materials: Food-grade stainless steel or heat-resistant plastic (such as the Sonar X2 and P2 models).\n• Safety Features: Automatic shut-off once water boils, plus boil-dry and overheating protection.\n• Design: Cordless body with a 360° rotational base, wide mouth for easy cleaning, and a 1.5-meter power cord.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvclsvyj-1-mvclt32t.jpg"
+      ],
+      "specs": [],
+      "created": 1792254076363
     }
   ]
 }
