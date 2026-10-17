@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:38:41.109Z",
+  "updated": "2026-10-17T16:41:20.821Z",
   "categories": [],
   "products": [
     {
@@ -1428,6 +1428,23 @@
       ],
       "specs": [],
       "created": 1792254903946
+    },
+    {
+      "id": "p-mvcmem2b",
+      "name": "ALYONS",
+      "cat": "Sound",
+      "brand": "alyons 2.1",
+      "price": 4000,
+      "sale": 3500,
+      "qty": 10,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcmem2b-1-mvcmfeax.jpg"
+      ],
+      "specs": [],
+      "created": 1792255089971
     }
   ]
 }
