@@ -139,7 +139,8 @@ function hydrate(rootEl) {
 const Catalog = {
   async load() {
     try {
-      const r = await fetch('/catalog.json', { cache: 'no-cache' });
+      // Added ?t=Date.now() to bust the cache so clients always see fresh products immediately
+      const r = await fetch('/catalog.json?t=' + Date.now(), { cache: 'no-store' });
       if (r.ok) {
         const j = await r.json();
         if (j && Array.isArray(j.products)) return { products: j.products, cats: Array.isArray(j.categories) && j.categories.length ? j.categories : null };
@@ -264,7 +265,7 @@ if (document.body.dataset.page === 'site') {
     if (reduce) return;
     setInterval(() => {
       $$('.pimg.multi').forEach(el => {
-        if (el.matches(':hover')) return; // Pause if hovered
+        if (el.matches(':hover')) return;
         const imgs = $$('img', el);
         if (imgs.length < 2) return;
         let cur = imgs.findIndex(i => i.classList.contains('active'));
