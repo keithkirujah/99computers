@@ -1,23 +1,8 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:14:42.824Z",
+  "updated": "2026-10-17T10:16:17.321Z",
   "categories": [],
   "products": [
-    {
-      "id": "p-mvc8fzty",
-      "name": "Portable Flexboom",
-      "cat": "Sound",
-      "brand": "hisense",
-      "price": 18000,
-      "sale": 15000,
-      "qty": 1,
-      "min": 2,
-      "desc": "Portable Flexboom",
-      "featured": false,
-      "images": [],
-      "specs": [],
-      "created": 1792231639846
-    },
     {
       "id": "p-mvbdoxtj",
       "name": "Type c cable",
