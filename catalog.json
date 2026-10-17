@@ -1,8 +1,38 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:02:48.553Z",
+  "updated": "2026-10-17T13:08:33.006Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcerdv5",
+      "name": "HP ProBook x360 G6",
+      "cat": "Laptops",
+      "brand": "hp",
+      "price": 28000,
+      "sale": 25000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Processor: 10th Generation Intel Core i3 (such as the i3-10110Y) or Intel Core i5 (such as the i5-10210Y)\n• Display: 11.6-inch diagonal HD (1366 x 768) touchscreen with a 360-degree convertible hinge (laptop, tablet, tent, and stand modes)\n• Memory (RAM): 4GB or 8GB DDR4 (note: RAM is typically soldered and non-upgradeable on some configurations)\n• Storage: 128GB or 256GB NVMe SSD\n• Graphics: Integrated Intel UHD Graphics\n• Operating System: Windows 10 Pro or Windows 11 Pro\n• Design & Durability: Reinforced rubber bumpers, spill-resistant keyboard with HP Easy Clean, and a weight of roughly 1.4 kg (3.2 lbs)\n• Ports: USB Type-A (USB 3.2 Gen 1) and USB Type-C with power delivery support",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcerdv5-1-mvcerlph.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "Intel Core i5   10th Generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ]
+      ],
+      "created": 1792242248945
+    },
     {
       "id": "p-mvceit93",
       "name": "HP Elitebook 840 g7",
