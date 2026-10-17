@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:08:33.006Z",
+  "updated": "2026-10-17T13:21:05.310Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcez8uw",
+      "name": "SONY S20R",
+      "cat": "Sound",
+      "brand": "sony",
+      "price": 36500,
+      "sale": 33498,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Configuration: 5.1ch system with a 3-channel soundbar, wired external subwoofer, and two wired rear speakers.\n• Power Output: 400W total power.\n• Audio Tech: Dolby Digital / Dolby Audio support.\n• Connectivity: Bluetooth for wireless streaming, USB port for memory stick playback, HDMI ARC, optical input, and analogue input.\n• Sound Modes: Auto, Standard, Cinema, Music, Night, and Voice.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcez8uw-1-mvcezh4h.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "400"
+        ]
+      ],
+      "created": 1792242615704
+    },
     {
       "id": "p-mvcerdv5",
       "name": "HP ProBook x360 G6",
