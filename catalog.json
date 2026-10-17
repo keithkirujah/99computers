@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:20:02.699Z",
+  "updated": "2026-10-17T15:25:48.997Z",
   "categories": [],
   "products": [
     {
@@ -1221,6 +1221,28 @@
         ]
       ],
       "created": 1792250160972
+    },
+    {
+      "id": "p-mvcjlsqm",
+      "name": "Vitron V535SB 5.1 Wired Soundbar System",
+      "cat": "Sound",
+      "brand": "vitron",
+      "price": 10400,
+      "sale": 7400,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Audio Output: 115W RMS total output (11,500W PMPO)\n• Configuration: True 5.1-channel surround sound with a soundbar, wired subwoofer, and satellite speakers\n• Frequency Response: 40Hz – 20kHz\n• Connectivity: Bluetooth, HDMI (ARC), USB port, Optical, Coaxial, and AUX (3.5mm) inputs\n• Extra Features: Built-in FM radio, LED digital display, and a remote controll",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcjlsqm-1-mvcjmg22.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "115"
+        ]
+      ],
+      "created": 1792250386366
     }
   ]
 }
