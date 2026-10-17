@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T15:42:32.072Z",
+  "updated": "2026-10-17T15:51:00.565Z",
   "categories": [],
   "products": [
     {
@@ -1287,6 +1287,23 @@
         ]
       ],
       "created": 1792251354049
+    },
+    {
+      "id": "p-mvckhgcy",
+      "name": "Olelon 2 Burner Glass Tabletop Cooke",
+      "cat": "Appliances",
+      "brand": "Olelon",
+      "price": 5200,
+      "sale": 2200,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Design: Sleek, heat-resistant tempered glass top that is smooth and easy to wipe clean.\n• Burners: Two high-efficiency or infrared-style burners allowing you to cook multiple meals simultaneously.\n• Ignition: Built-in automatic ignition system for quick, match-free lighting.\n• Portability: Lightweight, compact footprint with anti-slip legs for stability on tables or counters.",
+      "featured": true,
+      "images": [
+        "/images/shop/p-mvckhgcy-1-mvckicrh.jpg"
+      ],
+      "specs": [],
+      "created": 1792251863314
     }
   ]
 }
