@@ -1,25 +1,8 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:17:50.080Z",
+  "updated": "2026-10-17T10:19:59.890Z",
   "categories": [],
   "products": [
-    {
-      "id": "p-mvc8rkr4",
-      "name": "Portable Flexboom",
-      "cat": "Laptops",
-      "brand": "hisense",
-      "price": 18000,
-      "sale": 15000,
-      "qty": 10,
-      "min": 2,
-      "desc": "Key Specifications\n\n• Audio Output: Up to 80W max power from a two-speaker system with dual passive radiators\n• Battery Life: Up to 20 hours of playback (at 50% volume with extra features off)\n• Charging: USB-C port with fast-charging support (10 minutes of charge yields about 2 hours of playback; 3 hours for a full charge)\n• Durability: IP67 water and dust resistance rating\n• Connectivity: Bluetooth 5.4 / 6.0, True Wireless Stereo (TWS) pairing, and Auracast group sync\n• App & EQ: Customizable via the Hisense ConnectLife App with 6 EQ modes (Music, Relax, Outdoor, Party, Vocal, Custom)\n• Extra Features: Built-in powerbank function, hands-free speakerphone, 3.5mm AUX input, and a detachable carrying strap",
-      "featured": false,
-      "images": [
-        "/images/shop/p-mvc8rkr4-1-mvc8rq8k.jpg"
-      ],
-      "specs": [],
-      "created": 1792232180176
-    },
     {
       "id": "p-mvbdoxtj",
       "name": "Type c cable",
