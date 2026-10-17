@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T13:39:26.954Z",
+  "updated": "2026-10-17T13:46:01.248Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcg5hvr",
+      "name": "Hisense Soundbar HS5100",
+      "cat": "Sound",
+      "brand": "hisense",
+      "price": 26000,
+      "sale": 23000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Channel Configuration: True 5.1 channel system (3 main soundbar drivers, dedicated center speaker, 2 rear surround speakers, and a wireless subwoofer).\n• Power Output: 540W maximum audio power.\n• Subwoofer: 6.5-inch wireless subwoofer for deep bass.\n• Audio Technology: Dolby Audio, Dolby Digital Plus, and DTS Virtual:X for virtualized 3D surround sound.\n• Connectivity: HDMI ARC, Optical input, AUX input, USB playback, and Bluetooth 5.3.\n• Special Features: Voice Enhancement Technology on the center channel, EQ presets (including News and Night modes), and EzPlay / TV Mode integration for compatible Hisense TVs.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcg5hvr-1-mvcg5u36.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "540"
+        ]
+      ],
+      "created": 1792244586951
+    },
     {
       "id": "p-mvcfww4m",
       "name": "Hisense Soundbar HS3100",
