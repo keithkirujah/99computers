@@ -1,35 +1,127 @@
 {
   "version": 1,
-  "updated": "2026-10-17T11:48:10.029Z",
-  "categories": [
-    {
-      "name": "Gaming Products",
-      "specs": []
-    }
-  ],
+  "updated": "2026-10-17T11:47:28.734Z",
+  "categories": [],
   "products": [
     {
-      "id": "p-mvcbvyiy",
-      "name": "Ps4 Slim",
-      "cat": "Gaming Products",
-      "brand": "Sony",
-      "price": 30000,
-      "sale": 28000,
+      "id": "p-mvcbvyz7",
+      "name": "HP Elitebook 840 g5",
+      "cat": "Laptops",
+      "brand": "hp",
+      "price": 32500,
+      "sale": 29500,
       "qty": 10,
       "min": 2,
-      "desc": "This Ps4 slim is chipped and comes with 7 games preinstalled and 2 gaming pads",
-      "featured": true,
+      "desc": "Key Specifications\n\n• Display: 14-inch diagonal Full HD (1920 x 1080) anti-glare IPS, available in non-touch (250 nits) and touchscreen variants.\n• Processor (CPU): 8th Generation Intel Core i5 (such as i5-8250U, i5-8350U) or Intel Core i7 (such as i7-8500U, i7-8650U) quad-core processors.\n• Graphics (GPU): Integrated Intel UHD Graphics 620 (no discrete GPU option).\n• Memory (RAM): Configurable from 8GB up to 16GB (or expandable up to 32GB DDR4).\n• Storage: 256GB or 512GB PCIe NVMe M.2 SSD.\n• Weight & Build: Weighs approximately 3.25 lbs (1.2–1.5 kg) with a silver aluminum body.\n• Audio & Video: Bang & Olufsen upward-firing speakers, HD webcam with privacy shutter, and optional IR camera for Windows Hello facial recognition.\n• Ports & Connectivity: USB Type-C with Thunderbolt support, USB 3.0 / 3.1 Type-A ports, HDMI 1.4b, RJ-45 Ethernet, headphone/microphone combo jack, and optional WWAN/LTE slot.\n• Security: Fingerprint reader and TPM 2.0",
+      "featured": false,
       "images": [
-        "/images/shop/p-mvcbvyiy-1-mvcc15nv.jpg",
-        "/images/shop/p-mvcbvyiy-2-mvcc17um.jpg"
+        "/images/shop/p-mvcbvyz7-1-mvcbwfa2.jpg"
       ],
       "specs": [
         [
-          "Ps4 slim",
-          "chipped with 7 games"
+          "processor",
+          "️Intel Core i5   8th Generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
         ]
       ],
-      "created": 1792237423498
+      "created": 1792237424083
+    },
+    {
+      "id": "p-mvcbnjmq",
+      "name": "HP Elitebook 830 G8",
+      "cat": "Laptops",
+      "brand": "hp",
+      "price": 49000,
+      "sale": 46000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications\n\n• Processor: 11th Gen Intel Core i5 or i7 (such as the i5-1135G7, i7-1165G7, or i7-1185G7)\n• RAM: 8GB, 16GB, or up to 32GB DDR4\n• Storage: 256GB, 512GB, or higher NVMe M.2 SSD\n• Display: 13.3-inch Full HD (1920 × 1080) anti-glare IPS display (available in standard clamshell or x360 360-degree touchscreen convertible variants)\n• Graphics: Integrated Intel Iris Xe Graphics\n• Ports: 2 × Thunderbolt 4 (USB-C), 2 × USB-A 3.2, 1 × HDMI 2.0, and a headphone/microphone combo jack\n• Connectivity: Wi-Fi 6 (AX201) and Bluetooth 5.0\n• Weight & Build: Starts around 1.26 kg with a silver aluminum chassis\n• Security & Audio: Fingerprint reader, IR camera (optional), TPM 2.0, HP Sure Start, and Bang & Olufsen speakers",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcbnjmq-1-mvcbo0n2.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "Intel Core i7  11th generation"
+        ],
+        [
+          "ram",
+          "16gb"
+        ],
+        [
+          "rom",
+          "512gb"
+        ],
+        [
+          "touchscreen",
+          "enabled"
+        ]
+      ],
+      "created": 1792237030946
+    },
+    {
+      "id": "p-mvcbe0kl",
+      "name": "Dell Yoga 5300",
+      "cat": "Laptops",
+      "brand": "Dell",
+      "price": 32500,
+      "sale": 29485,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Display: 13.3-inch Full HD (1920 × 1080) IPS anti-glare or touchscreen display.\n• Processor (CPU): Options range from 8th Gen Intel Core i5 (e.g., i5-8265U, i5-8365U) up to 8th Gen Intel Core i7-8665U vPro, and later 10th Gen Core i5 options.\n• Memory (RAM): 2 upgradeable DDR4 SODIMM slots (typically configured with 8GB to 16GB, supporting up to 32GB–64GB).\n• Storage: M.2 NVMe SSD (typically 256GB to 512GB).\n• Graphics: Integrated Intel UHD Graphics 620.\n• Ports: USB-A 3.1, USB-C (with optional Thunderbolt 3), HDMI 1.4, micro-SD card reader, audio jack, and optional RJ-45 Ethernet.\n• Build & Security: Polycarbonate/carbon-fiber reinforced chassis (MIL-STD 810G certified), optional fingerprint reader, IR camera for Windows Hello, and TPM 2.0",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcbe0kl-1-mvcbe738.jpg"
+      ],
+      "specs": [
+        [
+          "processor",
+          "intel Core i5  8th generation"
+        ],
+        [
+          "ram",
+          "8gb"
+        ],
+        [
+          "rom",
+          "256gb"
+        ],
+        [
+          "touchscreen",
+          "enabled"
+        ]
+      ],
+      "created": 1792236586341
+    },
+    {
+      "id": "p-mvcba76i",
+      "name": "Decho 15Kg Top Load Fully Automated",
+      "cat": "Appliances",
+      "brand": "Decho",
+      "price": 40500,
+      "sale": 37500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Capacity: 10Kg wash capacity suitable for everyday household laundry loads.\n• Fully Automatic Operation: Manages washing, rinsing, and spinning in a single, seamless cycle without manual intervention.\n• Top-Load Design: Allows for easy, ergonomic loading and unloading without bending, plus the flexibility to add clothes mid-cycle.\n• Wash Programs: Multiple settings to accommodate different fabric types, from delicates to heavily soiled clothes.\n• Additional Functions: Features automatic water level adjustment, a quick-wash mode for lightly soiled items, an air-dry function, an LED display, and a child lock.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcba76i-1-mvcbafvk.jpg"
+      ],
+      "specs": [
+        [
+          "kg",
+          "15"
+        ]
+      ],
+      "created": 1792236408282
     },
     {
       "id": "p-mvcb4pyc",
