@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T14:30:22.872Z",
+  "updated": "2026-10-17T14:34:58.978Z",
   "categories": [],
   "products": [
     {
@@ -1067,6 +1067,28 @@
         ]
       ],
       "created": 1792247062617
+    },
+    {
+      "id": "p-mvchv1d2",
+      "name": "TCL Q65H 580W",
+      "cat": "Sound",
+      "brand": "TCL",
+      "price": 35000,
+      "sale": 32000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Specifications & Features\n\n• Channel Configuration: True 5.1 physical surround channels with 5 main drivers and a wireless subwoofer.\n• Power Output: 580W max peak power (including a 150W wireless subwoofer).\n• Acoustic Design: TCL RAY·DANZ 60° amplified horn technology for a wide soundstage without rear speakers.\n• Audio Formats: Dolby Atmos and DTS:X support.\n• Calibration & Tuning: AI Sonic-Adaptation room calibration and Golden Ear tuning.\n• Connectivity: HDMI eARC, HDMI IN (with 4K HDR, Dolby Vision, VRR, and ALLM pass-through), Optical, USB, Wi-Fi, and Bluetooth 5.3.\n• Design: Inky Arc curved metal design with an aluminum-brushed panel.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvchv1d2-1-mvchvkwm.jpg"
+      ],
+      "specs": [
+        [
+          "wats",
+          "580"
+        ]
+      ],
+      "created": 1792247458214
     }
   ]
 }
