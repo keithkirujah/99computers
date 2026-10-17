@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-17T16:25:55.408Z",
+  "updated": "2026-10-17T16:30:12.086Z",
   "categories": [],
   "products": [
     {
@@ -1372,6 +1372,28 @@
       ],
       "specs": [],
       "created": 1792254076363
+    },
+    {
+      "id": "p-mvclyfyh",
+      "name": "Sayona SHT-1148BT",
+      "cat": "Sound",
+      "brand": "Sayona",
+      "price": 15800,
+      "sale": 12800,
+      "qty": 10,
+      "min": 2,
+      "desc": "• Channel Configuration: 4.1-channel surround sound system (1 main subwoofer and 4 satellite speakers).\n• Power Output: Rated at 152W RMS (80W for subwoofer + 18W x 4 for satellites) with a 16,000W PMPO (Peak Music Power Output) rating.\n• Connectivity: Bluetooth wireless streaming, USB port, SD/MMC card slot, AUX input, and Digital FM radio.\n• Controls & Display: Front digital LED display, blue light accent around the volume knob, top-mounted physical buttons, and an included remote control.\n• Audio Adjustments: Independent treble and surround level adjustments",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvclyfyh-1-mvclyogc.jpg"
+      ],
+      "specs": [
+        [
+          "watts",
+          "16000"
+        ]
+      ],
+      "created": 1792254335561
     }
   ]
 }
