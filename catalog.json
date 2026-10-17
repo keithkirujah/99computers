@@ -1,8 +1,30 @@
 {
   "version": 1,
-  "updated": "2026-10-17T10:54:36.412Z",
+  "updated": "2026-10-17T11:11:12.398Z",
   "categories": [],
   "products": [
+    {
+      "id": "p-mvcakeuy",
+      "name": "Decho 8kg front load washing machine",
+      "cat": "Appliances",
+      "brand": "Decho",
+      "price": 38500,
+      "sale": 35500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Key Features\n\n• Capacity: 8kg drum capacity suited for everyday clothing, bedding, and towels.\n• Motor Technology: Brushless DC (BLDC) inverter motor for quiet and energy-efficient operation.\n• Wash Programs: Multiple modes including Quick Wash, Cotton, Mix, Wool, and Spin.\n• Design & Build: Front-loading layout with a stainless steel inner tub, large circular door, digital display panel, and one-touch child/door lock safety",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvcakeuy-1-mvcakqlf.jpg"
+      ],
+      "specs": [
+        [
+          "kg",
+          "8"
+        ]
+      ],
+      "created": 1792235205179
+    },
     {
       "id": "p-mvca2r47",
       "name": "Decho double door Refrigerators",
