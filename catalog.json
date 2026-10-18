@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-18T07:13:54.063Z",
+  "updated": "2026-10-18T07:16:47.411Z",
   "categories": [
     {
       "name": "GAMING",
@@ -1498,6 +1498,25 @@
         ]
       ],
       "created": 1792307437396
+    },
+    {
+      "id": "p-mvdhnr2r",
+      "name": "Xpon Router",
+      "cat": "Networking Products",
+      "brand": "Huawei",
+      "price": 2500,
+      "sale": 2150,
+      "qty": 10,
+      "min": 2,
+      "desc": "The Huawei XPON fiber router is a high-performance home gateway designed for FTTH (Fiber to the Home) ultra-broadband access. It serves as the central hub of a smart home, converting optical signals into wired and wireless network connectivity for seamless internet, HD video, and VoIP services. Engineered for gigabit fiber environments, this device supports plug-and-play deployment and remote management, making it ideal for users who require stable, high-speed connectivity for bandwidth-intensive applications like 4K streaming, online gaming, and remote work. Its dual-band Wi-Fi ensures comprehensive coverage, while the inclusion of voice ports and multiple Ethernet interfaces provides versatile connectivity for legacy phones, set-top boxes, and computers alike.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvdhnr2r-1-mvdhqteq.jpg",
+        "/images/shop/p-mvdhnr2r-2-mvdhqvuq.jpg",
+        "/images/shop/p-mvdhnr2r-3-mvdhqxwc.jpg"
+      ],
+      "specs": [],
+      "created": 1792307584467
     }
   ]
 }
