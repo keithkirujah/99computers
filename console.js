@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Premium Owner Edition)
+   99 COMPUTERS — ADMIN CONSOLE (Owner Master Control)
    ========================================================================== */
 
 (() => {
@@ -113,8 +113,12 @@ const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
 const ROLE_KEY  = 'n99.console.role';
-const DEFAULT_PASS = '99computers'; // Staff pass
-const OWNER_PASS = '99admin'; // Change this to your secret Owner pass
+const STAFF_PASS_KEY = 'n99.staff.pass';
+
+// Default passwords (can be changed in settings)
+const DEFAULT_STAFF_PASS = '99computers';
+const OWNER_PASS = '99admin'; 
+
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 const gh = {
@@ -201,8 +205,10 @@ function gate() {
       const d = Object.fromEntries(new FormData(f));
       let role = '';
       
+      const currentStaffPass = DB.get(STAFF_PASS_KEY, DEFAULT_STAFF_PASS);
+
       if (d.pass === OWNER_PASS) role = 'owner';
-      else if (d.pass === DEFAULT_PASS) role = 'staff';
+      else if (d.pass === currentStaffPass) role = 'staff';
       else { toast('Wrong passphrase'); return; }
       
       if (!d.token.trim().startsWith('github_pat_') && !d.token.trim().startsWith('ghp_')) { toast('That does not look like a GitHub token'); return; }
@@ -231,7 +237,7 @@ async function loadCatalog() {
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
-// --- AUTO-BACKUP (Runs once per day when you log in) ---
+// --- AUTO-BACKUP ---
 async function autoBackup() {
   const today = new Date().toISOString().split('T')[0];
   const lastBackup = DB.get('last_backup', '');
@@ -458,22 +464,50 @@ function rows() {
 
 function viewSettings() {
   const role = DB.get(ROLE_KEY, 'staff');
+  
+  // If staff, show locked screen
+  if (role !== 'owner') {
+    return `<div class="glass card" style="text-align:center;padding:60px">
+      <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
+      <h2>Access Restricted</h2>
+      <p class="hint">Only the store owner can access the settings and security controls.</p>
+    </div>`;
+  }
+
+  const currentStaffPass = DB.get(STAFF_PASS_KEY, DEFAULT_STAFF_PASS);
+
   return `<div class="dash">
+    <article class="glass card s12" style="background:linear-gradient(135deg, rgba(59,116,255,0.1), transparent)">
+      <div class="hd"><h2>Staff Access Control</h2><span class="st b">Owner Only</span></div>
+      <p class="hint">This is the passphrase your staff use to log in. They cannot see or change this.</p>
+      
+      <div style="display:flex; align-items:center; gap:16px; margin-top:20px; background:var(--fill); padding:16px; border-radius:12px;">
+        <div style="flex:1">
+          <small class="mute">Current Staff Passphrase</small>
+          <div style="font:700 24px var(--fd); letter-spacing:2px; color:var(--sig-t)">${esc(currentStaffPass)}</div>
+        </div>
+        <button class="btn p" type="button" data-a="changestaffpass">Change Password</button>
+      </div>
+    </article>
+
     <article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">🚨 Danger Zone</h2></div>
       <p class="hint">If a mistake was made, you can instantly restore the catalog to the state it was in right before the last save.</p>
       <div class="btns" style="margin-top:14px">
         <button class="btn" type="button" data-a="panic" style="background:var(--err);color:#fff;border:0">${ic('refresh')}Restore Previous Version</button>
       </div>
     </article>
-    ${role === 'owner' ? `<article class="glass card s12"><div class="hd"><h2>Restore / Import</h2></div>
+
+    <article class="glass card s12"><div class="hd"><h2>Restore / Import</h2></div>
       <p class="hint">Paste a saved catalog.json backup here to overwrite the live data.</p>
       <div class="fld" style="margin-top:14px"><textarea id="restore-data" placeholder='Paste your backup JSON here...' style="height:120px;font-family:monospace;font-size:12px"></textarea></div>
       <div class="btns"><button class="btn p" type="button" data-a="restore">Restore from File</button></div>
-    </article>` : ''}
+    </article>
+
     <article class="glass card s12"><div class="hd"><h2>GitHub token</h2><span class="st a">Connected</span></div>
       <p class="hint">Your token is stored on this device only.</p>
-      <div class="btns" style="margin-top:14px"><button class="btn" type="button" data-a="tokreset">${ic('refresh')}Replace token</button><button class="btn" type="button" data-a="passreset">${ic('refresh')}Change passphrase</button></div>
+      <div class="btns" style="margin-top:14px"><button class="btn" type="button" data-a="tokreset">${ic('refresh')}Replace token</button></div>
     </article>
+
     <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
       <div class="btns" style="margin-top:14px">
         <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
@@ -590,6 +624,13 @@ const A = {
     render(); 
     toast('Deleted');
   },
+  async changestaffpass() {
+    const np = prompt('Enter the new Staff Passphrase (min 6 chars):');
+    if (!np || np.length < 6) return;
+    DB.set(STAFF_PASS_KEY, np);
+    toast('Staff passphrase updated!');
+    render();
+  },
   async panic() {
     if (!confirm('Restore the catalog to the previous version? This will overwrite current products.')) return;
     try {
@@ -635,7 +676,6 @@ const A = {
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'inventory.csv'; a.click();
   },
   async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
-  async passreset() { const np = prompt('New passphrase (min 6 chars):'); if (!np || np.length < 6) return; localStorage.setItem('n99.console.pass', JSON.stringify(np)); location.reload(); },
   export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); }
 };
 document.addEventListener('click', e => { const el = e.target.closest('[data-a]'); if (el && A[el.dataset.a]) A[el.dataset.a](el); });
