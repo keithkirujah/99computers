@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-18T07:16:47.411Z",
+  "updated": "2026-10-18T07:20:40.568Z",
   "categories": [
     {
       "name": "GAMING",
@@ -1517,6 +1517,24 @@
       ],
       "specs": [],
       "created": 1792307584467
+    },
+    {
+      "id": "p-mvdhreyl",
+      "name": "Ps4 Slim",
+      "cat": "GAMING",
+      "brand": "Sony",
+      "price": 30000,
+      "sale": 28000,
+      "qty": 100,
+      "min": 2,
+      "desc": "This PlayStation 4 Slim bundle is a complete, ready-to-play gaming package designed for immediate entertainment straight out of the box. The console itself is the sleek, compact revision of the PS4—roughly 30% smaller and lighter than the original model—featuring a matte finish and improved energy efficiency. This particular unit is chipped (jailbroken/modified) and comes with a spacious 1TB hard drive, meaning it is pre-configured to run backed-up or homebrew software while offering ample room for a large digital library. To get you started right away, seven games are pre-installed, offering a variety of genres so you can jump straight into gameplay without additional purchases. The bundle also includes two gaming controllers (DualShock 4), making it perfect for local multiplayer sessions with a friend or family member right from day one. Whether you're into action, sports, or story-driven adventures, this bundle delivers a plug-and-play experience with everything you need to start gaming immediately.",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvdhreyl-1-mvdhvv4b.jpg",
+        "/images/shop/p-mvdhreyl-2-mvdhvxev.jpg"
+      ],
+      "specs": [],
+      "created": 1792307755389
     }
   ]
 }
