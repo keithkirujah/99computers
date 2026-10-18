@@ -1,9 +1,13 @@
 {
   "version": 1,
-  "updated": "2026-10-18T07:09:02.672Z",
+  "updated": "2026-10-18T07:13:54.063Z",
   "categories": [
     {
       "name": "GAMING",
+      "specs": []
+    },
+    {
+      "name": "Networking Products",
       "specs": []
     }
   ],
@@ -1470,6 +1474,30 @@
       ],
       "specs": [],
       "created": 1792260814899
+    },
+    {
+      "id": "p-mvdhkllg",
+      "name": "Tenda F3",
+      "cat": "Networking Products",
+      "brand": "Shenzhen Tenda Technology Co., Ltd",
+      "price": 2300,
+      "sale": 2000,
+      "qty": 10,
+      "min": 2,
+      "desc": "The Tenda F3 is a compact, entry-level wireless router designed for small to medium-sized homes that need reliable everyday Wi-Fi without a high price tag. It operates on the single 2.4GHz band with a maximum theoretical speed of 300Mbps, making it ideal for basic web browsing, social media, music streaming, and standard-definition video. The router features three external 5dBi high-gain antennas that help extend signal reach to eliminate dead zones in apartments or small houses. Setup is intentionally simplified—Tenda claims you can get online in about 30 seconds through its intuitive interface, a major selling point for non-technical users. The F3 also includes practical software features like IP-based bandwidth control (to prioritize traffic), parental controls for filtering content and limiting time, and WPA/WPA2 security protocols. It is a no-frills, budget-conscious choice for users who just need dependable basic connectivity",
+      "featured": false,
+      "images": [
+        "/images/shop/p-mvdhkllg-1-mvdhn7bl.jpg",
+        "/images/shop/p-mvdhkllg-2-mvdhn9zm.jpg",
+        "/images/shop/p-mvdhkllg-3-mvdhncj8.jpg"
+      ],
+      "specs": [
+        [
+          "Ports & Antennas",
+          "1x 10/100Mbps WAN + 3x 10/100Mbps LAN ports, 3x 5dBi external antennas."
+        ]
+      ],
+      "created": 1792307437396
     }
   ]
 }
