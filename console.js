@@ -337,15 +337,18 @@ function viewOverview() {
   const low = S.products.filter(p => p.qty <= (p.min ?? 2));
   const featured = S.products.filter(p => p.featured).length;
   
-  // Calculate total cost value if cost is present
+  // Calculate total stock value: use Cost Price if available, otherwise fallback to Selling Price (effective price)
   let totalCost = 0;
-  S.products.forEach(p => { if (p.cost) totalCost += (p.cost * p.qty); });
+  S.products.forEach(p => { 
+    const val = p.cost ? p.cost : eff(p);
+    totalCost += (val * p.qty); 
+  });
 
   return `<div class="dash">
     <article class="glass card s3"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
     <article class="glass card s3"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
     <article class="glass card s3"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${low.length}</b><p class="hint">need restocking</p></article>
-    <article class="glass card s3"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost price</p></article>
+    <article class="glass card s3"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost or selling price</p></article>
 
     ${low.length ? `<article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">⚠️ Low Stock Alerts</h2></div><ul class="list">${low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st d end">Reorder</span></li>`).join('')}</ul></article>` : ''}
 
