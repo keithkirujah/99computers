@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Ultimate Owner Edition)
+   99 COMPUTERS — ADMIN CONSOLE (Auto-Backup Edition)
    ========================================================================== */
 
 (() => {
@@ -108,12 +108,13 @@ const REPO  = '99computers';
 const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
 const LOG_PATH = 'data/log.json';
+const BACKUP_DIR = 'data/backups';
 const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
 const ROLE_KEY  = 'n99.console.role';
-const DEFAULT_PASS = '99computers'; // Staff pass
-const OWNER_PASS = '99admin'; // Change this to your secret Owner pass
+const DEFAULT_PASS = '99computers';
+const OWNER_PASS = '99admin';
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 const gh = {
@@ -230,6 +231,26 @@ async function loadCatalog() {
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
+// --- AUTO-BACKUP (Runs once per day when you log in) ---
+async function autoBackup() {
+  const today = new Date().toISOString().split('T')[0];
+  const lastBackup = DB.get('last_backup', '');
+  if (lastBackup === today) return; // Already backed up today
+
+  try {
+    const file = await gh.readFile(CATALOG_PATH);
+    if (!file) return;
+    
+    const backupPath = `${BACKUP_DIR}/catalog-${today}.json`;
+    await gh.writeFile(backupPath, file.content, `Auto-backup: ${today}`, null);
+    DB.set('last_backup', today);
+    console.log('Daily backup created:', backupPath);
+  } catch (e) {
+    console.log('Auto-backup failed silently:', e.message);
+  }
+}
+// -----------------------------------------------------
+
 // --- SAFE BATCH SAVING + AUTO-DEDUPLICATE + LOGGING ---
 let saveTimeout = null;
 let countdownInterval = null;
@@ -337,7 +358,6 @@ function viewOverview() {
   const low = S.products.filter(p => p.qty <= (p.min ?? 2));
   const featured = S.products.filter(p => p.featured).length;
   
-  // Calculate total stock value: use Cost Price if available, otherwise fallback to Selling Price (effective price)
   let totalCost = 0;
   S.products.forEach(p => { 
     const val = p.cost ? p.cost : eff(p);
@@ -609,5 +629,8 @@ addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'over
   S.view = location.hash.slice(1) || 'overview';
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
+  
+  // Run auto-backup in the background
+  autoBackup();
 })();
 })();
