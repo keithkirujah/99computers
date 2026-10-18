@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE
+   99 COMPUTERS — ADMIN CONSOLE (Multi-User Edition)
    ========================================================================== */
 
 (() => {
@@ -107,10 +107,13 @@ const OWNER = 'keithkirujah';
 const REPO  = '99computers';
 const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
+const LOG_PATH = 'data/log.json';
 const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
-const DEFAULT_PASS = '99computers';
+const ROLE_KEY  = 'n99.console.role';
+const DEFAULT_PASS = '99computers'; // Staff pass
+const OWNER_PASS = '99admin'; // Change this to your secret Owner pass
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 const gh = {
@@ -185,16 +188,23 @@ function gate() {
     f.addEventListener('submit', e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
-      if (d.pass !== DEFAULT_PASS) { toast('Wrong passphrase'); return; }
+      let role = '';
+      
+      if (d.pass === OWNER_PASS) role = 'owner';
+      else if (d.pass === DEFAULT_PASS) role = 'staff';
+      else { toast('Wrong passphrase'); return; }
+      
       if (!d.token.trim().startsWith('github_pat_') && !d.token.trim().startsWith('ghp_')) { toast('That does not look like a GitHub token'); return; }
+      
       DB.set(PASS_KEY, d.pass);
+      DB.set(ROLE_KEY, role);
       gh.token = d.token.trim();
       res(true);
     });
   });
 }
 
-const S = { products: [], cats: [], view: 'overview' };
+const S = { products: [], cats: [], logs: [], view: 'overview' };
 
 async function loadCatalog() {
   try {
@@ -204,10 +214,13 @@ async function loadCatalog() {
       S.products = Array.isArray(j.products) ? j.products : [];
       S.cats = Array.isArray(j.categories) ? j.categories : [];
     } else { S.products = []; S.cats = []; }
+    
+    const logFile = await gh.readFile(LOG_PATH);
+    if (logFile) S.logs = JSON.parse(logFile.content) || [];
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
-// --- SAFE BATCH SAVING + AUTO-DEDUPLICATE ---
+// --- SAFE BATCH SAVING + AUTO-DEDUPLICATE + LOGGING ---
 let saveTimeout = null;
 let countdownInterval = null;
 let timeLeft = 0;
@@ -217,7 +230,7 @@ function queueSave(msg) {
   clearTimeout(saveTimeout);
   clearInterval(countdownInterval);
   pendingMsg = msg;
-  timeLeft = 60; // 60 seconds
+  timeLeft = 60;
   
   let syncEl = $('#sync');
   if (!syncEl) {
@@ -245,35 +258,33 @@ function queueSave(msg) {
     syncEl.style.color = 'var(--ink)';
     
     try {
-      // --- AUTO-DEDUPLICATE LOGIC ---
-      // Remove duplicates by keeping the most recently created/updated one
       const uniqueProducts = [];
       const seenNames = new Set();
-      
-      // Sort by created date descending (newest first)
       const sorted = [...S.products].sort((a, b) => (b.created || 0) - (a.created || 0));
-      
       for (const p of sorted) {
         const key = p.name.trim().toLowerCase();
-        if (!seenNames.has(key)) {
-          seenNames.add(key);
-          uniqueProducts.push(p);
-        }
+        if (!seenNames.has(key)) { seenNames.add(key); uniqueProducts.push(p); }
       }
-      
-      // Update the local state with the clean list
       S.products = uniqueProducts;
       
       const j = { version: 1, updated: new Date().toISOString(), categories: S.cats, products: S.products };
       const file = await gh.readFile(CATALOG_PATH);
       await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), pendingMsg, file ? file.sha : null);
       
+      // Log the action
+      const role = DB.get(ROLE_KEY, 'staff');
+      const newLog = { time: new Date().toISOString(), user: role, action: pendingMsg };
+      S.logs.unshift(newLog);
+      if (S.logs.length > 100) S.logs = S.logs.slice(0, 100); // Keep last 100 logs
+      
+      const logFile = await gh.readFile(LOG_PATH).catch(() => null);
+      await gh.writeFile(LOG_PATH, JSON.stringify(S.logs, null, 2), 'Update activity log', logFile ? logFile.sha : null);
+      
       toast('Published (duplicates removed). Live site updates in ~30s.');
       syncEl.textContent = 'Live on your website';
       setTimeout(() => { syncEl.hidden = true; }, 3000);
       
-      // Re-render to show the cleaned list
-      if (S.view === 'products') render();
+      if (S.view === 'products' || S.view === 'logs') render();
       
     } catch (e) {
       toast('Could not publish: ' + e.message);
@@ -284,14 +295,32 @@ function queueSave(msg) {
 // --------------------------
 
 const kesF = n => 'KSh ' + Number(n).toLocaleString('en-KE');
-const title = { overview: 'Overview', products: 'Products', settings: 'Settings' };
+const title = { overview: 'Overview', products: 'Products', settings: 'Settings', logs: 'Activity Log' };
 const view = $('#view');
 
 function render() {
+  const role = DB.get(ROLE_KEY, 'staff');
+  
+  // Inject Activity Log link for owner
+  const rail = $('.rail');
+  if (role === 'owner' && !$('#log-nav')) {
+    const a = document.createElement('a');
+    a.id = 'log-nav';
+    a.href = '#logs';
+    a.dataset.v = 'logs';
+    a.innerHTML = `${ic('list')}<span class="t">Activity Log</span>`;
+    rail.insertBefore(a, $('.back'));
+  }
+
   $('#title').textContent = title[S.view] || 'Overview';
   $$('.rail [data-v]').forEach(a => a.dataset.v === S.view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   view.classList.remove('view'); void view.offsetWidth; view.classList.add('view');
-  view.innerHTML = S.view === 'products' ? viewProducts() : S.view === 'settings' ? viewSettings() : viewOverview();
+  
+  if (S.view === 'logs') view.innerHTML = viewLogs();
+  else if (S.view === 'products') view.innerHTML = viewProducts();
+  else if (S.view === 'settings') view.innerHTML = viewSettings();
+  else view.innerHTML = viewOverview();
+  
   hydrate(view);
 }
 
@@ -323,6 +352,20 @@ function viewProducts() {
   </div>
   <div class="tw"><table><thead><tr><th></th><th>Product</th><th>Category</th><th>Price</th><th>Qty</th><th></th></tr></thead><tbody id="ptb">${rows()}</tbody></table></div>
   ${S.products.length ? '' : '<div class="empty">No products yet. Tap Add product to create your first one.</div>'}
+  </div>`;
+}
+
+function viewLogs() {
+  return `<div class="glass card">
+    <div class="hd"><h2>Activity Log</h2><small>Last 100 actions</small></div>
+    <ul class="list">
+      ${S.logs.length ? S.logs.map(l => `
+        <li>
+          <div><b>${esc(l.user.toUpperCase())}</b> - ${new Date(l.time).toLocaleString()}</div>
+          <span class="st b end">${esc(l.action)}</span>
+        </li>
+      `).join('') : '<li>No activity yet.</li>'}
+    </ul>
   </div>`;
 }
 
@@ -454,7 +497,7 @@ function productForm(p) {
     const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
     
     if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
-    queueSave((isNew ? 'Add product: ' : 'Update product: ') + np.name);
+    queueSave((isNew ? 'Added product: ' : 'Updated product: ') + np.name);
     m.close();
     render();
   });
@@ -467,7 +510,7 @@ const A = {
     const p = S.products.find(x => x.id === el.dataset.id);
     if (!p || !confirm('Delete "' + p.name + '"?')) return;
     S.products = S.products.filter(x => x.id !== p.id);
-    queueSave('Delete product: ' + p.name);
+    queueSave('Deleted product: ' + p.name);
     render(); 
     toast('Deleted');
   },
