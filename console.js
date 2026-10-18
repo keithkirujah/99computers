@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Multi-User Edition)
+   99 COMPUTERS — ADMIN CONSOLE (Ultimate Owner Edition)
    ========================================================================== */
 
 (() => {
@@ -141,6 +141,16 @@ const gh = {
       return { sha: j.sha, content };
     } catch (e) { if (e.status === 404) return null; throw e; }
   },
+  async readPreviousFile(path) {
+    try {
+      const commits = await this.call('/commits?path=' + encodeURIComponent(path) + '&per_page=2');
+      if (commits.length < 2) return null;
+      const prevSha = commits[1].sha;
+      const j = await this.call('/contents/' + encodeURIComponent(path) + '?ref=' + prevSha);
+      const content = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+      return { sha: j.sha, content };
+    } catch (e) { return null; }
+  },
   async writeFile(path, content, message, sha = null) {
     const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
     if (sha) body.sha = sha;
@@ -271,11 +281,10 @@ function queueSave(msg) {
       const file = await gh.readFile(CATALOG_PATH);
       await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), pendingMsg, file ? file.sha : null);
       
-      // Log the action
       const role = DB.get(ROLE_KEY, 'staff');
       const newLog = { time: new Date().toISOString(), user: role, action: pendingMsg };
       S.logs.unshift(newLog);
-      if (S.logs.length > 100) S.logs = S.logs.slice(0, 100); // Keep last 100 logs
+      if (S.logs.length > 100) S.logs = S.logs.slice(0, 100);
       
       const logFile = await gh.readFile(LOG_PATH).catch(() => null);
       await gh.writeFile(LOG_PATH, JSON.stringify(S.logs, null, 2), 'Update activity log', logFile ? logFile.sha : null);
@@ -301,7 +310,6 @@ const view = $('#view');
 function render() {
   const role = DB.get(ROLE_KEY, 'staff');
   
-  // Inject Activity Log link for owner
   const rail = $('.rail');
   if (role === 'owner' && !$('#log-nav')) {
     const a = document.createElement('a');
@@ -328,10 +336,19 @@ function viewOverview() {
   const total = S.products.length;
   const low = S.products.filter(p => p.qty <= (p.min ?? 2));
   const featured = S.products.filter(p => p.featured).length;
+  
+  // Calculate total cost value if cost is present
+  let totalCost = 0;
+  S.products.forEach(p => { if (p.cost) totalCost += (p.cost * p.qty); });
+
   return `<div class="dash">
-    <article class="glass card s4"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
-    <article class="glass card s4"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
-    <article class="glass card s4"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${low.length}</b><p class="hint">need restocking</p></article>
+    <article class="glass card s3"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
+    <article class="glass card s3"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
+    <article class="glass card s3"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${low.length}</b><p class="hint">need restocking</p></article>
+    <article class="glass card s3"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost price</p></article>
+
+    ${low.length ? `<article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">⚠️ Low Stock Alerts</h2></div><ul class="list">${low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st d end">Reorder</span></li>`).join('')}</ul></article>` : ''}
+
     <article class="glass card s12"><div class="hd"><h2>Quick start</h2><button class="btn p sm" type="button" data-a="pnew">${ic('plus')}Add product</button></div>
       <ol class="steps">
         <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
@@ -340,7 +357,6 @@ function viewOverview() {
         <li>Your product is live at <b>99computers.co.ke</b>.</li>
       </ol>
     </article>
-    ${low.length ? `<article class="glass card s12"><div class="hd"><h2>Low stock</h2></div><ul class="list">${low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st p end">Low</span></li>`).join('')}</ul></article>` : ''}
   </div>`;
 }
 
@@ -356,10 +372,20 @@ function viewProducts() {
 }
 
 function viewLogs() {
+  const filter = $('#log-filter')?.value || 'All';
+  const filtered = S.logs.filter(l => filter === 'All' || l.user === filter);
+  
   return `<div class="glass card">
-    <div class="hd"><h2>Activity Log</h2><small>Last 100 actions</small></div>
+    <div class="hd">
+      <h2>Activity Log</h2>
+      <select class="sel" id="log-filter" aria-label="Filter by user">
+        <option value="All"${filter === 'All' ? ' selected' : ''}>All Users</option>
+        <option value="owner"${filter === 'owner' ? ' selected' : ''}>Owner</option>
+        <option value="staff"${filter === 'staff' ? ' selected' : ''}>Staff</option>
+      </select>
+    </div>
     <ul class="list">
-      ${S.logs.length ? S.logs.map(l => `
+      ${filtered.length ? filtered.map(l => `
         <li>
           <div><b>${esc(l.user.toUpperCase())}</b> - ${new Date(l.time).toLocaleString()}</div>
           <span class="st b end">${esc(l.action)}</span>
@@ -383,34 +409,35 @@ function rows() {
 }
 
 function viewSettings() {
+  const role = DB.get(ROLE_KEY, 'staff');
   return `<div class="dash">
-    <article class="glass card s12"><div class="hd"><h2>Restore / Import Catalog</h2></div>
-      <p class="hint">Paste a saved catalog.json backup here to overwrite the live data.</p>
-      <div class="fld" style="margin-top:14px">
-        <textarea id="restore-data" placeholder='Paste your backup JSON here...' style="height:120px;font-family:monospace;font-size:12px"></textarea>
-      </div>
-      <div class="btns">
-        <button class="btn p" type="button" data-a="restore">Restore Catalog</button>
+    <article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">🚨 Danger Zone</h2></div>
+      <p class="hint">If a mistake was made, you can instantly restore the catalog to the state it was in right before the last save.</p>
+      <div class="btns" style="margin-top:14px">
+        <button class="btn" type="button" data-a="panic" style="background:var(--err);color:#fff;border:0">${ic('refresh')}Restore Previous Version</button>
       </div>
     </article>
+    ${role === 'owner' ? `<article class="glass card s12"><div class="hd"><h2>Restore / Import</h2></div>
+      <p class="hint">Paste a saved catalog.json backup here to overwrite the live data.</p>
+      <div class="fld" style="margin-top:14px"><textarea id="restore-data" placeholder='Paste your backup JSON here...' style="height:120px;font-family:monospace;font-size:12px"></textarea></div>
+      <div class="btns"><button class="btn p" type="button" data-a="restore">Restore from File</button></div>
+    </article>` : ''}
     <article class="glass card s12"><div class="hd"><h2>GitHub token</h2><span class="st a">Connected</span></div>
-      <p class="hint">Your token is stored on this device only. If you need to change or revoke it, go to GitHub → Settings → Developer settings → Fine-grained tokens.</p>
+      <p class="hint">Your token is stored on this device only.</p>
       <div class="btns" style="margin-top:14px"><button class="btn" type="button" data-a="tokreset">${ic('refresh')}Replace token</button><button class="btn" type="button" data-a="passreset">${ic('refresh')}Change passphrase</button></div>
     </article>
-    <article class="glass card s12"><div class="hd"><h2>Repo</h2></div>
-      <p class="hint">Products are stored in <b>${OWNER}/${REPO}</b> as <code>catalog.json</code>. Photos go into <code>images/shop/</code>. Every change is a commit you can undo.</p>
-      <div class="btns" style="margin-top:14px"><a class="btn" href="https://github.com/${OWNER}/${REPO}/commits/${BRANCH}" target="_blank" rel="noopener">${ic('arrow-up-right')}View commit history</a></div>
-    </article>
-    <article class="glass card s12"><div class="hd"><h2>Data</h2></div>
-      <div class="btns"><button class="btn" type="button" data-a="export">${ic('download')}Export products</button></div>
-      <p class="hint" style="margin-top:14px">Exports products and categories as a JSON file you can keep as a backup.</p>
+    <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
+      <div class="btns" style="margin-top:14px">
+        <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
+        <button class="btn" type="button" data-a="csv">${ic('download')}Download Excel/CSV</button>
+      </div>
     </article>
   </div>`;
 }
 
 function productForm(p) {
   const isNew = !p;
-  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
+  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', cost: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
   let imgs = [...(p.images || [])];
   const specRow = (l = '', v = '') => `<div class="sprow"><input placeholder="Name, e.g. Processor" value="${esc(l)}"><input placeholder="Value, e.g. Intel Core i5" value="${esc(v)}"><button class="ab" type="button" data-p="sprm">${ic('x')}</button></div>`;
   
@@ -423,8 +450,9 @@ function productForm(p) {
     <div>
       <div class="fld"><label for="m-name">Name</label><input id="m-name" name="name" value="${esc(p.name)}"></div>
       <div class="row2"><div class="fld"><label for="m-cat">Category</label><select id="m-cat" name="cat" required><option value="" disabled${!p.cat ? ' selected' : ''}>Select category...</option>${catOpts}<option value="__new">+ Add new category...</option></select><input type="text" id="m-newcat" name="newcat" placeholder="Type new category name" style="display:none; margin-top:8px"></div><div class="fld"><label for="m-brand">Brand (optional)</label><input id="m-brand" name="brand" value="${esc(p.brand || '')}"></div></div>
-      <div class="row2"><div class="fld"><label for="m-price">Price (KSh)</label><input id="m-price" name="price" type="number" min="1" value="${p.price}"></div><div class="fld"><label for="m-sale">Sale price (optional)</label><input id="m-sale" name="sale" type="number" min="1" value="${p.sale || ''}"></div></div>
-      <div class="row2"><div class="fld"><label for="m-qty">Quantity in stock</label><input id="m-qty" name="qty" type="number" min="0" value="${p.qty}"></div><div class="fld"><label for="m-min">Low-stock alert at</label><input id="m-min" name="min" type="number" min="0" value="${p.min ?? 2}"></div></div>
+      <div class="row2"><div class="fld"><label for="m-price">Selling Price (KSh)</label><input id="m-price" name="price" type="number" min="1" value="${p.price}"></div><div class="fld"><label for="m-sale">Sale price (optional)</label><input id="m-sale" name="sale" type="number" min="1" value="${p.sale || ''}"></div></div>
+      <div class="row2"><div class="fld"><label for="m-cost">Cost Price (optional)</label><input id="m-cost" name="cost" type="number" min="0" value="${p.cost || ''}"></div><div class="fld"><label for="m-qty">Quantity in stock</label><input id="m-qty" name="qty" type="number" min="0" value="${p.qty}"></div></div>
+      <div class="row2"><div class="fld"><label for="m-min">Low-stock alert at</label><input id="m-min" name="min" type="number" min="0" value="${p.min ?? 2}"></div><div></div></div>
       <div class="fld"><label for="m-desc">Description</label><textarea id="m-desc" name="desc">${esc(p.desc || '')}</textarea></div>
       <label class="chk"><input type="checkbox" name="featured" ${p.featured ? 'checked' : ''}>Show on the home page as featured</label>
       <h3>Specifications</h3><div id="specs">${(p.specs || []).map(s => specRow(s[0], s[1])).join('')}</div>
@@ -494,7 +522,7 @@ function productForm(p) {
     if (!(+d.price > 0)) { toast('Enter a price above zero'); return; }
     if (d.sale && !(+d.sale > 0 && +d.sale < +d.price)) { toast('Sale must be below the price'); return; }
     const sps = $$('.sprow', specs).map(r => { const inp = $$('input', r); return [inp[0].value.trim(), inp[1].value.trim()]; }).filter(s => s[0] && s[1]);
-    const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
+    const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, cost: d.cost ? +d.cost : null, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
     
     if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
     queueSave((isNew ? 'Added product: ' : 'Updated product: ') + np.name);
@@ -514,6 +542,19 @@ const A = {
     render(); 
     toast('Deleted');
   },
+  async panic() {
+    if (!confirm('Restore the catalog to the previous version? This will overwrite current products.')) return;
+    try {
+      const prev = await gh.readPreviousFile(CATALOG_PATH);
+      if (!prev) throw Error('No previous version found');
+      const file = await gh.readFile(CATALOG_PATH);
+      await gh.writeFile(CATALOG_PATH, prev.content, 'PANIC: Restore previous version', file ? file.sha : null);
+      toast('Previous version restored!');
+      setTimeout(() => location.reload(), 1500);
+    } catch (e) {
+      toast('Restore failed: ' + e.message);
+    }
+  },
   async restore() {
     const raw = $('#restore-data').value.trim();
     if (!raw) { toast('Paste the backup JSON first'); return; }
@@ -529,13 +570,32 @@ const A = {
       toast('Restore failed: ' + e.message);
     }
   },
+  async csv() {
+    const headers = ['Name', 'Category', 'Brand', 'Cost', 'Price', 'Sale', 'Qty', 'Min'];
+    const rows = S.products.map(p => [
+      `"${(p.name || '').replace(/"/g, '""')}"`,
+      `"${(p.cat || '').replace(/"/g, '""')}"`,
+      `"${(p.brand || '').replace(/"/g, '""')}"`,
+      p.cost || '',
+      p.price || '',
+      p.sale || '',
+      p.qty || 0,
+      p.min || 0
+    ]);
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'inventory.csv'; a.click();
+  },
   async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
   async passreset() { const np = prompt('New passphrase (min 6 chars):'); if (!np || np.length < 6) return; localStorage.setItem('n99.console.pass', JSON.stringify(np)); location.reload(); },
   export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); }
 };
 document.addEventListener('click', e => { const el = e.target.closest('[data-a]'); if (el && A[el.dataset.a]) A[el.dataset.a](el); });
 document.addEventListener('input', e => { if (e.target.id === 'pq') $('#ptb').innerHTML = rows(); });
-document.addEventListener('change', e => { if (e.target.id === 'pc') $('#ptb').innerHTML = rows(); });
+document.addEventListener('change', e => { 
+  if (e.target.id === 'pc') $('#ptb').innerHTML = rows(); 
+  if (e.target.id === 'log-filter') render();
+});
 addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'overview'); render(); });
 
 (async () => {
