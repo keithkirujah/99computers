@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Owner Master Control)
+   99 COMPUTERS — ADMIN CONSOLE (Tri-Level Access)
    ========================================================================== */
 
 (() => {
@@ -111,13 +111,17 @@ const LOG_PATH = 'data/log.json';
 const BACKUP_DIR = 'data/backups';
 const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
-const PASS_KEY  = 'n99.console.pass';
 const ROLE_KEY  = 'n99.console.role';
-const STAFF_PASS_KEY = 'n99.staff.pass';
 
-// Default passwords (can be changed in settings)
+// Passphrase Keys
+const PASS_ADMIN_KEY = 'n99.pass.admin';
+const PASS_SITE_KEY  = 'n99.pass.site';
+const PASS_STAFF_KEY = 'n99.pass.staff';
+
+// Defaults
+const DEFAULT_ADMIN_PASS = '99admin';
+const DEFAULT_SITE_PASS  = '99donga';
 const DEFAULT_STAFF_PASS = '99computers';
-const OWNER_PASS = '99admin'; 
 
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
@@ -205,15 +209,17 @@ function gate() {
       const d = Object.fromEntries(new FormData(f));
       let role = '';
       
-      const currentStaffPass = DB.get(STAFF_PASS_KEY, DEFAULT_STAFF_PASS);
+      const adminPass = DB.get(PASS_ADMIN_KEY, DEFAULT_ADMIN_PASS);
+      const sitePass  = DB.get(PASS_SITE_KEY, DEFAULT_SITE_PASS);
+      const staffPass = DB.get(PASS_STAFF_KEY, DEFAULT_STAFF_PASS);
 
-      if (d.pass === OWNER_PASS) role = 'owner';
-      else if (d.pass === currentStaffPass) role = 'staff';
+      if (d.pass === adminPass) role = 'admin';
+      else if (d.pass === sitePass) role = 'site';
+      else if (d.pass === staffPass) role = 'staff';
       else { toast('Wrong passphrase'); return; }
       
       if (!d.token.trim().startsWith('github_pat_') && !d.token.trim().startsWith('ghp_')) { toast('That does not look like a GitHub token'); return; }
       
-      DB.set(PASS_KEY, d.pass);
       DB.set(ROLE_KEY, role);
       gh.token = d.token.trim();
       res(true);
@@ -334,7 +340,7 @@ function render() {
   const role = DB.get(ROLE_KEY, 'staff');
   
   const rail = $('.rail');
-  if (role === 'owner' && !$('#log-nav')) {
+  if ((role === 'admin' || role === 'site') && !$('#log-nav')) {
     const a = document.createElement('a');
     a.id = 'log-nav';
     a.href = '#logs';
@@ -367,8 +373,8 @@ function viewOverview() {
     totalCost += (val * p.qty); 
   });
 
-  // OWNER VIEW
-  if (role === 'owner') {
+  // ADMIN or SITE OWNER VIEW
+  if (role === 'admin' || role === 'site') {
     return `<div class="dash">
       <article class="glass card s3" style="background:linear-gradient(135deg, rgba(59,116,255,0.15), transparent)"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
       <article class="glass card s3" style="background:linear-gradient(135deg, rgba(34,211,197,0.15), transparent)"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost/selling</p></article>
@@ -434,7 +440,8 @@ function viewLogs() {
       <h2>Activity Log</h2>
       <select class="sel" id="log-filter" aria-label="Filter by user">
         <option value="All"${filter === 'All' ? ' selected' : ''}>All Users</option>
-        <option value="owner"${filter === 'owner' ? ' selected' : ''}>Owner</option>
+        <option value="admin"${filter === 'admin' ? ' selected' : ''}>Admin</option>
+        <option value="site"${filter === 'site' ? ' selected' : ''}>Site Owner</option>
         <option value="staff"${filter === 'staff' ? ' selected' : ''}>Staff</option>
       </select>
     </div>
@@ -466,27 +473,55 @@ function viewSettings() {
   const role = DB.get(ROLE_KEY, 'staff');
   
   // If staff, show locked screen
-  if (role !== 'owner') {
+  if (role === 'staff') {
     return `<div class="glass card" style="text-align:center;padding:60px">
       <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
       <h2>Access Restricted</h2>
-      <p class="hint">Only the store owner can access the settings and security controls.</p>
+      <p class="hint">Only management can access the settings and security controls.</p>
     </div>`;
   }
 
-  const currentStaffPass = DB.get(STAFF_PASS_KEY, DEFAULT_STAFF_PASS);
+  // SITE OWNER VIEW (No Tokens, No Restore, No Panic)
+  if (role === 'site') {
+    return `<div class="dash">
+      <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
+        <p class="hint">Download your inventory for accounting or backup.</p>
+        <div class="btns" style="margin-top:14px">
+          <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
+          <button class="btn" type="button" data-a="csv">${ic('download')}Download Excel/CSV</button>
+        </div>
+      </article>
+    </div>`;
+  }
+
+  // MAIN ADMIN VIEW (Master Control)
+  const adminPass = DB.get(PASS_ADMIN_KEY, DEFAULT_ADMIN_PASS);
+  const sitePass  = DB.get(PASS_SITE_KEY, DEFAULT_SITE_PASS);
+  const staffPass = DB.get(PASS_STAFF_KEY, DEFAULT_STAFF_PASS);
 
   return `<div class="dash">
     <article class="glass card s12" style="background:linear-gradient(135deg, rgba(59,116,255,0.1), transparent)">
-      <div class="hd"><h2>Staff Access Control</h2><span class="st b">Owner Only</span></div>
-      <p class="hint">This is the passphrase your staff use to log in. They cannot see or change this.</p>
+      <div class="hd"><h2>Security & Access Control</h2><span class="st b">Master Admin</span></div>
+      <p class="hint">Manage the passphrases for all users. Only you can see this panel.</p>
       
-      <div style="display:flex; align-items:center; gap:16px; margin-top:20px; background:var(--fill); padding:16px; border-radius:12px;">
-        <div style="flex:1">
-          <small class="mute">Current Staff Passphrase</small>
-          <div style="font:700 24px var(--fd); letter-spacing:2px; color:var(--sig-t)">${esc(currentStaffPass)}</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:20px;">
+        <div style="background:var(--fill); padding:16px; border-radius:12px;">
+          <small class="mute">Main Admin (You)</small>
+          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--sig-t)">${esc(adminPass)}</div>
+          <button class="btn sm" type="button" data-a="changepass" data-role="admin" style="margin-top:10px;width:100%">Change</button>
         </div>
-        <button class="btn p" type="button" data-a="changestaffpass">Change Password</button>
+        
+        <div style="background:var(--fill); padding:16px; border-radius:12px;">
+          <small class="mute">Site Owner</small>
+          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--amber)">${esc(sitePass)}</div>
+          <button class="btn sm" type="button" data-a="changepass" data-role="site" style="margin-top:10px;width:100%">Change</button>
+        </div>
+
+        <div style="background:var(--fill); padding:16px; border-radius:12px;">
+          <small class="mute">Staff</small>
+          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--teal)">${esc(staffPass)}</div>
+          <button class="btn sm" type="button" data-a="changepass" data-role="staff" style="margin-top:10px;width:100%">Change</button>
+        </div>
       </div>
     </article>
 
@@ -624,11 +659,15 @@ const A = {
     render(); 
     toast('Deleted');
   },
-  async changestaffpass() {
-    const np = prompt('Enter the new Staff Passphrase (min 6 chars):');
+  async changepass(el) {
+    const role = el.dataset.role;
+    const labels = { admin: 'Main Admin', site: 'Site Owner', staff: 'Staff' };
+    const keyMap = { admin: PASS_ADMIN_KEY, site: PASS_SITE_KEY, staff: PASS_STAFF_KEY };
+    
+    const np = prompt(`Enter the new passphrase for ${labels[role]} (min 6 chars):`);
     if (!np || np.length < 6) return;
-    DB.set(STAFF_PASS_KEY, np);
-    toast('Staff passphrase updated!');
+    DB.set(keyMap[role], np);
+    toast(`${labels[role]} passphrase updated!`);
     render();
   },
   async panic() {
@@ -675,7 +714,7 @@ const A = {
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'inventory.csv'; a.click();
   },
-  async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(PASS_KEY, ''); location.reload(); } },
+  async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(ROLE_KEY, ''); location.reload(); } },
   export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); }
 };
 document.addEventListener('click', e => { const el = e.target.closest('[data-a]'); if (el && A[el.dataset.a]) A[el.dataset.a](el); });
