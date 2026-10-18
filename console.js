@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Auto-Backup Edition)
+   99 COMPUTERS — ADMIN CONSOLE (Premium Owner Edition)
    ========================================================================== */
 
 (() => {
@@ -113,8 +113,8 @@ const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const PASS_KEY  = 'n99.console.pass';
 const ROLE_KEY  = 'n99.console.role';
-const DEFAULT_PASS = '99computers';
-const OWNER_PASS = '99admin';
+const DEFAULT_PASS = '99computers'; // Staff pass
+const OWNER_PASS = '99admin'; // Change this to your secret Owner pass
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
 const gh = {
@@ -235,7 +235,7 @@ async function loadCatalog() {
 async function autoBackup() {
   const today = new Date().toISOString().split('T')[0];
   const lastBackup = DB.get('last_backup', '');
-  if (lastBackup === today) return; // Already backed up today
+  if (lastBackup === today) return;
 
   try {
     const file = await gh.readFile(CATALOG_PATH);
@@ -244,14 +244,10 @@ async function autoBackup() {
     const backupPath = `${BACKUP_DIR}/catalog-${today}.json`;
     await gh.writeFile(backupPath, file.content, `Auto-backup: ${today}`, null);
     DB.set('last_backup', today);
-    console.log('Daily backup created:', backupPath);
-  } catch (e) {
-    console.log('Auto-backup failed silently:', e.message);
-  }
+  } catch (e) {}
 }
-// -----------------------------------------------------
 
-// --- SAFE BATCH SAVING + AUTO-DEDUPLICATE + LOGGING ---
+// --- SAFE BATCH SAVING ---
 let saveTimeout = null;
 let countdownInterval = null;
 let timeLeft = 0;
@@ -354,6 +350,7 @@ function render() {
 }
 
 function viewOverview() {
+  const role = DB.get(ROLE_KEY, 'staff');
   const total = S.products.length;
   const low = S.products.filter(p => p.qty <= (p.min ?? 2));
   const featured = S.products.filter(p => p.featured).length;
@@ -364,14 +361,42 @@ function viewOverview() {
     totalCost += (val * p.qty); 
   });
 
+  // OWNER VIEW
+  if (role === 'owner') {
+    return `<div class="dash">
+      <article class="glass card s3" style="background:linear-gradient(135deg, rgba(59,116,255,0.15), transparent)"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
+      <article class="glass card s3" style="background:linear-gradient(135deg, rgba(34,211,197,0.15), transparent)"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost/selling</p></article>
+      <article class="glass card s3" style="background:linear-gradient(135deg, rgba(255,122,61,0.15), transparent)"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
+      <article class="glass card s3" style="background:linear-gradient(135deg, rgba(232,97,60,0.15), transparent)"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em;color:var(--err)">${low.length}</b><p class="hint">need restocking</p></article>
+
+      <article class="glass card s6"><div class="hd"><h2>⚠️ Low Stock Alerts</h2></div>
+        <ul class="list">
+          ${low.length ? low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st d end">Reorder</span></li>`).join('') : '<li>All stock levels are healthy.</li>'}
+        </ul>
+      </article>
+
+      <article class="glass card s6"><div class="hd"><h2>Recent Activity</h2><a class="btn sm" href="#logs">View all</a></div>
+        <ul class="list">
+          ${S.logs.length ? S.logs.slice(0, 5).map(l => `<li><div><b>${esc(l.action)}</b><small>${esc(l.user.toUpperCase())} · ${new Date(l.time).toLocaleString()}</small></div></li>`).join('') : '<li>No recent activity.</li>'}
+        </ul>
+      </article>
+
+      <article class="glass card s12"><div class="hd"><h2>Quick start</h2><button class="btn p sm" type="button" data-a="pnew">${ic('plus')}Add product</button></div>
+        <ol class="steps">
+          <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
+          <li>Drop photos — they resize and upload to your GitHub repo automatically.</li>
+          <li>Press Save. The console automatically removes exact duplicates.</li>
+          <li>Your product is live at <b>99computers.co.ke</b>.</li>
+        </ol>
+      </article>
+    </div>`;
+  }
+
+  // STAFF VIEW (Standard)
   return `<div class="dash">
-    <article class="glass card s3"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
-    <article class="glass card s3"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
-    <article class="glass card s3"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${low.length}</b><p class="hint">need restocking</p></article>
-    <article class="glass card s3"><div class="hd"><h2>Stock Value</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${kesF(totalCost)}</b><p class="hint">at cost or selling price</p></article>
-
-    ${low.length ? `<article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">⚠️ Low Stock Alerts</h2></div><ul class="list">${low.map(p => `<li><div><b>${esc(p.name)}</b><small>${p.qty} left, alert at ${p.min ?? 2}</small></div><span class="st d end">Reorder</span></li>`).join('')}</ul></article>` : ''}
-
+    <article class="glass card s4"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
+    <article class="glass card s4"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
+    <article class="glass card s4"><div class="hd"><h2>Low stock</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${low.length}</b><p class="hint">need restocking</p></article>
     <article class="glass card s12"><div class="hd"><h2>Quick start</h2><button class="btn p sm" type="button" data-a="pnew">${ic('plus')}Add product</button></div>
       <ol class="steps">
         <li>Tap <b>Add product</b>, pick a category, fill in the details.</li>
@@ -630,7 +655,6 @@ addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'over
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
   
-  // Run auto-backup in the background
   autoBackup();
 })();
 })();
