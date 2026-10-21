@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Local Setup & Master Control)
+   99 COMPUTERS — ADMIN CONSOLE (token-free client, commits via /api/save)
    ========================================================================== */
 
 (() => {
@@ -103,17 +103,15 @@ function hydrate(rootEl) {
   });
 }
 
+/* ----------------------------- CONFIG ----------------------------- */
 const OWNER = 'keithkirujah';
 const REPO  = '99computers';
 const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
 const LOG_PATH = 'data/log.json';
-const BACKUP_DIR = 'data/backups';
 const IMAGES_DIR = 'images/shop';
-const TOKEN_KEY = 'n99.gh.token';
 const ROLE_KEY  = 'n99.console.role';
 
-// Defaults for Local
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 const USERS_DEFAULT = {
   admin: { user: '99admin', pass: 'admin123' },
@@ -121,24 +119,23 @@ const USERS_DEFAULT = {
   staff: { user: '99staff', pass: 'staff123' }
 };
 
+/* ---------------------- GH CLIENT (NO TOKEN) ---------------------- */
+/* Reads  : direct to public GitHub API (no token needed, repo is public)
+   Writes : POST to /api/save  →  server uses GITHUB_TOKEN from Vercel   */
 const gh = {
-  get token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } },
-  set token(v) { try { v ? localStorage.setItem(TOKEN_KEY, v) : localStorage.removeItem(TOKEN_KEY); } catch (e) {} },
   headers() {
-    const h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
-    if (this.token) h['Authorization'] = 'Bearer ' + this.token;
-    return h;
+    return { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
   },
-  async call(path, opts = {}) {
+
+  async call(path) {
     const url = 'https://api.github.com/repos/' + OWNER + '/' + REPO + path;
-    const r = await fetch(url, { ...opts, headers: { ...this.headers(), ...(opts.headers || {}) } });
-    if (r.status === 401) throw Object.assign(Error('GitHub token is invalid or expired'), { status: 401 });
-    if (r.status === 403) throw Object.assign(Error('GitHub token lacks permission. Check it has Contents: Read and write'), { status: 403 });
+    const r = await fetch(url, { headers: this.headers() });
     if (r.status === 404) throw Object.assign(Error('File or repo not found'), { status: 404 });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw Object.assign(Error(j.message || 'GitHub request failed'), { status: r.status });
     return j;
   },
+
   async readFile(path) {
     try {
       const j = await this.call('/contents/' + encodeURIComponent(path) + '?ref=' + BRANCH);
@@ -146,6 +143,7 @@ const gh = {
       return { sha: j.sha, content };
     } catch (e) { if (e.status === 404) return null; throw e; }
   },
+
   async readPreviousFile(path) {
     try {
       const commits = await this.call('/commits?path=' + encodeURIComponent(path) + '&per_page=2');
@@ -156,19 +154,33 @@ const gh = {
       return { sha: j.sha, content };
     } catch (e) { return null; }
   },
-  async writeFile(path, content, message, sha = null) {
-    const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
-    if (sha) body.sha = sha;
-    return this.call('/contents/' + encodeURIComponent(path), { method: 'PUT', body: JSON.stringify(body) });
+
+  /* Plain-text write — server base64-encodes it */
+  async writeFile(path, content, message) {
+    const r = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content, message, binary: false })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw Error(j.error || 'Save failed');
+    return j;
   },
+
+  /* Binary write — content is already base64 (e.g. image) */
   async writeBinary(path, base64, message) {
-    const existing = await this.readFile(path).catch(() => null);
-    const body = { message, content: base64, branch: BRANCH };
-    if (existing && existing.sha) body.sha = existing.sha;
-    return this.call('/contents/' + encodeURIComponent(path), { method: 'PUT', body: JSON.stringify(body) });
+    const r = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content: base64, message, binary: true })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw Error(j.error || 'Upload failed');
+    return j;
   }
 };
 
+/* ---------------------------- COMPRESS ---------------------------- */
 async function compress(file, max = 1400, q = 0.84) {
   const bmp = await createImageBitmap(file);
   const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
@@ -186,6 +198,8 @@ async function compress(file, max = 1400, q = 0.84) {
   return btoa(bin);
 }
 
+/* ------------------------------ GATE ------------------------------ */
+/* No token field anymore. Just username + password. */
 function gate() {
   return new Promise(res => {
     const el = document.getElementById('gate');
@@ -195,46 +209,33 @@ function gate() {
       <span class="ico" style="--h:var(--teal);margin:0 auto 18px">${ic('lock') || '🔒'}</span>
       <h1 style="font-size:26px;margin-bottom:8px">Staff console</h1>
       <p class="sub2" style="color:var(--mute);margin-bottom:20px">Enter your username and password to continue.</p>
-      
+
       <div class="fld" style="text-align:left"><label for="p-user">Username</label><input id="p-user" name="user" type="text" placeholder="e.g. 99admin" autocomplete="username" required></div>
       <div class="fld" style="text-align:left"><label for="p-pass">Password</label><input id="p-pass" name="pass" type="password" autocomplete="current-password" required></div>
-      
-      <div class="fld" style="text-align:left; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px;">
-        <label for="p-token">GitHub Token (First time only)</label>
-        <input id="p-token" name="token" type="password" placeholder="github_pat_..." autocomplete="off">
-        <span class="hint">If this is a new device, you must paste your GitHub token once. It will be saved locally.</span>
-      </div>
-      
-      <button class="btn p" type="submit" style="width:100%">Log in</button>
+
+      <button class="btn p" type="submit" style="width:100%;margin-top:12px">Log in</button>
     </form>`;
     const f = $('#pg', el);
     f.addEventListener('submit', e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
-      
+
       let users = DB.get('users', USERS_DEFAULT);
       let role = null;
-      
+
       if (d.user === users.admin.user && d.pass === users.admin.pass) role = 'admin';
       else if (d.user === users.site.user && d.pass === users.site.pass) role = 'site';
       else if (d.user === users.staff.user && d.pass === users.staff.pass) role = 'staff';
-      
+
       if (!role) { toast('Invalid username or password'); return; }
-      
-      const token = (d.token || '').trim();
-      if (token && !token.startsWith('github_pat_') && !token.startsWith('ghp_')) {
-        toast('That does not look like a GitHub token'); return;
-      }
-      
-      if (token) gh.token = token;
-      else if (!gh.token) { toast('Please enter your GitHub token for this device'); return; }
-      
+
       DB.set(ROLE_KEY, role);
       res(true);
     });
   });
 }
 
+/* ----------------------------- STATE ----------------------------- */
 const S = { products: [], cats: [], logs: [], view: 'overview' };
 
 async function loadCatalog() {
@@ -245,13 +246,13 @@ async function loadCatalog() {
       S.products = Array.isArray(j.products) ? j.products : [];
       S.cats = Array.isArray(j.categories) ? j.categories : [];
     } else { S.products = []; S.cats = []; }
-    
+
     const logFile = await gh.readFile(LOG_PATH);
     if (logFile) S.logs = JSON.parse(logFile.content) || [];
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
 }
 
-// --- SAFE BATCH SAVING ---
+/* -------------------------- BATCH SAVING -------------------------- */
 let saveTimeout = null;
 let countdownInterval = null;
 let timeLeft = 0;
@@ -262,7 +263,7 @@ function queueSave(msg) {
   clearInterval(countdownInterval);
   pendingMsg = msg;
   timeLeft = 60;
-  
+
   let syncEl = $('#sync');
   if (!syncEl) {
     syncEl = document.createElement('span');
@@ -273,7 +274,7 @@ function queueSave(msg) {
   syncEl.hidden = false;
   syncEl.style.background = 'var(--sig-t)';
   syncEl.style.color = '#1a0d05';
-  
+
   const updateCountdown = () => {
     syncEl.textContent = `Saving in ${timeLeft}s...`;
     if (timeLeft <= 0) clearInterval(countdownInterval);
@@ -287,7 +288,7 @@ function queueSave(msg) {
     syncEl.textContent = 'Publishing...';
     syncEl.style.background = 'var(--gl2)';
     syncEl.style.color = 'var(--ink)';
-    
+
     try {
       const uniqueProducts = [];
       const seenNames = new Set();
@@ -297,25 +298,22 @@ function queueSave(msg) {
         if (!seenNames.has(key)) { seenNames.add(key); uniqueProducts.push(p); }
       }
       S.products = uniqueProducts;
-      
+
       const j = { version: 1, updated: new Date().toISOString(), categories: S.cats, products: S.products };
-      const file = await gh.readFile(CATALOG_PATH);
-      await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), pendingMsg, file ? file.sha : null);
-      
+      await gh.writeFile(CATALOG_PATH, JSON.stringify(j, null, 2), pendingMsg);
+
       const role = DB.get(ROLE_KEY, 'staff');
       const newLog = { time: new Date().toISOString(), user: role, action: pendingMsg };
       S.logs.unshift(newLog);
       if (S.logs.length > 100) S.logs = S.logs.slice(0, 100);
-      
-      const logFile = await gh.readFile(LOG_PATH).catch(() => null);
-      await gh.writeFile(LOG_PATH, JSON.stringify(S.logs, null, 2), 'Update activity log', logFile ? logFile.sha : null);
-      
+      await gh.writeFile(LOG_PATH, JSON.stringify(S.logs, null, 2), 'Update activity log');
+
       toast('Published (duplicates removed). Live site updates in ~30s.');
       syncEl.textContent = 'Live on your website';
       setTimeout(() => { syncEl.hidden = true; }, 3000);
-      
+
       if (S.view === 'products' || S.view === 'logs') render();
-      
+
     } catch (e) {
       toast('Could not publish: ' + e.message);
       syncEl.hidden = true;
@@ -323,16 +321,15 @@ function queueSave(msg) {
   }, 60000);
 }
 
+/* ----------------------------- RENDER ----------------------------- */
 const kesF = n => 'KSh ' + Number(n).toLocaleString('en-KE');
 const title = { overview: 'Overview', products: 'Products', settings: 'Settings', logs: 'Activity Log', users: 'User Management' };
 const view = $('#view');
 
 function render() {
   const role = DB.get(ROLE_KEY, 'staff');
-  
   const rail = $('.rail');
-  
-  // Add Activity Log for Admin & Site
+
   if ((role === 'admin' || role === 'site') && !$('#log-nav')) {
     const a = document.createElement('a');
     a.id = 'log-nav';
@@ -341,8 +338,7 @@ function render() {
     a.innerHTML = `${ic('list')}<span class="t">Activity Log</span>`;
     rail.insertBefore(a, $('.back'));
   }
-  
-  // Add User Management for Admin
+
   if (role === 'admin' && !$('#users-nav')) {
     const a = document.createElement('a');
     a.id = 'users-nav';
@@ -355,13 +351,13 @@ function render() {
   $('#title').textContent = title[S.view] || 'Overview';
   $$('.rail [data-v]').forEach(a => a.dataset.v === S.view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   view.classList.remove('view'); void view.offsetWidth; view.classList.add('view');
-  
+
   if (S.view === 'logs') view.innerHTML = viewLogs();
   else if (S.view === 'users') view.innerHTML = viewUsers();
   else if (S.view === 'products') view.innerHTML = viewProducts();
   else if (S.view === 'settings') view.innerHTML = viewSettings();
   else view.innerHTML = viewOverview();
-  
+
   hydrate(view);
 }
 
@@ -370,11 +366,11 @@ function viewOverview() {
   const total = S.products.length;
   const low = S.products.filter(p => p.qty <= (p.min ?? 2));
   const featured = S.products.filter(p => p.featured).length;
-  
+
   let totalCost = 0;
-  S.products.forEach(p => { 
+  S.products.forEach(p => {
     const val = p.cost ? p.cost : eff(p);
-    totalCost += (val * p.qty); 
+    totalCost += (val * p.qty);
   });
 
   if (role === 'admin' || role === 'site') {
@@ -469,7 +465,7 @@ function viewProducts() {
 function viewLogs() {
   const filter = $('#log-filter')?.value || 'All';
   const filtered = S.logs.filter(l => filter === 'All' || l.user === filter);
-  
+
   return `<div class="glass card">
     <div class="hd">
       <h2>Activity Log</h2>
@@ -506,7 +502,7 @@ function rows() {
 
 function viewSettings() {
   const role = DB.get(ROLE_KEY, 'staff');
-  
+
   if (role === 'staff') {
     return `<div class="glass card" style="text-align:center;padding:60px">
       <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
@@ -541,11 +537,6 @@ function viewSettings() {
       <div class="btns"><button class="btn p" type="button" data-a="restore">Restore from File</button></div>
     </article>
 
-    <article class="glass card s12"><div class="hd"><h2>GitHub token</h2><span class="st a">Connected</span></div>
-      <p class="hint">Your token is stored on this device only.</p>
-      <div class="btns" style="margin-top:14px"><button class="btn" type="button" data-a="tokreset">${ic('refresh')}Replace token</button></div>
-    </article>
-
     <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
       <div class="btns" style="margin-top:14px">
         <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
@@ -560,10 +551,10 @@ function productForm(p) {
   p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', cost: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
   let imgs = [...(p.images || [])];
   const specRow = (l = '', v = '') => `<div class="sprow"><input placeholder="Name, e.g. Processor" value="${esc(l)}"><input placeholder="Value, e.g. Intel Core i5" value="${esc(v)}"><button class="ab" type="button" data-p="sprm">${ic('x')}</button></div>`;
-  
+
   const currentCats = [...new Set([...BASE_CATS, ...S.cats.map(c=>c.name)])].sort();
   const catOpts = currentCats.map(c => `<option value="${esc(c)}"${c === p.cat ? ' selected' : ''}>${esc(c)}</option>`).join('');
-  
+
   const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>${isNew ? 'Add product' : 'Edit product'}</h2>
   <form novalidate class="pform" style="margin-top:18px">
     <div><h3>Photos</h3><div class="up" id="up"><input type="file" id="pfile" accept="image/*" multiple hidden><button class="btn sm" type="button" data-p="pick">${ic('photo')}Add photos</button><p class="hint" style="margin-top:8px">Up to 6. Resized and uploaded automatically.</p><div class="tg" id="tg"></div></div></div>
@@ -580,9 +571,9 @@ function productForm(p) {
       <button class="btn p" style="width:100%" type="submit">${isNew ? 'Save product' : 'Save changes'}</button>
     </div>
   </form>`, 'xl');
-  
+
   const f = $('form', m.el), specs = $('#specs', m.el);
-  
+
   const catSel = f.elements.cat, newCatInput = $('#m-newcat', m.el);
   catSel.addEventListener('change', () => {
     if (catSel.value === '__new') {
@@ -599,7 +590,7 @@ function productForm(p) {
 
   const draw = () => { $('#tg', m.el).innerHTML = imgs.map((r, i) => `<div class="tn"><img src="${esc(r)}" alt=""><span class="mk">${i === 0 ? 'Main' : 'Photo ' + (i + 1)}</span><span class="tb"><button type="button" class="mini" data-p="rm" data-i="${i}">Remove</button></span></div>`).join(''); };
   draw();
-  
+
   f.addEventListener('click', async e => {
     const b = e.target.closest('[data-p]'); if (!b) return;
     const k = b.dataset.p, i = +b.dataset.i;
@@ -608,7 +599,7 @@ function productForm(p) {
     else if (k === 'sprm') b.closest('.sprow').remove();
     else if (k === 'rm') { imgs.splice(i, 1); draw(); }
   });
-  
+
   $('#pfile', m.el).addEventListener('change', async e => {
     const files = [...e.target.files]; e.target.value = '';
     for (const file of files) {
@@ -627,7 +618,7 @@ function productForm(p) {
     }
     toast('Photos ready');
   });
-  
+
   f.addEventListener('submit', async e => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(f));
@@ -643,7 +634,7 @@ function productForm(p) {
     if (d.sale && !(+d.sale > 0 && +d.sale < +d.price)) { toast('Sale must be below the price'); return; }
     const sps = $$('.sprow', specs).map(r => { const inp = $$('input', r); return [inp[0].value.trim(), inp[1].value.trim()]; }).filter(s => s[0] && s[1]);
     const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, cost: d.cost ? +d.cost : null, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
-    
+
     if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
     queueSave((isNew ? 'Added product: ' : 'Updated product: ') + np.name);
     m.close();
@@ -651,6 +642,7 @@ function productForm(p) {
   });
 }
 
+/* ---------------------------- ACTIONS ---------------------------- */
 const A = {
   pnew() { productForm(null); },
   pedit(el) { productForm(S.products.find(x => x.id === el.dataset.id)); },
@@ -659,27 +651,27 @@ const A = {
     if (!p || !confirm('Delete "' + p.name + '"?')) return;
     S.products = S.products.filter(x => x.id !== p.id);
     queueSave('Deleted product: ' + p.name);
-    render(); 
+    render();
     toast('Deleted');
   },
   async edituser(el) {
     const role = el.dataset.role;
     const users = DB.get('users', USERS_DEFAULT);
     const u = users[role];
-    
+
     const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>Edit ${role.toUpperCase()}</h2>
     <form novalidate style="margin-top:14px">
       <div class="fld"><label>Username</label><input name="user" value="${esc(u.user)}" required></div>
       <div class="fld"><label>Password</label><input name="pass" value="${esc(u.pass)}" required></div>
       <button class="btn p" style="width:100%" type="submit">Save Changes</button>
     </form>`);
-    
+
     const f = $('form', m.el);
     f.addEventListener('submit', e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
       if (!d.user.trim() || !d.pass.trim()) return toast('Cannot be empty');
-      
+
       users[role] = { user: d.user.trim(), pass: d.pass.trim() };
       DB.set('users', users);
       m.close();
@@ -692,8 +684,7 @@ const A = {
     try {
       const prev = await gh.readPreviousFile(CATALOG_PATH);
       if (!prev) throw Error('No previous version found');
-      const file = await gh.readFile(CATALOG_PATH);
-      await gh.writeFile(CATALOG_PATH, prev.content, 'PANIC: Restore previous version', file ? file.sha : null);
+      await gh.writeFile(CATALOG_PATH, prev.content, 'PANIC: Restore previous version');
       toast('Previous version restored!');
       setTimeout(() => location.reload(), 1500);
     } catch (e) {
@@ -731,13 +722,12 @@ const A = {
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'inventory.csv'; a.click();
   },
-  async tokreset() { if (confirm('Replace GitHub token? You will need to paste a new one.')) { gh.token = ''; DB.set(ROLE_KEY, ''); location.reload(); } },
   export() { const b = new Blob([JSON.stringify({ products: S.products, categories: S.cats }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'catalog-backup.json'; a.click(); }
 };
 document.addEventListener('click', e => { const el = e.target.closest('[data-a]'); if (el && A[el.dataset.a]) A[el.dataset.a](el); });
 document.addEventListener('input', e => { if (e.target.id === 'pq') $('#ptb').innerHTML = rows(); });
-document.addEventListener('change', e => { 
-  if (e.target.id === 'pc') $('#ptb').innerHTML = rows(); 
+document.addEventListener('change', e => {
+  if (e.target.id === 'pc') $('#ptb').innerHTML = rows();
   if (e.target.id === 'log-filter') render();
 });
 addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'overview'); render(); });
