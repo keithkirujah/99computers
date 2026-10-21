@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Tri-Level Access)
+   99 COMPUTERS — ADMIN CONSOLE (Local Setup & Master Control)
    ========================================================================== */
 
 (() => {
@@ -113,17 +113,13 @@ const IMAGES_DIR = 'images/shop';
 const TOKEN_KEY = 'n99.gh.token';
 const ROLE_KEY  = 'n99.console.role';
 
-// Passphrase Keys
-const PASS_ADMIN_KEY = 'n99.pass.admin';
-const PASS_SITE_KEY  = 'n99.pass.site';
-const PASS_STAFF_KEY = 'n99.pass.staff';
-
-// Defaults
-const DEFAULT_ADMIN_PASS = '99admin';
-const DEFAULT_SITE_PASS  = '99donga';
-const DEFAULT_STAFF_PASS = '99computers';
-
+// Defaults for Local
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
+const USERS_DEFAULT = {
+  admin: { user: '99admin', pass: 'admin123' },
+  site:  { user: '99owner', pass: 'owner123' },
+  staff: { user: '99staff', pass: 'staff123' }
+};
 
 const gh = {
   get token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } },
@@ -198,30 +194,42 @@ function gate() {
     el.innerHTML = `<form class="glass card" id="pg" novalidate style="max-width:420px;width:100%;padding:36px;text-align:center">
       <span class="ico" style="--h:var(--teal);margin:0 auto 18px">${ic('lock') || '🔒'}</span>
       <h1 style="font-size:26px;margin-bottom:8px">Staff console</h1>
-      <p class="sub2" style="color:var(--mute);margin-bottom:20px">Enter your admin passphrase and GitHub token to continue.</p>
-      <div class="fld" style="text-align:left"><label for="p-pass">Passphrase</label><input id="p-pass" name="pass" type="password" autocomplete="current-password" required></div>
-      <div class="fld" style="text-align:left"><label for="p-token">GitHub token</label><input id="p-token" name="token" type="password" placeholder="github_pat_..." autocomplete="off" required><span class="hint">Fine-grained token with Contents: Read and write on this repo. Stored on this device only.</span></div>
-      <button class="btn p" type="submit" style="width:100%">Enter console</button>
+      <p class="sub2" style="color:var(--mute);margin-bottom:20px">Enter your username and password to continue.</p>
+      
+      <div class="fld" style="text-align:left"><label for="p-user">Username</label><input id="p-user" name="user" type="text" placeholder="e.g. 99admin" autocomplete="username" required></div>
+      <div class="fld" style="text-align:left"><label for="p-pass">Password</label><input id="p-pass" name="pass" type="password" autocomplete="current-password" required></div>
+      
+      <div class="fld" style="text-align:left; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px;">
+        <label for="p-token">GitHub Token (First time only)</label>
+        <input id="p-token" name="token" type="password" placeholder="github_pat_..." autocomplete="off">
+        <span class="hint">If this is a new device, you must paste your GitHub token once. It will be saved locally.</span>
+      </div>
+      
+      <button class="btn p" type="submit" style="width:100%">Log in</button>
     </form>`;
     const f = $('#pg', el);
     f.addEventListener('submit', e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
-      let role = '';
       
-      const adminPass = DB.get(PASS_ADMIN_KEY, DEFAULT_ADMIN_PASS);
-      const sitePass  = DB.get(PASS_SITE_KEY, DEFAULT_SITE_PASS);
-      const staffPass = DB.get(PASS_STAFF_KEY, DEFAULT_STAFF_PASS);
-
-      if (d.pass === adminPass) role = 'admin';
-      else if (d.pass === sitePass) role = 'site';
-      else if (d.pass === staffPass) role = 'staff';
-      else { toast('Wrong passphrase'); return; }
+      let users = DB.get('users', USERS_DEFAULT);
+      let role = null;
       
-      if (!d.token.trim().startsWith('github_pat_') && !d.token.trim().startsWith('ghp_')) { toast('That does not look like a GitHub token'); return; }
+      if (d.user === users.admin.user && d.pass === users.admin.pass) role = 'admin';
+      else if (d.user === users.site.user && d.pass === users.site.pass) role = 'site';
+      else if (d.user === users.staff.user && d.pass === users.staff.pass) role = 'staff';
+      
+      if (!role) { toast('Invalid username or password'); return; }
+      
+      const token = (d.token || '').trim();
+      if (token && !token.startsWith('github_pat_') && !token.startsWith('ghp_')) {
+        toast('That does not look like a GitHub token'); return;
+      }
+      
+      if (token) gh.token = token;
+      else if (!gh.token) { toast('Please enter your GitHub token for this device'); return; }
       
       DB.set(ROLE_KEY, role);
-      gh.token = d.token.trim();
       res(true);
     });
   });
@@ -241,22 +249,6 @@ async function loadCatalog() {
     const logFile = await gh.readFile(LOG_PATH);
     if (logFile) S.logs = JSON.parse(logFile.content) || [];
   } catch (e) { toast('Could not load catalog: ' + e.message); S.products = []; S.cats = []; }
-}
-
-// --- AUTO-BACKUP ---
-async function autoBackup() {
-  const today = new Date().toISOString().split('T')[0];
-  const lastBackup = DB.get('last_backup', '');
-  if (lastBackup === today) return;
-
-  try {
-    const file = await gh.readFile(CATALOG_PATH);
-    if (!file) return;
-    
-    const backupPath = `${BACKUP_DIR}/catalog-${today}.json`;
-    await gh.writeFile(backupPath, file.content, `Auto-backup: ${today}`, null);
-    DB.set('last_backup', today);
-  } catch (e) {}
 }
 
 // --- SAFE BATCH SAVING ---
@@ -330,16 +322,17 @@ function queueSave(msg) {
     }
   }, 60000);
 }
-// --------------------------
 
 const kesF = n => 'KSh ' + Number(n).toLocaleString('en-KE');
-const title = { overview: 'Overview', products: 'Products', settings: 'Settings', logs: 'Activity Log' };
+const title = { overview: 'Overview', products: 'Products', settings: 'Settings', logs: 'Activity Log', users: 'User Management' };
 const view = $('#view');
 
 function render() {
   const role = DB.get(ROLE_KEY, 'staff');
   
   const rail = $('.rail');
+  
+  // Add Activity Log for Admin & Site
   if ((role === 'admin' || role === 'site') && !$('#log-nav')) {
     const a = document.createElement('a');
     a.id = 'log-nav';
@@ -348,12 +341,23 @@ function render() {
     a.innerHTML = `${ic('list')}<span class="t">Activity Log</span>`;
     rail.insertBefore(a, $('.back'));
   }
+  
+  // Add User Management for Admin
+  if (role === 'admin' && !$('#users-nav')) {
+    const a = document.createElement('a');
+    a.id = 'users-nav';
+    a.href = '#users';
+    a.dataset.v = 'users';
+    a.innerHTML = `${ic('users')}<span class="t">User Management</span>`;
+    rail.insertBefore(a, $('.back'));
+  }
 
   $('#title').textContent = title[S.view] || 'Overview';
   $$('.rail [data-v]').forEach(a => a.dataset.v === S.view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   view.classList.remove('view'); void view.offsetWidth; view.classList.add('view');
   
   if (S.view === 'logs') view.innerHTML = viewLogs();
+  else if (S.view === 'users') view.innerHTML = viewUsers();
   else if (S.view === 'products') view.innerHTML = viewProducts();
   else if (S.view === 'settings') view.innerHTML = viewSettings();
   else view.innerHTML = viewOverview();
@@ -373,7 +377,6 @@ function viewOverview() {
     totalCost += (val * p.qty); 
   });
 
-  // ADMIN or SITE OWNER VIEW
   if (role === 'admin' || role === 'site') {
     return `<div class="dash">
       <article class="glass card s3" style="background:linear-gradient(135deg, rgba(59,116,255,0.15), transparent)"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
@@ -404,7 +407,6 @@ function viewOverview() {
     </div>`;
   }
 
-  // STAFF VIEW (Standard)
   return `<div class="dash">
     <article class="glass card s4"><div class="hd"><h2>Products</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${total}</b><p class="hint">in the shop</p></article>
     <article class="glass card s4"><div class="hd"><h2>Featured</h2></div><b style="font:700 34px var(--fd);letter-spacing:-.03em">${featured}</b><p class="hint">shown on home</p></article>
@@ -417,6 +419,39 @@ function viewOverview() {
         <li>Your product is live at <b>99computers.co.ke</b>.</li>
       </ol>
     </article>
+  </div>`;
+}
+
+function viewUsers() {
+  const users = DB.get('users', USERS_DEFAULT);
+  return `<div class="glass card">
+    <div class="hd"><h2>User Management</h2></div>
+    <p class="hint">These are the current logins. Only you (the Main Admin) can see this page.</p>
+    <div class="tw" style="margin-top:20px;">
+      <table>
+        <thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b style="color:var(--sig-t)">Main Admin</b></td>
+            <td>${esc(users.admin.user)}</td>
+            <td><code>${esc(users.admin.pass)}</code></td>
+            <td><button class="btn sm" data-a="edituser" data-role="admin">Edit</button></td>
+          </tr>
+          <tr>
+            <td><b style="color:var(--amber)">Site Owner</b></td>
+            <td>${esc(users.site.user)}</td>
+            <td><code>${esc(users.site.pass)}</code></td>
+            <td><button class="btn sm" data-a="edituser" data-role="site">Edit</button></td>
+          </tr>
+          <tr>
+            <td><b style="color:var(--teal)">Staff</b></td>
+            <td>${esc(users.staff.user)}</td>
+            <td><code>${esc(users.staff.pass)}</code></td>
+            <td><button class="btn sm" data-a="edituser" data-role="staff">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>`;
 }
 
@@ -472,7 +507,6 @@ function rows() {
 function viewSettings() {
   const role = DB.get(ROLE_KEY, 'staff');
   
-  // If staff, show locked screen
   if (role === 'staff') {
     return `<div class="glass card" style="text-align:center;padding:60px">
       <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
@@ -481,7 +515,6 @@ function viewSettings() {
     </div>`;
   }
 
-  // SITE OWNER VIEW (No Tokens, No Restore, No Panic)
   if (role === 'site') {
     return `<div class="dash">
       <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
@@ -494,37 +527,7 @@ function viewSettings() {
     </div>`;
   }
 
-  // MAIN ADMIN VIEW (Master Control)
-  const adminPass = DB.get(PASS_ADMIN_KEY, DEFAULT_ADMIN_PASS);
-  const sitePass  = DB.get(PASS_SITE_KEY, DEFAULT_SITE_PASS);
-  const staffPass = DB.get(PASS_STAFF_KEY, DEFAULT_STAFF_PASS);
-
   return `<div class="dash">
-    <article class="glass card s12" style="background:linear-gradient(135deg, rgba(59,116,255,0.1), transparent)">
-      <div class="hd"><h2>Security & Access Control</h2><span class="st b">Master Admin</span></div>
-      <p class="hint">Manage the passphrases for all users. Only you can see this panel.</p>
-      
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:20px;">
-        <div style="background:var(--fill); padding:16px; border-radius:12px;">
-          <small class="mute">Main Admin (You)</small>
-          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--sig-t)">${esc(adminPass)}</div>
-          <button class="btn sm" type="button" data-a="changepass" data-role="admin" style="margin-top:10px;width:100%">Change</button>
-        </div>
-        
-        <div style="background:var(--fill); padding:16px; border-radius:12px;">
-          <small class="mute">Site Owner</small>
-          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--amber)">${esc(sitePass)}</div>
-          <button class="btn sm" type="button" data-a="changepass" data-role="site" style="margin-top:10px;width:100%">Change</button>
-        </div>
-
-        <div style="background:var(--fill); padding:16px; border-radius:12px;">
-          <small class="mute">Staff</small>
-          <div style="font:700 20px var(--fd); letter-spacing:2px; color:var(--teal)">${esc(staffPass)}</div>
-          <button class="btn sm" type="button" data-a="changepass" data-role="staff" style="margin-top:10px;width:100%">Change</button>
-        </div>
-      </div>
-    </article>
-
     <article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">🚨 Danger Zone</h2></div>
       <p class="hint">If a mistake was made, you can instantly restore the catalog to the state it was in right before the last save.</p>
       <div class="btns" style="margin-top:14px">
@@ -659,16 +662,30 @@ const A = {
     render(); 
     toast('Deleted');
   },
-  async changepass(el) {
+  async edituser(el) {
     const role = el.dataset.role;
-    const labels = { admin: 'Main Admin', site: 'Site Owner', staff: 'Staff' };
-    const keyMap = { admin: PASS_ADMIN_KEY, site: PASS_SITE_KEY, staff: PASS_STAFF_KEY };
+    const users = DB.get('users', USERS_DEFAULT);
+    const u = users[role];
     
-    const np = prompt(`Enter the new passphrase for ${labels[role]} (min 6 chars):`);
-    if (!np || np.length < 6) return;
-    DB.set(keyMap[role], np);
-    toast(`${labels[role]} passphrase updated!`);
-    render();
+    const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>Edit ${role.toUpperCase()}</h2>
+    <form novalidate style="margin-top:14px">
+      <div class="fld"><label>Username</label><input name="user" value="${esc(u.user)}" required></div>
+      <div class="fld"><label>Password</label><input name="pass" value="${esc(u.pass)}" required></div>
+      <button class="btn p" style="width:100%" type="submit">Save Changes</button>
+    </form>`);
+    
+    const f = $('form', m.el);
+    f.addEventListener('submit', e => {
+      e.preventDefault();
+      const d = Object.fromEntries(new FormData(f));
+      if (!d.user.trim() || !d.pass.trim()) return toast('Cannot be empty');
+      
+      users[role] = { user: d.user.trim(), pass: d.pass.trim() };
+      DB.set('users', users);
+      m.close();
+      toast('User updated!');
+      render();
+    });
   },
   async panic() {
     if (!confirm('Restore the catalog to the previous version? This will overwrite current products.')) return;
@@ -733,7 +750,5 @@ addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'over
   S.view = location.hash.slice(1) || 'overview';
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
-  
-  autoBackup();
 })();
 })();
