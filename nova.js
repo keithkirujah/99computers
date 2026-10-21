@@ -458,11 +458,11 @@ if (document.body.dataset.page === 'site') {
         "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "18:00" }],
         "hasOfferCatalog": { "@type": "OfferCatalog", "name": "Products & Services", "itemListElement": [
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Consultancy" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Laptops & Desktop Computers" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Televisions & Electronics" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Laptops & Desktop Computers" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Televisions & Electronics" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CCTV Installation" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Support & Repair" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Electronics Accessories" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electronics Accessories" } }
         ]}
       }))
     ]
