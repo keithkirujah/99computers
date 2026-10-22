@@ -156,6 +156,53 @@ const Catalog = {
   }
 };
 
+/* SEO Product Schema Injection */
+function injectProductSEO(p) {
+  const existing = document.getElementById('product-seo');
+  if (existing) existing.remove();
+
+  const siteUrl = "https://www.99computers.co.ke";
+  const productUrl = siteUrl + '/shop/p/' + p.id;
+  
+  // Ensure we use the effective price (sale price if applicable)
+  const finalPrice = p.sale && p.sale < p.price ? p.sale : p.price;
+  
+  // Image fallback if no images exist
+  const imgArray = (p.images && p.images.length) ? p.images.map(img => {
+    return img.startsWith('http') ? img : siteUrl + (img.startsWith('/') ? '' : '/') + img;
+  }) : [siteUrl + '/images/1.jpeg'];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.name,
+    "image": imgArray,
+    "description": p.desc || 'Available at 99 COMPUTERS. IT solutions, electronics, and security systems in Kenya.',
+    "brand": {
+      "@type": "Brand",
+      "name": p.brand || "99 COMPUTERS"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": productUrl,
+      "priceCurrency": "KES",
+      "price": finalPrice,
+      "availability": p.qty > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "99 COMPUTERS"
+      }
+    }
+  };
+
+  const s = document.createElement('script');
+  s.id = 'product-seo';
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify(schema);
+  document.head.appendChild(s);
+}
+
 /* ===================== SITE ===================== */
 if (document.body.dataset.page === 'site') {
   $$('[data-words]').forEach(h => { h.setAttribute('aria-label', h.textContent); h.innerHTML = h.textContent.split(' ').map((w, i) => `<span class="w" aria-hidden="true" style="--i:${i}">${w}</span>`).join(' '); });
@@ -305,6 +352,9 @@ if (document.body.dataset.page === 'site') {
     const p = CAT.find(x => x.id === id);
     if (!p) { toast('That product is no longer available'); go('/shop'); return; }
 
+    // Inject Product Schema for Google
+    injectProductSEO(p);
+
     const imgs = p.images || [];
     if (imgs[0] && !imgs[0].startsWith('idb:')) { new Image().src = abs(imgs[0]); }
 
@@ -332,7 +382,12 @@ if (document.body.dataset.page === 'site') {
     hydrate(m.el);
     setTimeout(() => { m.el.querySelectorAll('.pimg').forEach(el => { const img = el.querySelector('img'); if (img && img.complete && img.naturalWidth > 0) { el.classList.remove('failed'); el.classList.add('loaded'); } }); }, 500);
 
-    m.on(() => { if (location.pathname.startsWith('/shop/p/')) history.replaceState(null, '', '/shop'); });
+    m.on(() => { 
+      if (location.pathname.startsWith('/shop/p/')) history.replaceState(null, '', '/shop'); 
+      // Clean up product schema when modal closes to avoid SEO confusion
+      const seo = document.getElementById('product-seo');
+      if (seo) seo.remove();
+    });
 
     m.el.addEventListener('click', async e => {
       const t = e.target.closest('.th button'); if (!t) return;
@@ -427,7 +482,7 @@ if (document.body.dataset.page === 'site') {
   setTimeout(() => { if (!document.body.classList.contains('routed')) { ready = true; route(); } }, 2500);
 }
 
-/* SEO JSON-LD */
+/* SEO JSON-LD (Organization, WebSite, LocalBusiness) */
 if (document.body.dataset.page === 'site') {
 (function injectSEO() {
   const siteUrl = "https://www.99computers.co.ke";
