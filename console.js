@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Secure Server-Side Auth & User Management)
+   99 COMPUTERS — ADMIN CONSOLE (Fully Secured)
    ========================================================================== */
 
 (() => {
@@ -22,7 +22,8 @@ const toast = m => {
 const mem = {};
 const DB = {
   get(k, d) { try { const v = localStorage.getItem('n99.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return k in mem ? mem[k] : d; } },
-  set(k, v) { try { localStorage.setItem('n99.' + k, JSON.stringify(v)); } catch (e) { mem[k] = v; } }
+  set(k, v) { try { localStorage.setItem('n99.' + k, JSON.stringify(v)); } catch (e) { mem[k] = v; } },
+  del(k) { try { localStorage.removeItem('n99.' + k); } catch (e) { delete mem[k]; } }
 };
 
 const root = document.documentElement;
@@ -110,7 +111,7 @@ const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
 const LOG_PATH = 'data/log.json';
 const IMAGES_DIR = 'images/shop';
-const ROLE_KEY  = 'n99.console.role';
+const ROLE_KEY  = 'n99.console.role'; // Only for UI display, backend enforces real security
 
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
@@ -155,7 +156,10 @@ const gh = {
       body: JSON.stringify({ path, content, message, binary: false })
     });
     const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw Error(j.error || 'Save failed');
+    if (!r.ok) {
+      if (r.status === 401) handleAuthExpired();
+      throw Error(j.error || 'Save failed');
+    }
     return j;
   },
 
@@ -166,10 +170,19 @@ const gh = {
       body: JSON.stringify({ path, content: base64, message, binary: true })
     });
     const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw Error(j.error || 'Upload failed');
+    if (!r.ok) {
+      if (r.status === 401) handleAuthExpired();
+      throw Error(j.error || 'Upload failed');
+    }
     return j;
   }
 };
+
+function handleAuthExpired() {
+  toast('Session expired. Please log in again.');
+  DB.del(ROLE_KEY);
+  setTimeout(() => location.reload(), 1500);
+}
 
 /* ---------------------------- COMPRESS ---------------------------- */
 async function compress(file, max = 1400, q = 0.84) {
@@ -223,7 +236,6 @@ function gate() {
         });
         
         const j = await r.json();
-        
         if (!r.ok) throw Error(j.error || 'Login failed');
 
         DB.set(ROLE_KEY, j.role);
@@ -423,7 +435,6 @@ function viewOverview() {
 function viewUsers() {
   const role = DB.get(ROLE_KEY, 'staff');
   
-  // Failsafe: Block Site Owners and Staff from even seeing the loading screen
   if (role !== 'admin') {
     return `<div class="glass card" style="text-align:center;padding:60px">
       <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
@@ -438,18 +449,22 @@ function viewUsers() {
     <div id="user-list"></div>
   </div>`;
 }
+
 async function fetchUsers() {
   const el = $('#user-list');
   if (!el) return;
   
   try {
     const r = await fetch('/api/users');
+    if (r.status === 401) return handleAuthExpired();
+    if (r.status === 403) throw Error('Access Denied. You are not the admin.');
+    
     if (!r.ok) throw Error('Failed to load users');
     const j = await r.json();
     el.innerHTML = renderUserTable(j.users);
   } catch (e) {
     toast(e.message);
-    el.innerHTML = `<p class="hint" style="color:var(--err)">Could not load users: ${e.message}</p>`;
+    el.innerHTML = `<p class="hint" style="color:var(--err)">Error: ${e.message}</p>`;
   }
 }
 
@@ -462,19 +477,19 @@ function renderUserTable(users) {
           <tr>
             <td><b style="color:var(--amber)">Site Owner</b></td>
             <td>${esc(users.site.user)}</td>
-            <td><code>${esc(users.site.pass)}</code></td>
-            <td><button class="btn sm" data-a="edituser" data-role="site">Edit</button></td>
+            <td><code>••••••••</code></td>
+            <td><button class="btn sm" data-a="edituser" data-role="site">Change</button></td>
           </tr>
           <tr>
             <td><b style="color:var(--teal)">Staff</b></td>
             <td>${esc(users.staff.user)}</td>
-            <td><code>${esc(users.staff.pass)}</code></td>
-            <td><button class="btn sm" data-a="edituser" data-role="staff">Edit</button></td>
+            <td><code>••••••••</code></td>
+            <td><button class="btn sm" data-a="edituser" data-role="staff">Change</button></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="hint" style="margin-top:16px">To change the Main Admin credentials, please update <code>ADMIN_USER</code> and <code>ADMIN_PASS</code> in your Vercel Environment Variables.</p>
+    <p class="hint" style="margin-top:16px">To change the Main Admin credentials, update <code>ADMIN_USER</code> and <code>ADMIN_PASS</code> in Vercel.</p>
   `;
 }
 
@@ -534,25 +549,13 @@ function viewSettings() {
     return `<div class="glass card" style="text-align:center;padding:60px">
       <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
       <h2>Access Restricted</h2>
-      <p class="hint">Only management can access the settings and security controls.</p>
-    </div>`;
-  }
-
-  if (role === 'site') {
-    return `<div class="dash">
-      <article class="glass card s12"><div class="hd"><h2>Data Export</h2></div>
-        <p class="hint">Download your inventory for accounting or backup.</p>
-        <div class="btns" style="margin-top:14px">
-          <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
-          <button class="btn" type="button" data-a="csv">${ic('download')}Download Excel/CSV</button>
-        </div>
-      </article>
+      <p class="hint">Only management can access the settings.</p>
     </div>`;
   }
 
   return `<div class="dash">
     <article class="glass card s12" style="border-color:var(--err)"><div class="hd"><h2 style="color:var(--err)">🚨 Danger Zone</h2></div>
-      <p class="hint">If a mistake was made, you can instantly restore the catalog to the state it was in right before the last save.</p>
+      <p class="hint">Restore the catalog to the state it was in right before the last save.</p>
       <div class="btns" style="margin-top:14px">
         <button class="btn" type="button" data-a="panic" style="background:var(--err);color:#fff;border:0">${ic('refresh')}Restore Previous Version</button>
       </div>
@@ -569,6 +572,11 @@ function viewSettings() {
         <button class="btn" type="button" data-a="export">${ic('download')}Download JSON Backup</button>
         <button class="btn" type="button" data-a="csv">${ic('download')}Download Excel/CSV</button>
       </div>
+    </article>
+
+    <article class="glass card s12" style="text-align:center;margin-top:20px;padding:30px">
+      <p class="hint" style="margin-bottom:16px">Finished working?</p>
+      <button class="btn" type="button" data-a="logout" style="width:100%">Log out safely</button>
     </article>
   </div>`;
 }
@@ -683,14 +691,12 @@ const A = {
   },
   async edituser(el) {
     const role = el.dataset.role;
-    const r = await fetch('/api/users');
-    const { users } = await r.json();
-    const u = users[role];
+    const u = { user: '' }; // We no longer fetch existing passwords
 
     const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>Edit ${role.toUpperCase()}</h2>
     <form novalidate style="margin-top:14px">
-      <div class="fld"><label>Username</label><input name="user" value="${esc(u.user)}" required></div>
-      <div class="fld"><label>Password</label><input name="pass" value="${esc(u.pass)}" required></div>
+      <div class="fld"><label>New Username</label><input name="user" placeholder="Leave blank to keep current" autocomplete="off"></div>
+      <div class="fld"><label>New Password</label><input name="pass" type="password" placeholder="Leave blank to keep current" autocomplete="new-password"></div>
       <button class="btn p" style="width:100%" type="submit">Save Changes</button>
     </form>`);
 
@@ -698,7 +704,10 @@ const A = {
     f.addEventListener('submit', async e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
-      if (!d.user.trim() || !d.pass.trim()) return toast('Cannot be empty');
+      
+      // If both are empty, do nothing
+      if (!d.user.trim() && !d.pass.trim()) return m.close();
+      if (d.pass && d.pass.length < 6) return toast('Password must be at least 6 chars');
 
       const btn = $('button', f);
       btn.textContent = 'Saving...';
@@ -715,13 +724,20 @@ const A = {
         
         m.close();
         toast('User updated securely!');
-        fetchUsers(); // refresh table
+        fetchUsers(); 
       } catch (err) {
         toast(err.message);
         btn.textContent = 'Save Changes';
         btn.disabled = false;
       }
     });
+  },
+  async logout() {
+    try {
+      await fetch('/api/logout', { method: 'POST' });
+    } catch (e) {}
+    DB.del(ROLE_KEY);
+    location.reload();
   },
   async panic() {
     if (!confirm('Restore the catalog to the previous version? This will overwrite current products.')) return;
@@ -789,7 +805,6 @@ addEventListener('hashchange', () => {
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
   
-  // Fetch users list automatically if Admin opens the tab on load
   if (S.view === 'users') fetchUsers();
 })();
 })();
