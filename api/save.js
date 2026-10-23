@@ -1,5 +1,6 @@
 /* 99 COMPUTERS — Secure GitHub commit proxy
-   The GitHub token lives ONLY here (Vercel env var). The browser never sees it. */
+   The GitHub token lives ONLY here (Vercel env var). The browser never sees it. 
+   This route now requires a valid login cookie to execute. */
 
 const OWNER  = 'keithkirujah';
 const REPO   = '99computers';
@@ -17,6 +18,15 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // --- SECURITY CHECK ---
+  // Ensure the user has a valid auth cookie before allowing any saves.
+  const cookieHeader = req.headers.cookie || '';
+  const match = cookieHeader.match(/n99_auth=(admin|site|staff)/);
+  if (!match) {
+    return res.status(401).json({ error: 'Unauthorized. Please log in again.' });
+  }
+  // ----------------------
 
   const token = process.env.GITHUB_TOKEN;
   if (!token) {

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (token-free client, commits via /api/save)
+   99 COMPUTERS — ADMIN CONSOLE (Secure Server-Side Auth & User Management)
    ========================================================================== */
 
 (() => {
@@ -113,15 +113,8 @@ const IMAGES_DIR = 'images/shop';
 const ROLE_KEY  = 'n99.console.role';
 
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
-const USERS_DEFAULT = {
-  admin: { user: '99admin', pass: 'admin123' },
-  site:  { user: '99owner', pass: 'owner123' },
-  staff: { user: '99staff', pass: 'staff123' }
-};
 
 /* ---------------------- GH CLIENT (NO TOKEN) ---------------------- */
-/* Reads  : direct to public GitHub API (no token needed, repo is public)
-   Writes : POST to /api/save  →  server uses GITHUB_TOKEN from Vercel   */
 const gh = {
   headers() {
     return { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
@@ -155,7 +148,6 @@ const gh = {
     } catch (e) { return null; }
   },
 
-  /* Plain-text write — server base64-encodes it */
   async writeFile(path, content, message) {
     const r = await fetch('/api/save', {
       method: 'POST',
@@ -167,7 +159,6 @@ const gh = {
     return j;
   },
 
-  /* Binary write — content is already base64 (e.g. image) */
   async writeBinary(path, base64, message) {
     const r = await fetch('/api/save', {
       method: 'POST',
@@ -199,7 +190,6 @@ async function compress(file, max = 1400, q = 0.84) {
 }
 
 /* ------------------------------ GATE ------------------------------ */
-/* No token field anymore. Just username + password. */
 function gate() {
   return new Promise(res => {
     const el = document.getElementById('gate');
@@ -215,22 +205,34 @@ function gate() {
 
       <button class="btn p" type="submit" style="width:100%;margin-top:12px">Log in</button>
     </form>`;
+    
     const f = $('#pg', el);
-    f.addEventListener('submit', e => {
+    f.addEventListener('submit', async e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
+      const btn = $('button', f);
+      
+      btn.textContent = 'Checking...';
+      btn.disabled = true;
 
-      let users = DB.get('users', USERS_DEFAULT);
-      let role = null;
+      try {
+        const r = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: d.user, pass: d.pass })
+        });
+        
+        const j = await r.json();
+        
+        if (!r.ok) throw Error(j.error || 'Login failed');
 
-      if (d.user === users.admin.user && d.pass === users.admin.pass) role = 'admin';
-      else if (d.user === users.site.user && d.pass === users.site.pass) role = 'site';
-      else if (d.user === users.staff.user && d.pass === users.staff.pass) role = 'staff';
-
-      if (!role) { toast('Invalid username or password'); return; }
-
-      DB.set(ROLE_KEY, role);
-      res(true);
+        DB.set(ROLE_KEY, j.role);
+        res(true);
+      } catch (err) {
+        toast(err.message);
+        btn.textContent = 'Log in';
+        btn.disabled = false;
+      }
     });
   });
 }
@@ -419,20 +421,34 @@ function viewOverview() {
 }
 
 function viewUsers() {
-  const users = DB.get('users', USERS_DEFAULT);
   return `<div class="glass card">
     <div class="hd"><h2>User Management</h2></div>
-    <p class="hint">These are the current logins. Only you (the Main Admin) can see this page.</p>
-    <div class="tw" style="margin-top:20px;">
+    <p class="hint">Loading current users...</p>
+    <div id="user-list"></div>
+  </div>`;
+}
+
+async function fetchUsers() {
+  try {
+    const r = await fetch('/api/users');
+    if (!r.ok) throw Error('Failed to load users');
+    const j = await r.json();
+    renderUserTable(j.users);
+  } catch (e) {
+    toast(e.message);
+    $('#user-list').innerHTML = `<p class="hint" style="color:var(--err)">Could not load users: ${e.message}</p>`;
+  }
+}
+
+function renderUserTable(users) {
+  const el = $('#user-list');
+  if (!el) return;
+  
+  el.innerHTML = `
+    <div class="tw">
       <table>
         <thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Action</th></tr></thead>
         <tbody>
-          <tr>
-            <td><b style="color:var(--sig-t)">Main Admin</b></td>
-            <td>${esc(users.admin.user)}</td>
-            <td><code>${esc(users.admin.pass)}</code></td>
-            <td><button class="btn sm" data-a="edituser" data-role="admin">Edit</button></td>
-          </tr>
           <tr>
             <td><b style="color:var(--amber)">Site Owner</b></td>
             <td>${esc(users.site.user)}</td>
@@ -448,7 +464,8 @@ function viewUsers() {
         </tbody>
       </table>
     </div>
-  </div>`;
+    <p class="hint" style="margin-top:16px">To change the Main Admin credentials, please update <code>ADMIN_USER</code> and <code>ADMIN_PASS</code> in your Vercel Environment Variables.</p>
+  `;
 }
 
 function viewProducts() {
@@ -656,7 +673,8 @@ const A = {
   },
   async edituser(el) {
     const role = el.dataset.role;
-    const users = DB.get('users', USERS_DEFAULT);
+    const r = await fetch('/api/users');
+    const { users } = await r.json();
     const u = users[role];
 
     const m = modal(`<button class="ib x-btn" data-close aria-label="Close">${ic('x')}</button><h2>Edit ${role.toUpperCase()}</h2>
@@ -667,16 +685,32 @@ const A = {
     </form>`);
 
     const f = $('form', m.el);
-    f.addEventListener('submit', e => {
+    f.addEventListener('submit', async e => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
       if (!d.user.trim() || !d.pass.trim()) return toast('Cannot be empty');
 
-      users[role] = { user: d.user.trim(), pass: d.pass.trim() };
-      DB.set('users', users);
-      m.close();
-      toast('User updated!');
-      render();
+      const btn = $('button', f);
+      btn.textContent = 'Saving...';
+      btn.disabled = true;
+
+      try {
+        const save = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role, user: d.user.trim(), pass: d.pass.trim() })
+        });
+        
+        if (!save.ok) throw Error('Failed to update user');
+        
+        m.close();
+        toast('User updated securely!');
+        fetchUsers(); // refresh table
+      } catch (err) {
+        toast(err.message);
+        btn.textContent = 'Save Changes';
+        btn.disabled = false;
+      }
     });
   },
   async panic() {
@@ -740,5 +774,8 @@ addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'over
   S.view = location.hash.slice(1) || 'overview';
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
+  
+  // Fetch users list automatically if Admin opens the tab
+  if (S.view === 'users') fetchUsers();
 })();
 })();
