@@ -1,4 +1,10 @@
 {
-  "site": { "user": "99owner", "pass": "owner123" },
-  "staff": { "user": "99staff", "pass": "staff123" }
+  "site": {
+    "user": "donga",
+    "pass": "donga123"
+  },
+  "staff": {
+    "user": "99staff",
+    "pass": "staff123"
+  }
 }
