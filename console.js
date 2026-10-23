@@ -429,23 +429,23 @@ function viewUsers() {
 }
 
 async function fetchUsers() {
+  const el = $('#user-list');
+  if (!el) return;
+  
   try {
     const r = await fetch('/api/users');
     if (!r.ok) throw Error('Failed to load users');
     const j = await r.json();
-    renderUserTable(j.users);
+    el.innerHTML = renderUserTable(j.users);
   } catch (e) {
     toast(e.message);
-    $('#user-list').innerHTML = `<p class="hint" style="color:var(--err)">Could not load users: ${e.message}</p>`;
+    el.innerHTML = `<p class="hint" style="color:var(--err)">Could not load users: ${e.message}</p>`;
   }
 }
 
 function renderUserTable(users) {
-  const el = $('#user-list');
-  if (!el) return;
-  
-  el.innerHTML = `
-    <div class="tw">
+  return `
+    <div class="tw" style="margin-top: 16px;">
       <table>
         <thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Action</th></tr></thead>
         <tbody>
@@ -779,7 +779,7 @@ addEventListener('hashchange', () => {
   try { await loadCatalog(); } catch (e) { toast(e.message); }
   render();
   
-  // Fetch users list automatically if Admin opens the tab
+  // Fetch users list automatically if Admin opens the tab on load
   if (S.view === 'users') fetchUsers();
 })();
 })();
