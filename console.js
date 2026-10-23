@@ -764,7 +764,11 @@ document.addEventListener('change', e => {
   if (e.target.id === 'pc') $('#ptb').innerHTML = rows();
   if (e.target.id === 'log-filter') render();
 });
-addEventListener('hashchange', () => { S.view = (location.hash.slice(1) || 'overview'); render(); });
+addEventListener('hashchange', () => { 
+  S.view = (location.hash.slice(1) || 'overview'); 
+  render(); 
+  if (S.view === 'users') fetchUsers(); 
+});
 
 (async () => {
   const ok = await gate();
