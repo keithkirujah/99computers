@@ -421,13 +421,23 @@ function viewOverview() {
 }
 
 function viewUsers() {
+  const role = DB.get(ROLE_KEY, 'staff');
+  
+  // Failsafe: Block Site Owners and Staff from even seeing the loading screen
+  if (role !== 'admin') {
+    return `<div class="glass card" style="text-align:center;padding:60px">
+      <span class="ico" style="--h:var(--err);margin:0 auto 20px">${ic('lock')}</span>
+      <h2>Access Restricted</h2>
+      <p class="hint">Only the Main Admin can access User Management.</p>
+    </div>`;
+  }
+
   return `<div class="glass card">
     <div class="hd"><h2>User Management</h2></div>
     <p class="hint">Loading current users...</p>
     <div id="user-list"></div>
   </div>`;
 }
-
 async function fetchUsers() {
   const el = $('#user-list');
   if (!el) return;

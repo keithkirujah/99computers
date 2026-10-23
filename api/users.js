@@ -4,10 +4,17 @@ const BRANCH = 'main';
 const USERS_PATH = 'data/users.json';
 
 export default async function handler(req, res) {
-  // 1. Must be logged in to access this API
+  // 1. Must be logged in
   const cookieHeader = req.headers.cookie || '';
   const match = cookieHeader.match(/n99_auth=(admin|site|staff)/);
   if (!match) return res.status(401).json({ error: 'Unauthorized' });
+
+  const currentRole = match[1];
+
+  // 2. ONLY Admin can view or edit user credentials
+  if (currentRole !== 'admin') {
+    return res.status(403).json({ error: 'Access denied. Only the Main Admin can manage users.' });
+  }
 
   const token = process.env.GITHUB_TOKEN;
   if (!token) return res.status(500).json({ error: 'Missing token' });
@@ -38,17 +45,14 @@ export default async function handler(req, res) {
     if (!role || !user || !pass) return res.status(400).json({ error: 'Missing fields' });
 
     try {
-      // 1. Get current file & SHA
       const getRes = await fetch(url, { headers });
       if (!getRes.ok) return res.status(404).json({ error: 'users.json not found' });
       const data = await getRes.json();
       const currentUsers = JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
 
-      // 2. Update the specific role
       currentUsers[role] = { user, pass };
       const newContent = Buffer.from(JSON.stringify(currentUsers, null, 2), 'utf8').toString('base64');
 
-      // 3. Push to GitHub
       const putRes = await fetch(url, {
         method: 'PUT',
         headers: { ...headers, 'Content-Type': 'application/json' },
