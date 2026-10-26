@@ -1,5 +1,5 @@
 /* ==========================================================================
-   99 COMPUTERS — ADMIN CONSOLE (Fully Secured)
+   99 COMPUTERS — ADMIN CONSOLE (Fully Secured & Deals)
    ========================================================================== */
 
 (() => {
@@ -111,7 +111,7 @@ const BRANCH = 'main';
 const CATALOG_PATH = 'catalog.json';
 const LOG_PATH = 'data/log.json';
 const IMAGES_DIR = 'images/shop';
-const ROLE_KEY  = 'n99.console.role'; // Only for UI display, backend enforces real security
+const ROLE_KEY  = 'n99.console.role';
 
 const BASE_CATS = ['Laptops', 'Desktops', 'Televisions', 'Phones', 'CCTV', 'Printers', 'Sound', 'Appliances', 'Accessories'];
 
@@ -583,7 +583,7 @@ function viewSettings() {
 
 function productForm(p) {
   const isNew = !p;
-  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', cost: '', sale: '', qty: 1, min: 2, desc: '', featured: false, images: [], specs: [], created: Date.now() };
+  p = p || { id: 'p-' + Date.now().toString(36), name: '', cat: '', brand: '', price: '', cost: '', sale: '', qty: 1, min: 2, desc: '', featured: false, deal: false, images: [], specs: [], created: Date.now() };
   let imgs = [...(p.images || [])];
   const specRow = (l = '', v = '') => `<div class="sprow"><input placeholder="Name, e.g. Processor" value="${esc(l)}"><input placeholder="Value, e.g. Intel Core i5" value="${esc(v)}"><button class="ab" type="button" data-p="sprm">${ic('x')}</button></div>`;
 
@@ -601,6 +601,7 @@ function productForm(p) {
       <div class="row2"><div class="fld"><label for="m-min">Low-stock alert at</label><input id="m-min" name="min" type="number" min="0" value="${p.min ?? 2}"></div><div></div></div>
       <div class="fld"><label for="m-desc">Description</label><textarea id="m-desc" name="desc">${esc(p.desc || '')}</textarea></div>
       <label class="chk"><input type="checkbox" name="featured" ${p.featured ? 'checked' : ''}>Show on the home page as featured</label>
+      <label class="chk" style="color: var(--sig-t); font-weight: bold; margin-top: 8px;"><input type="checkbox" name="deal" ${p.deal ? 'checked' : ''}>🔥 Add to Hot Deals section</label>
       <h3>Specifications</h3><div id="specs">${(p.specs || []).map(s => specRow(s[0], s[1])).join('')}</div>
       <div class="btns" style="margin:4px 0 20px"><button class="btn sm" type="button" data-p="spadd">${ic('plus')}Add specification</button></div>
       <button class="btn p" style="width:100%" type="submit">${isNew ? 'Save product' : 'Save changes'}</button>
@@ -668,7 +669,7 @@ function productForm(p) {
     if (!(+d.price > 0)) { toast('Enter a price above zero'); return; }
     if (d.sale && !(+d.sale > 0 && +d.sale < +d.price)) { toast('Sale must be below the price'); return; }
     const sps = $$('.sprow', specs).map(r => { const inp = $$('input', r); return [inp[0].value.trim(), inp[1].value.trim()]; }).filter(s => s[0] && s[1]);
-    const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, cost: d.cost ? +d.cost : null, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, images: imgs, specs: sps, created: p.created || Date.now() };
+    const np = { ...p, name: d.name.trim(), cat: d.cat, brand: d.brand.trim(), price: +d.price, cost: d.cost ? +d.cost : null, sale: d.sale ? +d.sale : null, qty: Math.max(0, +d.qty || 0), min: Math.max(0, +d.min || 0), desc: d.desc.trim(), featured: !!d.featured, deal: !!d.deal, images: imgs, specs: sps, created: p.created || Date.now() };
 
     if (isNew) S.products.unshift(np); else S.products = S.products.map(x => x.id === p.id ? np : x);
     queueSave((isNew ? 'Added product: ' : 'Updated product: ') + np.name);
