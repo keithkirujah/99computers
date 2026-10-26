@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-18T13:07:21.628Z",
+  "updated": "2026-10-26T08:48:18.283Z",
   "categories": [
     {
       "name": "GAMING",
@@ -12,6 +12,28 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mvp0bugh",
+      "name": "Samsung Galaxy S10",
+      "cat": "Phones",
+      "brand": "Samsung",
+      "price": 15000,
+      "cost": null,
+      "sale": 13800,
+      "qty": 1,
+      "min": 2,
+      "desc": "This is an item on deal so first come first served",
+      "featured": false,
+      "deal": true,
+      "images": [
+        "/images/shop/p-mvp0bugh-1-mvp0c0ee.jpg",
+        "/images/shop/p-mvp0bugh-2-mvp0c5lz.jpg",
+        "/images/shop/p-mvp0bugh-3-mvp0c8vj.jpg",
+        "/images/shop/p-mvp0bugh-4-mvp0cbkl.jpg"
+      ],
+      "specs": [],
+      "created": 1793004069617
+    },
     {
       "id": "p-mvdhreyl",
       "name": "Ps4 Slim.",
