@@ -1,5 +1,10 @@
 [
   {
+    "time": "2026-10-26T08:48:21.770Z",
+    "user": "admin",
+    "action": "Added product: Samsung Galaxy S10"
+  },
+  {
     "time": "2026-10-18T13:07:24.322Z",
     "user": "owner",
     "action": "Updated product: Xpon Router"
