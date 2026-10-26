@@ -347,19 +347,29 @@ if (document.body.dataset.page === 'site') {
     // Only show products that are marked as deals AND are in stock
     const deals = CAT.filter(p => p.deal && p.qty > 0);
     
-    // Fill the track with the deal cards
+    // --- Homepage Track ---
     const track = $('#deals-track');
-    if (!track) return;
-    
-    track.innerHTML = deals.map(card).join('');
-    hydrate(track);
-    
-    // Animate them in
-    $$('#deals-track .rv').forEach(el => requestAnimationFrame(() => el.classList.add('in')));
-    
-    // Show the section only if there are deals
-    const wrap = $('#dealswrap');
-    if (wrap) wrap.hidden = !deals.length;
+    if (track) {
+      track.innerHTML = deals.map(card).join('');
+      hydrate(track);
+      $$('#deals-track .rv').forEach(el => requestAnimationFrame(() => el.classList.add('in')));
+      const wrap = $('#dealswrap');
+      if (wrap) wrap.hidden = !deals.length;
+    }
+
+    // --- Shop Page Spotlight (The right side panel) ---
+    const spotlight = $('#shop-deal-spotlight');
+    const dsCount = $('#ds-count');
+    if (spotlight && dsCount) {
+      if (deals.length > 0) {
+        spotlight.hidden = false;
+        dsCount.textContent = deals.length;
+        // Add animation class
+        setTimeout(() => spotlight.classList.add('in'), 100);
+      } else {
+        spotlight.hidden = true;
+      }
+    }
   }
 
   $('#chips').addEventListener('click', e => {

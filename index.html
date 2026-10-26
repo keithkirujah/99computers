@@ -64,9 +64,8 @@
         <div class="cl cl-d glass fl" data-d="2.4"><svg class="i " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg>Mon to Sat · 08:00 to 18:00</div>
       </div>
     </div></div>
-    <div class="wrap"><div class="glass stats rv"><div><b data-n="3">0</b><span>Branches</span></div><div><b data-n="6">0</b><span>Core services</span></div><div><b data-n="6">0</b><span>Days a week</span></div></div></div>
-    
-    <!-- HOT DEALS SECTION -->
+
+    <!-- MOVED: HOT DEALS SECTION (Now sits above stats) -->
     <div class="blk deals-wrap" id="dealswrap" hidden><div class="wrap">
       <div class="hd2 rv">
         <h2 style="color:var(--sig-t)">🔥 Hot <em>Deals</em></h2>
@@ -76,6 +75,8 @@
       <div class="deals-track" id="deals-track"></div>
     </div></div>
 
+    <div class="wrap"><div class="glass stats rv"><div><b data-n="3">0</b><span>Branches</span></div><div><b data-n="6">0</b><span>Core services</span></div><div><b data-n="6">0</b><span>Days a week</span></div></div></div>
+    
     <div class="blk"><div class="wrap">
       <h2 class="rv">Shop by <em>category</em></h2>
       <p class="sub rv">From everyday electronics to professional security systems, we stock the devices that power homes, offices, shops, and institutions. Visit any of our branches to see everything up close.</p>
@@ -91,22 +92,42 @@
     </div></div></div>
   </section>
 
+  <!-- UPDATED SHOP SECTION WITH SPLIT HEADER -->
   <section class="pg sp" data-pg="shop"><div class="wrap">
-    <h2>Shop <em>products</em></h2>
-    <p class="sub">Browse what is on our shelves. Message us on WhatsApp or send a request, and we will confirm availability at your nearest branch.</p>
-    <div class="stools">
-      <label class="srch"><svg class="i " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><input id="psearch" type="search" placeholder="Search laptops, TVs, CCTV" aria-label="Search products"></label>
+    <div class="shop-header-split">
       
-      <!-- The new Deals Toggle button -->
-      <button class="btn sm" id="dealToggle" type="button" style="border-color:var(--sig-t); color:var(--sig-t)">
-        🔥 Hot Deals Only
-      </button>
+      <div class="shop-left">
+        <h2>Shop <em>products</em></h2>
+        <p class="sub">Browse what is on our shelves. Message us on WhatsApp or send a request, and we will confirm availability at your nearest branch.</p>
+        <div class="stools" style="margin-bottom:0">
+          <label class="srch"><svg class="i " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><input id="psearch" type="search" placeholder="Search laptops, TVs, CCTV" aria-label="Search products"></label>
+          <button class="btn sm" id="dealToggle" type="button" style="border-color:var(--sig-t); color:var(--sig-t)">
+            🔥 Hot Deals Only
+          </button>
+          <select class="sel" id="psort" aria-label="Sort products"><option value="feat">Featured</option><option value="new">Newest</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option></select>
+        </div>
+      </div>
 
-      <select class="sel" id="psort" aria-label="Sort products"><option value="feat">Featured</option><option value="new">Newest</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option></select>
-      <span class="hint" id="pcount" role="status" aria-live="polite" style="margin-left:auto"></span>
+      <!-- The empty space filled with Deals Spotlight -->
+      <div class="shop-right rv" id="shop-deal-spotlight" hidden>
+        <div class="glass deal-spotlight" style="background: radial-gradient(circle at 100% 0%, rgba(255,122,61,0.2), transparent 70%), var(--gl); border-color: rgba(255,122,61,0.3);">
+          <div class="ds-icon">🔥</div>
+          <h3 style="font-size:22px; margin-bottom:8px;">Hot Deals Available</h3>
+          <p class="hint" style="margin-bottom:16px;">We currently have <b id="ds-count" style="color:var(--sig-t)">0</b> items on offer. Grab them before they're gone.</p>
+          <button class="btn p sm" type="button" onclick="document.getElementById('dealToggle').click()">View Deals</button>
+        </div>
+      </div>
+
     </div>
-    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
-    <div class="pgrid" id="pgrid"></div>
+
+    <div class="shop-grid-area">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div class="chips" id="chips" role="group" aria-label="Categories" style="margin-bottom:0"></div>
+        <span class="hint" id="pcount" role="status" aria-live="polite"></span>
+      </div>
+      <div class="pgrid" id="pgrid"></div>
+    </div>
+    
   </div></section>
 
   <section class="pg sp" data-pg="services"><div class="wrap">
