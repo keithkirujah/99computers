@@ -263,7 +263,7 @@ if (document.body.dataset.page === 'site') {
   $$('.sh img, .fig img, .mos img').forEach(im => { const w = im.closest('.sh, .fig, .ph'), ok = () => { w.classList.add('loaded'); w.classList.remove('sh'); }, bad = () => { w.classList.add('failed'); w.classList.remove('sh'); }; if (im.complete && im.naturalWidth) ok(); else if (im.complete) bad(); else { im.addEventListener('load', ok, { once: true }); im.addEventListener('error', bad, { once: true }); } });
 
   /* shop */
-  let CAT = [], CL = [], ready = false; const st = { c: 'All', q: '', s: 'feat' };
+  let CAT = [], CL = [], ready = false; const st = { c: 'All', q: '', s: 'feat', dealsOnly: false };
   const keyline = p => { const g = re => { const s = (p.specs || []).find(x => re.test(x[0])); return s ? s[1] : ''; }; return [g(/processor|cpu/i), g(/memory|ram/i), g(/storage|ssd|hdd/i)].filter(Boolean).join(' · ') || (p.specs && p.specs[0] ? p.specs[0][0] + ': ' + p.specs[0][1] : ''); };
 
   const abs = ref => {
@@ -303,7 +303,11 @@ if (document.body.dataset.page === 'site') {
   
   function filtered() {
     const q = st.q.toLowerCase();
-    let l = CAT.filter(p => (st.c === 'All' || p.cat === st.c) && (!q || [p.name, p.brand, p.cat, p.desc, ...(p.specs || []).map(s => s[1])].join(' ').toLowerCase().includes(q)));
+    let l = CAT.filter(p => 
+      (st.c === 'All' || p.cat === st.c) && 
+      (!st.dealsOnly || p.deal) && 
+      (!q || [p.name, p.brand, p.cat, p.desc, ...(p.specs || []).map(s => s[1])].join(' ').toLowerCase().includes(q))
+    );
     if (st.s === 'lo') l.sort((a, b) => eff(a) - eff(b)); else if (st.s === 'hi') l.sort((a, b) => eff(b) - eff(a)); else if (st.s === 'new') l.sort((a, b) => b.created - a.created); else l.sort((a, b) => (b.featured | 0) - (a.featured | 0) || b.created - a.created);
     return l;
   }
@@ -367,6 +371,15 @@ if (document.body.dataset.page === 'site') {
   });
   $('#psearch').addEventListener('input', e => { st.q = e.target.value; renderShop(); });
   $('#psort').addEventListener('change', e => { st.s = e.target.value; renderShop(); });
+  
+  // Deal filter toggle
+  $('#dealToggle').addEventListener('click', (e) => {
+    st.dealsOnly = !st.dealsOnly;
+    e.currentTarget.style.background = st.dealsOnly ? 'var(--sig-t)' : '';
+    e.currentTarget.style.color = st.dealsOnly ? '#1a0d05' : 'var(--sig-t)';
+    e.currentTarget.textContent = st.dealsOnly ? '🔥 Showing Deals' : '🔥 Hot Deals Only';
+    renderShop();
+  });
 
   function openProduct(id) {
     const p = CAT.find(x => x.id === id);
