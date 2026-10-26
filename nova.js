@@ -338,6 +338,26 @@ if (document.body.dataset.page === 'site') {
     $('#featured').innerHTML = l.map(card).join(''); hydrate($('#featured')); $$('#featured .rv').forEach(el => requestAnimationFrame(() => el.classList.add('in')));
     $('#featwrap').hidden = !l.length;
   }
+
+  function renderDeals() {
+    // Only show products that are marked as deals AND are in stock
+    const deals = CAT.filter(p => p.deal && p.qty > 0);
+    
+    // Fill the track with the deal cards
+    const track = $('#deals-track');
+    if (!track) return;
+    
+    track.innerHTML = deals.map(card).join('');
+    hydrate(track);
+    
+    // Animate them in
+    $$('#deals-track .rv').forEach(el => requestAnimationFrame(() => el.classList.add('in')));
+    
+    // Show the section only if there are deals
+    const wrap = $('#dealswrap');
+    if (wrap) wrap.hidden = !deals.length;
+  }
+
   $('#chips').addEventListener('click', e => {
     const b = e.target.closest('[data-c]'); if (!b) return;
     st.c = b.dataset.c;
@@ -472,6 +492,7 @@ if (document.body.dataset.page === 'site') {
     CL = Catalog.list(cats, products);
     ready = true;
     renderFeatured();
+    renderDeals();
     renderShop();
     route();
     if (initial.pg === 'shop' && initial.kind === 'p' && initial.arg) {
