@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T13:44:16.874Z",
+  "updated": "2026-11-05T13:58:29.615Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3ljbwp",
+      "name": "Kayali Lovefest",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 5000,
+      "cost": null,
+      "sale": 3500,
+      "qty": 9,
+      "min": 2,
+      "desc": "• Overall Feeling: A captivating contrast of bright, sweet, edible fruits layered over an expensive, grounding woodsmoke. It feels seductive, celebratory, and free-spirited.\n• Best For: While versatile enough for daily wear due to its bright fruit top notes, its warm, woody background makes it perfect for date nights, cooler weather, and layered pairings with warm vanilla or amber perfumes.\n• Performance: It provides moderate projection and an enchanting sillage trail, lasting roughly 3 to 6 hours on skin (though it clings significantly longer to fabrics or when layered over moisturizing body balms).",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3ljbwp-1-mw3llobk.jpg"
+      ],
+      "specs": [],
+      "created": 1793886217225
+    },
     {
       "id": "p-mw3l86bb",
       "name": "Khamrah qhawa",
