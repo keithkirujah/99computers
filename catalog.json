@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:11:49.618Z",
+  "updated": "2026-11-05T14:18:05.316Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3mihg8",
+      "name": "Now Rave",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 10,
+      "min": 2,
+      "desc": "• Overall Feeling: Energetic, bright, and intensely juicy. The prominent sweet pineapple makes it a massive \"compliment magnet\" that smells incredibly clean and vibrant.\n• Best For: Perfect for daytime casual wear, summer weather, beach trips, and outdoor events where you want an uplifting, refreshing aura.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3mihg8-1-mw3mq4c9.jpg"
+      ],
+      "specs": [],
+      "created": 1793887857368
+    },
     {
       "id": "p-mw3m7a12",
       "name": "Hayaati Florence",
