@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T13:35:51.534Z",
+  "updated": "2026-11-05T13:44:16.874Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3l86bb",
+      "name": "Khamrah qhawa",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4400,
+      "cost": null,
+      "sale": 3500,
+      "qty": 12,
+      "min": 2,
+      "desc": "• Overall Feeling: Deeply warm, luxurious, and \"edible\". It gives the impression of sweet, boozy dates and pralines soaked in spiced vanilla cream, evoking a sense of pure wealth and comfort.\n• Best For: Because of its heavy sweetness and intense warmth, it shines best in cooler weather, rainy days, evening wear, and special dates.\n• Performance: It is widely celebrated as a \"beast-mode\" performer, easily providing over 10 to 12 hours of longevity on the skin and lingering on clothes for days, accompanied by a massive, room-filling scent trail (sillage).",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3l86bb-1-mw3lcdvp.jpg"
+      ],
+      "specs": [],
+      "created": 1793885696759
+    },
     {
       "id": "p-mw3kmftz",
       "name": "Nebras",
