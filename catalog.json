@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:41:38.581Z",
+  "updated": "2026-11-05T14:46:09.176Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3nkqj1",
+      "name": "Toolbox",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4200,
+      "cost": null,
+      "sale": 3700,
+      "qty": 8,
+      "min": 2,
+      "desc": "• A sparkling, sharp opening driven by Calabrian bergamot, fresh grapefruit, and intense pepper.\n• Shifts into an aromatic, spicy center composed of Sichuan pepper, lavender, patchouli, and soft geranium.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3nkqj1-1-mw3nmjv6.jpg"
+      ],
+      "specs": [],
+      "created": 1793889642061
+    },
     {
       "id": "p-mw3nb7wr",
       "name": "9pm rebel",
