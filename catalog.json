@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:31:10.623Z",
+  "updated": "2026-11-05T14:41:38.581Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3nb7wr",
+      "name": "9pm rebel",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3500,
+      "qty": 6,
+      "min": 2,
+      "desc": "• Overall Feeling: Youthful, energetic, and effortlessly charismatic. It shifts beautifully from a playful candy-like fruitiness into a sophisticated, deep woody-amber trail.\n• Best For: it is a heavy compliment getter.\n• Performance: A certified beast-mode performer with strong projection that lingers for 8 to 11+ hours on the skin and days on clothing.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3nb7wr-1-mw3nc3xq.jpg"
+      ],
+      "specs": [],
+      "created": 1793889198027
+    },
     {
       "id": "p-mw3n2hzp",
       "name": "Yara elixir",
