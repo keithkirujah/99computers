@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:18:05.316Z",
+  "updated": "2026-11-05T14:25:17.982Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,26 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3msu70",
+      "name": "Yara yellow",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 9,
+      "min": 2,
+      "desc": "• Overall Feeling: Radiates pure sunshine, tropical happiness, and golden warmth. It smells like a luxurious fruit smoothie or an upscale island resort vacation.\n• Best For: Perfect for daytime wear, hot summer weather, casual outings, or whenever you want an uplifting, vacation-like aura.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3msu70-1-mw3mtavq.jpg",
+        "/images/shop/p-mw3msu70-2-mw3mzcel.jpg"
+      ],
+      "specs": [],
+      "created": 1793888340444
+    },
     {
       "id": "p-mw3mihg8",
       "name": "Now Rave",
