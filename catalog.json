@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T16:17:32.101Z",
+  "updated": "2026-11-05T16:21:46.901Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3r0nw8",
+      "name": "Ramz Gold",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 2800,
+      "qty": 8,
+      "min": 2,
+      "desc": "Overall Feeling: Sophisticated, sweet, and warm. The initial explosive cocktail of fresh fruits deepens beautifully into a smooth, creamy vanilla-amber base with a clean, powdery floral edge.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3r0nw8-1-mw3r43l1.jpg"
+      ],
+      "specs": [],
+      "created": 1793895423992
+    },
     {
       "id": "p-mw3qwwq9",
       "name": "Ophylia",
@@ -298,7 +317,7 @@
       "featured": false,
       "deal": false,
       "images": [
-        "/images/shop/p-mw3l86bb-1-mw3lcdvp.jpg"
+        "/images/shop/p-mw3l86bb-1-mw3r58gk.jpg"
       ],
       "specs": [],
       "created": 1793885696759
