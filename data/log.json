@@ -1,5 +1,10 @@
 [
   {
+    "time": "2026-11-05T13:18:14.375Z",
+    "user": "staff",
+    "action": "Added product: Brown Orchid"
+  },
+  {
     "time": "2026-11-05T13:14:20.748Z",
     "user": "staff",
     "action": "Deleted product: Brown Orchid"
