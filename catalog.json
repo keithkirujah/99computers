@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T13:17:25.574Z",
+  "updated": "2026-11-05T13:33:56.894Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3kmftz",
+      "name": "Nebras",
+      "cat": "arabic scents",
+      "brand": "Lataffa",
+      "price": 4400,
+      "cost": null,
+      "sale": 3500,
+      "qty": 9,
+      "min": 2,
+      "desc": "• Overall Feeling: Exceptionally sweet, pillowy, warm, and highly addictive. It smells like a blend of premium berries dipped in rich vanilla chocolate cream.\n• Best For: Perfect for cold weather, evening dates, cozy environments, or whenever you want a comforting, sensual, and attention-grabbing aura.\n• Longevity & Projection: It is highly praised for exceptional longevity, sticking to clothes and skin for hours while projecting a soft, cozy trail.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3kmftz-1-mw3ksngn.jpg"
+      ],
+      "specs": [],
+      "created": 1793884682663
+    },
     {
       "id": "p-mw3kgdrr",
       "name": "Brown Orchid",
