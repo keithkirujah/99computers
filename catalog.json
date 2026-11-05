@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T11:27:24.405Z",
+  "updated": "2026-11-05T13:11:57.540Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3jh6vi",
+      "name": "Brown Orchid",
+      "cat": "arabic scents",
+      "brand": "Lataffa",
+      "price": 3900,
+      "cost": null,
+      "sale": 2800,
+      "qty": 8,
+      "min": 2,
+      "desc": "Here is a breakdown for Brown Orchid matching the exact structure and formatting style from your screenshot:\narabic scents · fragrance world\n\nbrown orchid\n\n\nKSh 1,950 KSh 2,800\n\n\n\nFragrance Profile · Concentration: Eau de Parfum (EDP) — 80 ml spray · Top Notes: Black currant, ylang-ylang, jasmine, mandarin, bergamot, and black truffle · Heart / Middle Notes: Mixed floral accords and lotus wood · Base Notes: Dark chocolate, patchouli, sandalwood, vanilla, vetiver, incense, and amber",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3jh6vi-1-mw3jy992.jpg"
+      ],
+      "specs": [],
+      "created": 1793882758158
+    },
     {
       "id": "p-mw3gfpll",
       "name": "aura",
