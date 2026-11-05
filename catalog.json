@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:02:59.608Z",
+  "updated": "2026-11-05T14:11:49.618Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3m7a12",
+      "name": "Hayaati Florence",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3600,
+      "cost": null,
+      "sale": 2800,
+      "qty": 7,
+      "min": 2,
+      "desc": "• Overall Feeling: Cheerful, sweet, and beautifully fresh. It gives off an effortless, \"put-together\" fruity sweetness without feeling heavy or overly spicy.\n• Best For: Exceptionally well-suited for daytime wear, spring and summer seasons, office settings, and everyday casual wear.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3m7a12-1-mw3m968t.jpg"
+      ],
+      "specs": [],
+      "created": 1793887334534
+    },
     {
       "id": "p-mw3m22q1",
       "name": "9pm night out",
