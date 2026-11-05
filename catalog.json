@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-26T08:48:18.283Z",
+  "updated": "2026-11-05T11:27:24.405Z",
   "categories": [
     {
       "name": "GAMING",
@@ -9,9 +9,32 @@
     {
       "name": "Networking Products",
       "specs": []
+    },
+    {
+      "name": "arabic scents",
+      "specs": []
     }
   ],
   "products": [
+    {
+      "id": "p-mw3gfpll",
+      "name": "aura",
+      "cat": "arabic scents",
+      "brand": "lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3000,
+      "qty": 10,
+      "min": 2,
+      "desc": "Fragrance Profile\n\n• Concentration: Eau de Parfum (EDP) — 100 ml spray\n• Top Notes: Pear, bergamot, and peach\n• Heart / Middle Notes: Jasmine and peony\n• Base Notes: Musk, vanilla, and vetiver",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3gfpll-1-mw3gjse0.jpg"
+      ],
+      "specs": [],
+      "created": 1793877650265
+    },
     {
       "id": "p-mvp0bugh",
       "name": "Samsung Galaxy S10",
