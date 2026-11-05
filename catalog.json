@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T16:29:10.108Z",
+  "updated": "2026-11-05T16:31:07.619Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3rez8h",
+      "name": "Kaaf",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 2800,
+      "qty": 8,
+      "min": 2,
+      "desc": "• Overall Feeling: Crisp, highly refreshing, and sparkling. It delivers a beautiful \"sea breeze\" energy balanced with smooth, musky sweetness, evoking a sense of calm, polished luxury.\n• Best For: Exceptional for daytime casual wear, office or gym settings, and hot summer weather. It is particularly favored in humid or coastal climates due to its refreshing aquatic structure.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3rez8h-1-mw3rfg0w.jpg"
+      ],
+      "specs": [],
+      "created": 1793896091873
+    },
     {
       "id": "p-mw3r9zmx",
       "name": "Liquid Brun",
