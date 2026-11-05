@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:25:17.982Z",
+  "updated": "2026-11-05T14:31:10.623Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3n2hzp",
+      "name": "Yara elixir",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 9,
+      "min": 2,
+      "desc": "• Overall Feeling: Exceptionally sweet, velvety, and deeply cozy. It smells like a toasted berry marshmallow dessert wrapped in a warm cashmere blanket.\n• Best For: Because it is richer and heavier than the original Yara, it is perfect for evening wear, cooler weather, rainy days, and romantic date nights.\n• Performance: A stellar performer that projects widely and hangs around beautifully for 8 to 10+ hours on the skin.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3n2hzp-1-mw3n3bte.jpg"
+      ],
+      "specs": [],
+      "created": 1793888791190
+    },
     {
       "id": "p-mw3msu70",
       "name": "Yara yellow",
