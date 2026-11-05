@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T16:25:17.623Z",
+  "updated": "2026-11-05T16:29:10.108Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3r9zmx",
+      "name": "Liquid Brun",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 5400,
+      "cost": null,
+      "sale": 4000,
+      "qty": 6,
+      "min": 2,
+      "desc": "• Overall Feeling: Rich, sweet, sophisticated, and \"grown-up\" gourmand. It strikes a balance between a cozy, edible vanilla sweetness and an expensive, airy wood-and-spice trail.\n• Best For: Because of its heavy, warm profile, it shines spectacularly in cooler weather, rainy seasons, evening dates, and formal occasions.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3r9zmx-1-mw3rbwwu.jpg"
+      ],
+      "specs": [],
+      "created": 1793895859113
+    },
     {
       "id": "p-mw3r5rie",
       "name": "Khair confection",
