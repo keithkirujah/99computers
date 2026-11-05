@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T15:23:26.833Z",
+  "updated": "2026-11-05T15:48:23.844Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3p2lja",
+      "name": "Club intense",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3500,
+      "qty": 7,
+      "min": 2,
+      "desc": "• Overall Feeling: Bold, masculine, and highly magnetic. It effortlessly balances an uplifting, sharp citrus freshness with a heavy, professional, and smoky wooden undertone.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3p2lja-1-mw3pyds5.jpg"
+      ],
+      "specs": [],
+      "created": 1793892155014
+    },
     {
       "id": "p-mw3ooal3",
       "name": "Vanilla Voyage",
