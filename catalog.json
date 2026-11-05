@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T13:14:17.616Z",
+  "updated": "2026-11-05T13:17:25.574Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3kgdrr",
+      "name": "Brown Orchid",
+      "cat": "arabic scents",
+      "brand": "Lataffa",
+      "price": 3900,
+      "cost": null,
+      "sale": 2800,
+      "qty": 8,
+      "min": 2,
+      "desc": "Fragrance Profile · Concentration: Eau de Parfum (EDP) — 80 ml spray · Top Notes: Black currant, ylang-ylang, jasmine, mandarin, bergamot, and black truffle · Heart / Middle Notes: Mixed floral accords and lotus wood · Base Notes: Dark chocolate, patchouli, sandalwood, vanilla, vetiver, incense, and amber",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3kgdrr-1-mw3kh81d.jpg"
+      ],
+      "specs": [],
+      "created": 1793884400055
+    },
     {
       "id": "p-mw3gfpll",
       "name": "aura",
