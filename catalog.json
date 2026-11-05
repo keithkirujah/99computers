@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T14:46:09.176Z",
+  "updated": "2026-11-05T15:23:26.833Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3ooal3",
+      "name": "Vanilla Voyage",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4200,
+      "cost": null,
+      "sale": 3500,
+      "qty": 8,
+      "min": 2,
+      "desc": "• Overall Feeling: Deeply warm, luxurious, and completely \"edible\". \n• Best For: Perfect for cooler seasons, rainy days, evening dates, and cozy lounge environments.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3ooal3-1-mw3oood1.jpg"
+      ],
+      "specs": [],
+      "created": 1793891487639
+    },
     {
       "id": "p-mw3nkqj1",
       "name": "Toolbox",
