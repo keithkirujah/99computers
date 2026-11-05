@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T15:48:23.844Z",
+  "updated": "2026-11-05T16:17:32.101Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,83 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3qwwq9",
+      "name": "Ophylia",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3500,
+      "cost": null,
+      "sale": 2800,
+      "qty": 9,
+      "min": 2,
+      "desc": "Radiant, sweet, and clean with a stunning \"salty-skin\" beachy vibe. It gives the impression of a powerful, confident, yet effortlessly graceful feminine aura.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3qwwq9-1-mw3qx4qj.jpg"
+      ],
+      "specs": [],
+      "created": 1793895248817
+    },
+    {
+      "id": "p-mw3qsn6e",
+      "name": "Angham",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4600,
+      "cost": null,
+      "sale": 3500,
+      "qty": 10,
+      "min": 2,
+      "desc": "Sophisticated, sweet, and incredibly smooth. It smells like a luxurious, creamy chocolate-praline dessert balanced beautifully with a refined, aromatically clean touch of lavender.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3qsn6e-1-mw3qtjx0.jpg"
+      ],
+      "specs": [],
+      "created": 1793895049814
+    },
+    {
+      "id": "p-mw3qj66x",
+      "name": "Mousuf",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 2800,
+      "qty": 15,
+      "min": 2,
+      "desc": "• Overall Feeling: Decadent, smooth, and incredibly rich. It balances an edible chocolate-grape sweetness with an upscale, mysterious woody-musk undertone, making it scream class and luxury.\n• Best For: Because of its heavy, warm gourmand profile, it shines beautifully during cooler evening wear, special dates, and rainy days.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3qj66x-1-mw3qnv8i.jpg",
+        "/images/shop/p-mw3qj66x-2-mw3qoagv.jpg"
+      ],
+      "specs": [],
+      "created": 1793894607897
+    },
+    {
+      "id": "p-mw3pzekv",
+      "name": "His confession",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4800,
+      "cost": null,
+      "sale": 3500,
+      "qty": 12,
+      "min": 2,
+      "desc": "Elegant, magnetic, and cozy. The combination of smooth iris and sweet vanilla creates a soft, luxurious \"velvet\" aura with a subtle spicy kick.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3pzekv-1-mw3pzn6m.jpg"
+      ],
+      "specs": [],
+      "created": 1793893685647
+    },
     {
       "id": "p-mw3p2lja",
       "name": "Club intense",
