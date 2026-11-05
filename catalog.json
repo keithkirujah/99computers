@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T16:21:46.901Z",
+  "updated": "2026-11-05T16:25:17.623Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw3r5rie",
+      "name": "Khair confection",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3500,
+      "cost": null,
+      "sale": 2800,
+      "qty": 6,
+      "min": 2,
+      "desc": "• Overall Feeling: Exceptionally sweet, playful, and youthful. It smells like a luxurious carnival candy basket filled with fruit syrups and vanilla marshmallows, leaving a sophisticated yet deliciously edible aura.\n• Best For: Because of its bright fruitiness and cozy warmth, it transitions effortlessly from daytime casual wear to sweet evening dates or fun outings.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw3r5rie-1-mw3r6b6b.jpg"
+      ],
+      "specs": [],
+      "created": 1793895661958
+    },
     {
       "id": "p-mw3r0nw8",
       "name": "Ramz Gold",
