@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:00:41.724Z",
+  "updated": "2026-11-06T12:06:55.110Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4xayti",
+      "name": "Cuban Tobacco Fragrance Mist",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 700,
+      "cost": null,
+      "sale": 350,
+      "qty": 15,
+      "min": 2,
+      "desc": "The 110ml body spray is heavily celebrated for its masterfully blended, luxurious unisex oriental-gourmand scent profile, shifting away from purely harsh or bitter tobacco in favor of a warm, creamy dessert-like richness.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4xayti-1-mw4xb69v.jpg"
+      ],
+      "specs": [],
+      "created": 1793966448582
+    },
     {
       "id": "p-mw4x40hj",
       "name": "Berries Weekend",
