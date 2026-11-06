@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:24:39.714Z",
+  "updated": "2026-11-06T11:27:38.714Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4w0lu4",
+      "name": "Blue For Men",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 2800,
+      "cost": null,
+      "sale": 2000,
+      "qty": 8,
+      "min": 2,
+      "desc": "The 100ml Eau de Toilette is a legendary, timeless, and high-performance aromatic-spicy marine fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4w0lu4-1-mw4w25ta.jpg"
+      ],
+      "specs": [],
+      "created": 1793964285580
+    },
     {
       "id": "p-mw4vwlpc",
       "name": "La Fede Aura Kiss of Rose",
