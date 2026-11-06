@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T10:57:43.724Z",
+  "updated": "2026-11-06T11:00:58.711Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4v0sor",
+      "name": "Monte Leone Legende Gold",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 10,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is a smooth, sophisticated, and highly versatile aromatic-fruity fougère fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4v0sor-1-mw4v0yz3.jpg"
+      ],
+      "specs": [],
+      "created": 1793962614843
+    },
     {
       "id": "p-mw4upll7",
       "name": "Monte Leone Legende Blue",
