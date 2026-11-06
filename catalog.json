@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:06:55.110Z",
+  "updated": "2026-11-06T12:09:45.055Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4xhuam",
+      "name": "Musk Al Shams",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 700,
+      "cost": null,
+      "sale": 350,
+      "qty": 13,
+      "min": 2,
+      "desc": "The 110ml fragrance mist is a radiant, comforting, and highly sophisticated oriental-musky scent. Its name translates directly to \"Musk of the Sun,\" which perfectly embodies the bright, golden, and warm solar aesthetic of the juice inside.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4xhuam-1-mw4xl3sa.jpg"
+      ],
+      "specs": [],
+      "created": 1793966769310
+    },
     {
       "id": "p-mw4xayti",
       "name": "Cuban Tobacco Fragrance Mist",
