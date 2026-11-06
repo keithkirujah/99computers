@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05T16:31:07.619Z",
+  "updated": "2026-11-06T07:42:23.725Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,26 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4nral6",
+      "name": "Marshmallow Blush",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4200,
+      "cost": null,
+      "sale": 3200,
+      "qty": 13,
+      "min": 2,
+      "desc": "Marshmallow Blush by Paris Corner Perfumes is a sweet, playful, and creamy fruity-gourmand fragrance. The 100ml Eau de Parfum is heavily inspired by the viral strawberry milkshake and sugary candy aesthetic",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4nral6-1-mw4nrjeo.jpg",
+        "/images/shop/p-mw4nral6-2-mw4nrri6.jpg"
+      ],
+      "specs": [],
+      "created": 1793950414170
+    },
     {
       "id": "p-mw3rez8h",
       "name": "Kaaf",
