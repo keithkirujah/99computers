@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:31:26.596Z",
+  "updated": "2026-11-06T11:34:11.856Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4w7zgx",
+      "name": "Ameerat Al Arab",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1500,
+      "cost": null,
+      "sale": 700,
+      "qty": 10,
+      "min": 2,
+      "desc": "50ml size.It is an ultra-viral, deeply luxurious, and royal fruity-floral fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4w7zgx-1-mw4waoo6.jpg"
+      ],
+      "specs": [],
+      "created": 1793964629841
+    },
     {
       "id": "p-mw4w3aod",
       "name": "Rave Now Rouge",
