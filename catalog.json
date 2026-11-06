@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T08:39:39.385Z",
+  "updated": "2026-11-06T09:05:25.457Z",
   "categories": [
     {
       "name": "GAMING",
@@ -35,25 +35,6 @@
       ],
       "specs": [],
       "created": 1793950414170
-    },
-    {
-      "id": "p-mw3rez8h",
-      "name": "Kaaf",
-      "cat": "arabic scents",
-      "brand": "Lattafa",
-      "price": 4000,
-      "cost": null,
-      "sale": 2800,
-      "qty": 8,
-      "min": 2,
-      "desc": "Afnan 9 PM Night Out is a bold, energetic, and seductive unisex Extrait de Parfum. The 100ml bottle is highly celebrated for its playful, sweet-spicy depth, specifically crafted to dominate evening settings and nightlife.",
-      "featured": false,
-      "deal": false,
-      "images": [
-        "/images/shop/p-mw3rez8h-1-mw3rfg0w.jpg"
-      ],
-      "specs": [],
-      "created": 1793896091873
     },
     {
       "id": "p-mw3r9zmx",
