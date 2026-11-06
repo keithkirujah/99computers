@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:28:00.712Z",
+  "updated": "2026-11-06T12:30:54.606Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4y92y7",
+      "name": "Victoria's Secret Coconut Milk & Rose",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 8,
+      "min": 2,
+      "desc": "This 250ml body mist features the sub-label \"Calm,\" which perfectly sums up its airy, soothing, and ultra-creamy fruity-floral scent profile.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4y92y7-1-mw4ybnk8.jpg"
+      ],
+      "specs": [],
+      "created": 1793968040239
+    },
     {
       "id": "p-mw4y7d43",
       "name": "Bare Vanilla Golden",
