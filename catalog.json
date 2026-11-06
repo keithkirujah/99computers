@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:08:09.725Z",
+  "updated": "2026-11-06T11:11:03.764Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4ve2a0",
+      "name": "Solid for men",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3400,
+      "cost": null,
+      "sale": 2500,
+      "qty": 7,
+      "min": 2,
+      "desc": "The 100ml Eau de Toilette is an intensely energetic, crisp, and vibrant woody-floral musky fragrance built for active daytime wear.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4ve2a0-1-mw4vfomt.jpg"
+      ],
+      "specs": [],
+      "created": 1793963233800
+    },
     {
       "id": "p-mw4vbv54",
       "name": "Paris men",
