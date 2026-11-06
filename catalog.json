@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T09:23:51.721Z",
+  "updated": "2026-11-06T09:27:45.722Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4rrbwl",
+      "name": "Kaaf",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 2800,
+      "qty": 10,
+      "min": 2,
+      "desc": "The 100ml Extrait de Parfum is an exceptionally crisp, clean, and refreshing aromatic-marine \"blue\" fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4rrbwl-1-mw4rsf5t.jpg"
+      ],
+      "specs": [],
+      "created": 1793957134341
+    },
     {
       "id": "p-mw4rknlk",
       "name": "Teriaq Intense",
