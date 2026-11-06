@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:19:50.711Z",
+  "updated": "2026-11-06T12:26:00.660Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,44 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4y2rd0",
+      "name": "Amber Romance Sunkissed",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 9,
+      "min": 2,
+      "desc": "This 250ml body mist is a warm, luminous, and sun-drenched amber-gourmand fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4y2rd0-1-mw4y32qi.jpg"
+      ],
+      "specs": [],
+      "created": 1793967745284
+    },
+    {
+      "id": "p-mw4xycdd",
+      "name": "Cherry Elixir",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 12,
+      "min": 2,
+      "desc": "This 250ml body mist is a dark, juicy, and highly seductive fruity-gourmand scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4xycdd-1-mw4y1czz.jpg"
+      ],
+      "specs": [],
+      "created": 1793967539233
+    },
     {
       "id": "p-mw4xtorn",
       "name": "Qaed Al Fursan",
