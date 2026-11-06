@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T09:11:58.711Z",
+  "updated": "2026-11-06T09:13:46.723Z",
   "categories": [
     {
       "name": "GAMING",
@@ -394,7 +394,8 @@
       "featured": false,
       "deal": false,
       "images": [
-        "/images/shop/p-mw3kmftz-1-mw3ksngn.jpg"
+        "/images/shop/p-mw3kmftz-1-mw3ksngn.jpg",
+        "/images/shop/p-mw3kmftz-2-mw4raaly.jpg"
       ],
       "specs": [],
       "created": 1793884682663
