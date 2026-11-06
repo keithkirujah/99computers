@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:09:45.055Z",
+  "updated": "2026-11-06T12:14:38.351Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4xn44y",
+      "name": "Cullinan Diamond Iris",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 700,
+      "cost": null,
+      "sale": 350,
+      "qty": 12,
+      "min": 2,
+      "desc": "The 110ml fragrance mist is a sophisticated, powdery, and highly comforting floral-woody musk.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4xn44y-1-mw4xn9yn.jpg"
+      ],
+      "specs": [],
+      "created": 1793967015346
+    },
     {
       "id": "p-mw4xhuam",
       "name": "Musk Al Shams",
