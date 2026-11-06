@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:51:31.150Z",
+  "updated": "2026-11-06T12:54:50.724Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,25 +16,6 @@
     }
   ],
   "products": [
-    {
-      "id": "p-mw4yr3pm",
-      "name": "Eclaire Fragrance Mist",
-      "cat": "arabic scents",
-      "brand": "Lattafa",
-      "price": 1600,
-      "cost": null,
-      "sale": 900,
-      "qty": 12,
-      "min": 2,
-      "desc": "This 250ml body mist is an ultra-viral, deliciously addictive unisex gourmand fragrance.",
-      "featured": false,
-      "deal": false,
-      "images": [
-        "/images/shop/p-mw4yr3pm-1-mw4z2jf0.jpg"
-      ],
-      "specs": [],
-      "created": 1793968881034
-    },
     {
       "id": "p-mw4yh7jp",
       "name": "Khamrah Fragrance Mist",
