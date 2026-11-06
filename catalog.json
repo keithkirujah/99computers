@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T09:13:46.723Z",
+  "updated": "2026-11-06T09:20:18.721Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4rf45d",
+      "name": "Khair confection",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3700,
+      "cost": null,
+      "sale": 2800,
+      "qty": 15,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is an ultra-sweet, playful, and whimsical gourmand fragrance. It is heavily celebrated in the perfume community as a smooth, high-performing alternative to the luxury niche scent Vanilla Candy Rock Suga",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4rf45d-1-mw4rf9y4.jpg"
+      ],
+      "specs": [],
+      "created": 1793956564417
+    },
     {
       "id": "p-mw4nral6",
       "name": "Marshmallow Blush",
@@ -54,25 +73,6 @@
       ],
       "specs": [],
       "created": 1793895859113
-    },
-    {
-      "id": "p-mw3r5rie",
-      "name": "Khair confection",
-      "cat": "arabic scents",
-      "brand": "Lattafa",
-      "price": 3500,
-      "cost": null,
-      "sale": 2800,
-      "qty": 6,
-      "min": 2,
-      "desc": "Afnan 9 PM Night Out is a bold, energetic, and seductive unisex Extrait de Parfum. The 100ml bottle is highly celebrated for its playful, sweet-spicy depth, specifically crafted to dominate evening settings and nightlife.",
-      "featured": false,
-      "deal": false,
-      "images": [
-        "/images/shop/p-mw3r5rie-1-mw3r6b6b.jpg"
-      ],
-      "specs": [],
-      "created": 1793895661958
     },
     {
       "id": "p-mw3r0nw8",
