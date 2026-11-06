@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:21:32.726Z",
+  "updated": "2026-11-06T11:24:39.714Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4vwlpc",
+      "name": "La Fede Aura Kiss of Rose",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 7,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is an elegant, romantic, and deeply comforting amber-floral fragrance. It is highly celebrated in the perfume community for delivering a luxurious, velvety rose profile.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4vwlpc-1-mw4vyfjm.jpg"
+      ],
+      "specs": [],
+      "created": 1793964098784
+    },
     {
       "id": "p-mw4vt9om",
       "name": "Bint Hooran",
