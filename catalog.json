@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T09:27:45.722Z",
+  "updated": "2026-11-06T10:49:09.716Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4ul8dy",
+      "name": "Ana Abiyedh Coral",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4300,
+      "cost": null,
+      "sale": 3200,
+      "qty": 13,
+      "min": 2,
+      "desc": "Ana Abiyedh Coral by Lattafa Perfumes. It is a vibrant, sun-kissed, and energetic unisex tropical fruity-floral fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4ul8dy-1-mw4uom4h.jpg"
+      ],
+      "specs": [],
+      "created": 1793961888694
+    },
     {
       "id": "p-mw4rrbwl",
       "name": "Kaaf",
