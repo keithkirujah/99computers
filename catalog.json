@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T09:20:18.721Z",
+  "updated": "2026-11-06T09:23:51.721Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4rknlk",
+      "name": "Teriaq Intense",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4500,
+      "cost": null,
+      "sale": 3800,
+      "qty": 7,
+      "min": 2,
+      "desc": "Teriaq Intense by Lattafa Perfumes. This 100ml Eau de Parfum is a bold, luxurious, and dark oriental-spicy gourmand fragrance masterfully formulated by renowned niche perfumer Quentin Bisch.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4rknlk-1-mw4rktk6.jpg"
+      ],
+      "specs": [],
+      "created": 1793956822904
+    },
     {
       "id": "p-mw4rf45d",
       "name": "Khair confection",
