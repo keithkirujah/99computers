@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:11:03.764Z",
+  "updated": "2026-11-06T11:15:30.711Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4vhrie",
+      "name": "Just Black Pour Homme",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3200,
+      "cost": null,
+      "sale": 2500,
+      "qty": 8,
+      "min": 2,
+      "desc": "The 100ml Eau de Toilette is a classic, deeply traditional aromatic-fougerè masculine fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4vhrie-1-mw4vikv4.jpg"
+      ],
+      "specs": [],
+      "created": 1793963406470
+    },
     {
       "id": "p-mw4ve2a0",
       "name": "Solid for men",
