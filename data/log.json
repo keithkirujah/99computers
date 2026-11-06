@@ -1,5 +1,10 @@
 [
   {
+    "time": "2026-11-06T09:05:31.243Z",
+    "user": "staff",
+    "action": "Deleted product: Kaaf"
+  },
+  {
     "time": "2026-11-06T08:39:45.875Z",
     "user": "staff",
     "action": "Updated product: 9pm night out"
