@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:19:12.129Z",
+  "updated": "2026-11-06T11:21:32.726Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4vt9om",
+      "name": "Bint Hooran",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 6,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is an exceptionally elegant, warm, and highly seductive oriental floral-spicy fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4vt9om-1-mw4vu241.jpg"
+      ],
+      "specs": [],
+      "created": 1793963943238
+    },
     {
       "id": "p-mw4vo0vm",
       "name": "Elysia Sweet Banana",
