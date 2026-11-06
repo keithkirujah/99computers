@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:34:24.173Z",
+  "updated": "2026-11-06T12:38:56.224Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4yh7jp",
+      "name": "Khamrah Fragrance Mist",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 16,
+      "min": 2,
+      "desc": "This 250ml body splash is an ultra-viral, luxurious, and highly comforting unisex oriental-gourmand scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4yh7jp-1-mw4yhzo8.jpg"
+      ],
+      "specs": [],
+      "created": 1793968419445
+    },
     {
       "id": "p-mw4ydklf",
       "name": "Strawberries & Champagne",
