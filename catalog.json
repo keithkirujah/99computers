@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:00:58.711Z",
+  "updated": "2026-11-06T11:08:09.725Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4vbv54",
+      "name": "Paris men",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 9,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is a crisp, clean, and highly versatile fresh-aromatic woody fragrance",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4vbv54-1-mw4vck1i.jpg"
+      ],
+      "specs": [],
+      "created": 1793963131240
+    },
     {
       "id": "p-mw4v0sor",
       "name": "Monte Leone Legende Gold",
