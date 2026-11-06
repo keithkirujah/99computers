@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:26:00.660Z",
+  "updated": "2026-11-06T12:28:00.712Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4y7d43",
+      "name": "Bare Vanilla Golden",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 9,
+      "min": 2,
+      "desc": "This 250ml body mist is an incredibly rich, warm, and decadent amber-vanilla gourmand fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4y7d43-1-mw4y8gk2.jpg"
+      ],
+      "specs": [],
+      "created": 1793967960099
+    },
     {
       "id": "p-mw4y2rd0",
       "name": "Amber Romance Sunkissed",
