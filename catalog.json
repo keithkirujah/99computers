@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T11:34:11.856Z",
+  "updated": "2026-11-06T12:00:41.724Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4x40hj",
+      "name": "Berries Weekend",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 3500,
+      "cost": null,
+      "sale": 2800,
+      "qty": 10,
+      "min": 2,
+      "desc": "The 100ml Eau de Parfum is a bright, cheerful, and highly sophisticated fruity-floral fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4x40hj-1-mw4x7niw.jpg"
+      ],
+      "specs": [],
+      "created": 1793966124151
+    },
     {
       "id": "p-mw4w7zgx",
       "name": "Ameerat Al Arab",
