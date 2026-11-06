@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T10:49:09.716Z",
+  "updated": "2026-11-06T10:57:43.724Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4upll7",
+      "name": "Monte Leone Legende Blue",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 10,
+      "min": 2,
+      "desc": "Monte Leone Legende Blue by Fragrance World. The 100ml Eau de Parfum is a crisp, clean, and highly sophisticated woody-aromatic masculine fragrance.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4upll7-1-mw4uwb5q.jpg"
+      ],
+      "specs": [],
+      "created": 1793962092427
+    },
     {
       "id": "p-mw4ul8dy",
       "name": "Ana Abiyedh Coral",
