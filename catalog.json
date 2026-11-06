@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:30:54.606Z",
+  "updated": "2026-11-06T12:34:24.173Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mw4ydklf",
+      "name": "Strawberries & Champagne",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 10,
+      "min": 2,
+      "desc": "This 250ml body mist is a legendary, high-energy fruity-floral fragrance that has remained a fan favorite for decades due to its bright, flirtatious, and celebratory nature.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mw4ydklf-1-mw4ydsvh.jpg"
+      ],
+      "specs": [],
+      "created": 1793968249731
+    },
     {
       "id": "p-mw4y92y7",
       "name": "Victoria's Secret Coconut Milk & Rose",
