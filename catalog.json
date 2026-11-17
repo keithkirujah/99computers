@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:56:32.935Z",
+  "updated": "2026-11-17T15:01:01.250Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwktfdkg",
+      "name": "Now Air Freshener",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1500,
+      "cost": null,
+      "sale": 1000,
+      "qty": 15,
+      "min": 2,
+      "desc": "Now Air Freshener (300ml), a room and fabric spray inspired by the popular Middle Eastern fragrance Rave Now by Lattafa. Unlike the body mists and sprays you shared earlier, this is specifically formulated as a home, office, and car air freshener featuring the same fresh, fruity-woody aromatic scent as the Now Black fragrance (300ml), a room and fabric spray inspired by the popular Middle Eastern fragrance Rave Now by Lattafa.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwktfdkg-1-mwktfjpx.jpg"
+      ],
+      "specs": [],
+      "created": 1794927394672
+    },
     {
       "id": "p-mwktbzen",
       "name": "Now Women Perfumed Body Spray",
