@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:45:28.247Z",
+  "updated": "2026-11-17T14:47:28.779Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkt04nc",
+      "name": "Her Confession",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 12,
+      "min": 2,
+      "desc": "Her Confession Body Mist (250ml), a lighter fragrance mist inspired by the popular Middle Eastern perfume Her Confession by Lattafa. It is a creamy, milky white floral and amber-vanilla scent with a warm, slightly spicy, and mysterious finish.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkt04nc-1-mwkt09ql.jpg"
+      ],
+      "specs": [],
+      "created": 1794926683272
+    },
     {
       "id": "p-mwksxb8m",
       "name": "Club de Nuit Intense Men",
