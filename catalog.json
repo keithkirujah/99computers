@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T16:12:29.551Z",
+  "updated": "2026-11-17T16:22:37.174Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkw4ryp",
+      "name": "Liquid Brun",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 600,
+      "cost": null,
+      "sale": 400,
+      "qty": 10,
+      "min": 2,
+      "desc": "30 ml of Liquid Brun which features a rich, warm-spicy, creamy bourbon vanilla, cinnamon, and woody praline scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkw4ryp-1-mwkw8nv9.jpg"
+      ],
+      "specs": [],
+      "created": 1794931938961
+    },
     {
       "id": "p-mwkvz9pk",
       "name": "Yara Pink",
@@ -910,25 +929,6 @@
       ],
       "specs": [],
       "created": 1793950414170
-    },
-    {
-      "id": "p-mw3r9zmx",
-      "name": "Liquid Brun",
-      "cat": "arabic scents",
-      "brand": "Lattafa",
-      "price": 5400,
-      "cost": null,
-      "sale": 4000,
-      "qty": 6,
-      "min": 2,
-      "desc": "Liquid Brun by French Avenue (a luxury sub-brand of Fragrance World) is an incredibly rich, warm, and sophisticated amber-gourmand fragrance. The 100ml Eau de Parfum is highly celebrated globally as one of the best and closest alternatives to the opulent luxury niche scent Parfums de Marly Althaïr",
-      "featured": false,
-      "deal": false,
-      "images": [
-        "/images/shop/p-mw3r9zmx-1-mw3rbwwu.jpg"
-      ],
-      "specs": [],
-      "created": 1793895859113
     },
     {
       "id": "p-mw3r0nw8",
