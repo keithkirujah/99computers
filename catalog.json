@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:54:53.062Z",
+  "updated": "2026-11-17T15:59:45.441Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,26 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkvhd8l",
+      "name": "Rave Now",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1500,
+      "cost": null,
+      "sale": 800,
+      "qty": 10,
+      "min": 2,
+      "desc": "50 ml  of NOW MAN, a popular men's fragrance styled after Lattafa Rave Now, which delivers a bold, sweet-fruity pineapple and smoky woody-musk scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkvhd8l-1-mwkvjoy8.jpg",
+        "/images/shop/p-mwkvhd8l-2-mwkvk1c7.jpg"
+      ],
+      "specs": [],
+      "created": 1794930846789
+    },
     {
       "id": "p-mwkvce2u",
       "name": "Yara",
