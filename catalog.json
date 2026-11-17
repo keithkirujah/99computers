@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:01:01.250Z",
+  "updated": "2026-11-17T15:03:11.245Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwktk2px",
+      "name": "9am Dive",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 14,
+      "min": 2,
+      "desc": "9am Dive  (110ml), a popular alternative inspired by the viral unisex fragrance 9 AM Dive by Afnan. It is a crisp, invigorating citrus-aquatic scent designed to capture the refreshing energy of a morning plunge into cool water.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwktk2px-1-mwktk8n6.jpg"
+      ],
+      "specs": [],
+      "created": 1794927613893
+    },
     {
       "id": "p-mwktfdkg",
       "name": "Now Air Freshener",
