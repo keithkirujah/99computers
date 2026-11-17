@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:54:46.241Z",
+  "updated": "2026-11-17T14:56:32.935Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwktbzen",
+      "name": "Now Women Perfumed Body Spray",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1200,
+      "cost": null,
+      "sale": 800,
+      "qty": 10,
+      "min": 2,
+      "desc": "Now Women Perfumed Body Spray (200ml), a light fragrance spray inspired by the popular feminine Middle Eastern perfume Rave Now Women by Lattafa. It is a playful, sweet fruity-floral gourmand scent with a creamy marshmallow and vanilla finish.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwktbzen-1-mwktc5ac.jpg"
+      ],
+      "specs": [],
+      "created": 1794927236351
+    },
     {
       "id": "p-mwkt5ukp",
       "name": "Khamrah Perfumed Body Spray",
