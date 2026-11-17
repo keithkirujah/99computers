@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06T12:56:07.359Z",
+  "updated": "2026-11-17T14:30:44.246Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwksblmo",
+      "name": "Ameerat Al Arab Body Mist",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 9,
+      "min": 2,
+      "desc": "Ameerat Al Arab Body Mist (250ml), a lighter fragrance mist inspired by the popular Middle Eastern perfume Asdaaf Ameerat Al Arab by Lattafa. It is a fresh, floral-musky scent with a soft, warm Arabian finish",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwksblmo-1-mwksbxjp.jpg"
+      ],
+      "specs": [],
+      "created": 1794925538880
+    },
     {
       "id": "p-mw4z774j",
       "name": "Eclaire Fragrance Mist",
