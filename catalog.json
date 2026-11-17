@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:48:42.677Z",
+  "updated": "2026-11-17T15:51:04.669Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkv9b24",
+      "name": "D.O.Miss Asad Zanzibar",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 10,
+      "min": 2,
+      "desc": "110 ml  spray of D.O.Miss \"Asad Zanzibar\" , an inspired-by fragrance styled after Lattafa Asad Zanzibar, which features a fresh, spicy, salty coconut and warm vanilla scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkv9b24-1-mwkv9gop.jpg"
+      ],
+      "specs": [],
+      "created": 1794930470716
+    },
     {
       "id": "p-mwkv6sqr",
       "name": "Chocolate Fanatic",
