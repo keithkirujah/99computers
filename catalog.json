@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:59:45.441Z",
+  "updated": "2026-11-17T16:06:04.669Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkvstfc",
+      "name": "Khamrah",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 600,
+      "cost": null,
+      "sale": 400,
+      "qty": 18,
+      "min": 2,
+      "desc": "30 ml  of Khamrah, which features a rich, warm-spicy, sweet cinnamon, date, and boozy vanilla-praline scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkvstfc-1-mwkvsyfg.jpg"
+      ],
+      "specs": [],
+      "created": 1794931380984
+    },
     {
       "id": "p-mwkvhd8l",
       "name": "Rave Now",
