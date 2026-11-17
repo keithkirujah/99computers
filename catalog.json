@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:49:33.176Z",
+  "updated": "2026-11-17T14:54:46.241Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkt5ukp",
+      "name": "Khamrah Perfumed Body Spray",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1200,
+      "cost": null,
+      "sale": 800,
+      "qty": 13,
+      "min": 2,
+      "desc": "Khamrah Perfumed Body Spray by Verlorna (200ml), a popular alternative inspired by the viral unisex Middle Eastern perfume Lattafa Khamrah. It is a rich, sweet, and warm-spicy gourman.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkt5ukp-1-mwkt601d.jpg"
+      ],
+      "specs": [],
+      "created": 1794926950153
+    },
     {
       "id": "p-mwkt30lm",
       "name": "ASAD",
