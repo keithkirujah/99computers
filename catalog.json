@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T16:08:48.241Z",
+  "updated": "2026-11-17T16:12:29.551Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkvz9pk",
+      "name": "Yara Pink",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 600,
+      "cost": null,
+      "sale": 400,
+      "qty": 12,
+      "min": 2,
+      "desc": "30 ml of Yara , which features a soft, creamy, sweet vanilla, tropical fruit, and powdery floral scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkvz9pk-1-mwkvzfqu.jpg"
+      ],
+      "specs": [],
+      "created": 1794931682024
+    },
     {
       "id": "p-mwkvvnlu",
       "name": "Khamrah Qahwa",
