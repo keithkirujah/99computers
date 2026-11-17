@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:42:39.668Z",
+  "updated": "2026-11-17T15:45:24.200Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkv1kdl",
+      "name": "Armaf Yum Yum",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 14,
+      "min": 2,
+      "desc": "",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkv1kdl-1-mwkv1pfz.jpg"
+      ],
+      "specs": [],
+      "created": 1794930109545
+    },
     {
       "id": "p-mwkuy48l",
       "name": "Yara Tous",
