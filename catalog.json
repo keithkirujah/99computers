@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:30:44.246Z",
+  "updated": "2026-11-17T14:41:15.240Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwksql7f",
+      "name": "Now Black",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 12,
+      "min": 2,
+      "desc": "Now Black Body Mist (250ml), a refreshing fragrance mist inspired by the popular Middle Eastern cologne Rave Now by Lattafa. It is a bold, fruity-woody aromatic scent with a smoky, sweet, and musky dry-down.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwksql7f-1-mwksqqw9.jpg"
+      ],
+      "specs": [],
+      "created": 1794926238171
+    },
     {
       "id": "p-mwksblmo",
       "name": "Ameerat Al Arab Body Mist",
