@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:47:28.779Z",
+  "updated": "2026-11-17T14:49:33.176Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkt30lm",
+      "name": "ASAD",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 8,
+      "min": 2,
+      "desc": "Asad Natural Spray (250ml), a large-format body spray inspired by the wildly popular Middle Eastern men's cologne Asad by Lattafa. It is a bold, warm-spicy, and sweet amber-vanilla scent with a rich, smoky masculinit",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkt30lm-1-mwkt363s.jpg"
+      ],
+      "specs": [],
+      "created": 1794926817994
+    },
     {
       "id": "p-mwkt04nc",
       "name": "Her Confession",
