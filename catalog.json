@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T16:06:04.669Z",
+  "updated": "2026-11-17T16:08:48.241Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkvvnlu",
+      "name": "Khamrah Qahwa",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 600,
+      "cost": null,
+      "sale": 400,
+      "qty": 12,
+      "min": 2,
+      "desc": "30 ml of Khamrah Qahwa, which features a rich, warm-spicy, roasted Arabic coffee, sweet praline, and creamy vanilla scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkvvnlu-1-mwkvvsa2.jpg"
+      ],
+      "specs": [],
+      "created": 1794931513410
+    },
     {
       "id": "p-mwkvstfc",
       "name": "Khamrah",
