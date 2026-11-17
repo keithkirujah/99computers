@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:39:44.885Z",
+  "updated": "2026-11-17T15:42:39.668Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkuy48l",
+      "name": "Yara Tous",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 12,
+      "min": 2,
+      "desc": "Lattafa Yara Tous, which has a sweet, creamy, tropical floral-fruity scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkuy48l-1-mwkuya6e.jpg"
+      ],
+      "specs": [],
+      "created": 1794929948661
+    },
     {
       "id": "p-mwktk2px",
       "name": "9pm Dive",
