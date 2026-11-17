@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:46:42.669Z",
+  "updated": "2026-11-17T15:48:42.677Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkv6sqr",
+      "name": "Chocolate Fanatic",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 12,
+      "min": 2,
+      "desc": "110 ml  spray of \"Chocolate Fanatic\", an inspired-by fragrance styled after Lattafa Choco Overdose (Give Me Gourmand), which features a rich, decadent, dessert-like chocolate and caramel scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkv6sqr-1-mwkv6ymh.jpg"
+      ],
+      "specs": [],
+      "created": 1794930353667
+    },
     {
       "id": "p-mwkv1kdl",
       "name": "Armaf Yum Yum",
