@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:41:15.240Z",
+  "updated": "2026-11-17T14:43:18.239Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwksuph6",
+      "name": "Club de Nuit Women",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 10,
+      "min": 2,
+      "desc": "Club de Nuit Women Body Mist (250ml), a light, refreshing fragrance mist inspired by the popular perfume Club de Nuit Woman by Armaf. It is a chic, fruity-floral scent with a sparkling citrus opening and a warm, patchouli-vanilla base.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwksuph6-1-mwksuvw3.jpg"
+      ],
+      "specs": [],
+      "created": 1794926430330
+    },
     {
       "id": "p-mwksql7f",
       "name": "Now Black",
