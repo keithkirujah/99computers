@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T15:51:04.669Z",
+  "updated": "2026-11-17T15:53:21.008Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkvce2u",
+      "name": "Yara",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 650,
+      "cost": null,
+      "sale": 500,
+      "qty": 16,
+      "min": 2,
+      "desc": "110 ml spray, \"Yara\", an inspired-by fragrance styled after the original pink Lattafa Yara, which features a soft, creamy, sweet vanilla and powdery floral scent.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkvce2u-1-mwkvcj3a.jpg"
+      ],
+      "specs": [],
+      "created": 1794930614598
+    },
     {
       "id": "p-mwkv9b24",
       "name": "D.O.Miss Asad Zanzibar",
