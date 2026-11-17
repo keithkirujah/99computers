@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T14:43:18.239Z",
+  "updated": "2026-11-17T14:45:28.247Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwksxb8m",
+      "name": "Club de Nuit Intense Men",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 1600,
+      "cost": null,
+      "sale": 900,
+      "qty": 10,
+      "min": 2,
+      "desc": "Club de Nuit Intense Men Body Mist (250ml), a lighter fragrance mist inspired by the world-famous cologne . It is a bold, woody-spicy masculine scent known for its zesty citrus opening and smoky, leathery dry-down.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwksxb8m-1-mwksxgpn.jpg"
+      ],
+      "specs": [],
+      "created": 1794926551846
+    },
     {
       "id": "p-mwksuph6",
       "name": "Club de Nuit Women",
