@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17T16:22:37.174Z",
+  "updated": "2026-11-17T16:35:36.116Z",
   "categories": [
     {
       "name": "GAMING",
@@ -16,6 +16,25 @@
     }
   ],
   "products": [
+    {
+      "id": "p-mwkwunij",
+      "name": "Miss Armaf Chic",
+      "cat": "arabic scents",
+      "brand": "Lattafa",
+      "price": 4000,
+      "cost": null,
+      "sale": 3200,
+      "qty": 10,
+      "min": 2,
+      "desc": "Miss Armaf Chic Eau de Parfum is a sweet, juicy fruity-floral chypre fragrance for women. It opens with a bright burst of berries and citrus before settling into a soft floral heart and a warm, slightly earthy vanilla-musk base.",
+      "featured": false,
+      "deal": false,
+      "images": [
+        "/images/shop/p-mwkwunij-1-mwkwuuhp.jpg"
+      ],
+      "specs": [],
+      "created": 1794933146251
+    },
     {
       "id": "p-mwkw4ryp",
       "name": "Liquid Brun",
